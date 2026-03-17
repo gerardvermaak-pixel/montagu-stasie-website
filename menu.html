@@ -35,12 +35,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(5, 5, 5, 0.85);
+            background: rgba(5, 5, 5, 0.95) !important;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(176, 169, 144, 0.1);
-            padding: 15px 6%;
+            border-bottom: 1px solid rgba(176, 169, 144, 0.15);
+            padding: 1rem 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -120,11 +120,14 @@
             padding: 10px 6% 40px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            justify-content: center;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(197, 160, 89, 0.5) transparent;
+            -ms-overflow-style: auto;
+            justify-content: flex-start;
         }
-        .menu-gallery::-webkit-scrollbar { display: none; }
+        .menu-gallery::-webkit-scrollbar { height: 4px; }
+        .menu-gallery::-webkit-scrollbar-track { background: transparent; }
+        .menu-gallery::-webkit-scrollbar-thumb { background: rgba(197, 160, 89, 0.5); border-radius: 2px; }
 
         /* Smaller, more compact cards */
         .menu-card {
