@@ -166,15 +166,18 @@
 
         /* Mobile adjustments */
         @media (max-width: 768px) {
-            .desktop-layout { display: none; }
+            .desktop-layout { display: none !important; }
+            .mobile-layout { display: block !important; }
             .content-split { flex-direction: row; height: auto; }
             .pane { height: 50vh; padding: 30px 20px; flex: 1; }
             .pane h2 { font-size: 1.8rem; }
-            .mobile-layout { padding-top: 80px; }
-            nav#main-nav { padding: 0.75rem 0 !important; }
+            nav#main-nav { padding: 0.5rem 0.75rem !important; height: auto; }
+            nav#main-nav .flex { flex-wrap: wrap; gap: 4px !important; }
+            nav#main-nav a { font-size: 0.65rem !important; }
+            .stasie-dropdown { min-width: 150px; }
         }
         @media (min-width: 769px) {
-            .mobile-layout { display: none; }
+            .mobile-layout { display: none !important; }
         }
     </style>
 </head>
@@ -281,18 +284,18 @@
         </footer>
     </div>
 
-    <div class="mobile-layout">
-        <section class="mobile-hero min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('_X1A2948-Enhanced-NR.webp') center/cover;">
+    <div class="mobile-layout hidden">
+        <section class="mobile-hero min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('_X1A2948-Enhanced-NR.webp') center/cover;">
             <picture>
                 <source srcset="Stsielogojpeg.png" media="(min-width: 640px)">
-                <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="w-48 mb-6 opacity-90">
+                <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="w-40 mb-4 opacity-90">
             </picture>
-            <h1 class="text-5xl font-bold tracking-tighter mb-4">MONTAGU STASIE</h1>
-            <p class="text-sm tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
+            <h1 class="text-4xl font-bold tracking-tighter mb-3">MONTAGU STASIE</h1>
+            <p class="text-xs tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
         </section>
 
         <!-- Eat/Drink Side-by-Side -->
-        <section class="flex flex-row gap-0 h-[50vh]">
+        <section class="flex flex-row gap-0 h-[40vh] sm:h-[50vh]">
             <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative group" style="background-image: url('_X1A2806.webp');">
                 <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
                 <h2 class="text-2xl font-bold relative z-10">EAT</h2>
