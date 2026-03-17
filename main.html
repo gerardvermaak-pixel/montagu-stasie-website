@@ -139,7 +139,7 @@
 
         /* Backgrounds */
         .pane-eat { background-image: url('_X1A2806.webp'); }
-        .pane-drink { background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png'); }
+        .pane-drink { background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png'); } /* ← Drinks image added back */
 
         .pane-shack { background-image: url('_X1A2725.webp'); }
         .pane-showroom { background-image: url('_X1A2727.webp'); }
@@ -288,45 +288,61 @@
                 <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="w-48 mb-6 opacity-90">
             </picture>
             <h1 class="text-5xl font-bold tracking-tighter mb-4">MONTAGU STASIE</h1>
-            <p class="text-sm tracking-widest opacity-70">A KAROO DESTINATION</p>
+            <p class="text-sm tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
         </section>
 
-        <section class="py-12 bg-[#0a0a0a] text-center border-y border-stone-900">
+        <!-- Eat/Drink Side-by-Side -->
+        <section class="flex flex-row gap-0 h-[50vh]">
+            <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative group" style="background-image: url('_X1A2806.webp');">
+                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
+                <h2 class="text-2xl font-bold relative z-10">EAT</h2>
+            </a>
+            <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative group border-l border-black" style="background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png');">
+                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
+                <h2 class="text-2xl font-bold relative z-10">DRINK</h2>
+            </a>
+        </section>
+
+        <!-- Crypto Section -->
+        <section class="py-16 bg-[#0a0a0a] text-center border-y border-stone-900">
             <div class="max-w-md mx-auto px-4">
                 <picture>
                     <source srcset="Crypto accepted here.png" media="(min-width: 640px)">
                     <img src="Crypto accepted here.png" alt="Crypto accepted" class="w-40 mx-auto mb-4 opacity-80">
                 </picture>
-                <p class="uppercase tracking-[2px] text-stone-400 mb-4 text-xs">We accept Bitcoin Lightning</p>
+                <p class="uppercase tracking-[2px] text-stone-400 mb-6 text-xs">We accept Bitcoin Lightning</p>
                 <a href="crypto.html" class="learn-more-btn">Payment Info</a>
             </div>
         </section>
 
-        <div class="flex flex-col">
-            <div class="flex flex-row h-[40vh]">
-                <a href="menu.html" class="flex-1 flex items-end p-4 bg-cover bg-center relative group overflow-hidden" style="background-image: url('_X1A2806.webp');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent"></div>
-                    <h2 class="text-xl font-bold relative z-10 group-hover:text-[#9f1239] transition">EAT</h2>
-                </a>
-                <a href="menu.html" class="flex-1 flex items-end p-4 bg-cover bg-center relative group overflow-hidden border-l border-black" style="background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent"></div>
-                    <h2 class="text-xl font-bold relative z-10 group-hover:text-[#9f1239] transition">DRINK</h2>
-                </a>
+        <!-- Konkelwyn Section -->
+        <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 text-center px-6">
+                <h2 class="text-5xl md:text-6xl uppercase tracking-[8px] mb-6 font-bold">Konkelwyn</h2>
+                <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
             </div>
-            
-            <a href="the-shack.html" class="h-[50vh] flex items-end p-6 bg-cover bg-center relative group overflow-hidden" style="background-image: url('_X1A2725.webp');">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent"></div>
-                <h2 class="text-3xl font-bold relative z-10 group-hover:text-[#9f1239] transition">THE SHACK</h2>
-            </a>
-            <a href="wing-it.html" class="h-[50vh] flex items-end p-6 bg-cover bg-center relative group overflow-hidden" style="background-image: url('_X1A3065.jpg');">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent"></div>
-                <h2 class="text-3xl font-bold relative z-10 group-hover:text-[#9f1239] transition">WING IT</h2>
-            </a>
-        </div>
+        </section>
 
-        <footer class="py-12 px-6 bg-[#050505] text-center text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
+        <!-- Shack/Showroom/Wing It Mobile Grid -->
+        <section class="flex flex-col gap-0">
+            <a href="the-shack.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A2725.webp');">
+                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
+                <h2 class="text-3xl font-bold relative z-10">THE SHACK</h2>
+            </a>
+            <a href="the-showroom.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A2727.webp');">
+                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
+                <h2 class="text-3xl font-bold relative z-10">THE SHOWROOM</h2>
+            </a>
+            <a href="wing-it.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A3065.jpg');">
+                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
+                <h2 class="text-3xl font-bold relative z-10">WING IT</h2>
+            </a>
+        </section>
+
+        <footer class="py-12 px-10 bg-[#050505] text-center text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
             <div>Montagu Stasie © 2026</div>
-            <div class="flex gap-6 justify-center mt-4">
+            <div class="flex gap-8 justify-center mt-4">
                 <a href="#" class="hover:text-[#9f1239] transition">About</a>
                 <a href="#" class="hover:text-[#9f1239] transition">Press</a>
                 <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
