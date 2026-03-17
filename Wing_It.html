@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="station-logo-192.png">
+    <link rel="manifest" href="manifest.json">
+    <title>SHOP NAME • Montagu Stasie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        /* Harmonize header */
+        @media (min-width: 768px) {
+            nav.fixed { height: 64px; }
+            nav.fixed img { height: 48px; }
+            body { padding-top: 64px; }
+        }
+        @media (max-width: 768px) {
+            body { padding-top: 84px; }
+        }
+    </style>
+</head>
+<body class="bg-[#1a1a1a] text-stone-200">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full bg-[#1a1a1a]/95 backdrop-blur-md z-50 border-b border-stone-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
+            <div class="flex gap-8 text-sm font-medium">
+                <a href="index.html" class="hover:text-[#9f1239]">HOME</a>
+                <a href="konkelwyn.html" class="hover:text-[#9f1239]">KONKELWYN</a>
+                <a href="menu.html" class="hover:text-[#9f1239]">MENUS</a>
+                <a href="events.html" class="hover:text-[#9f1239]">EVENTS</a>
+            </div>
+            <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+                <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+            </a>
+        </div>
+    </nav>
+
+    <section class="pt-28 pb-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="text-6xl font-bold tracking-tighter mb-6">SHOP NAME HERE</h1>
+            <p class="text-2xl text-stone-400 max-w-2xl mx-auto">Short description of this shop/experience goes here.</p>
+            <a href="https://wa.me/27662665145?text=I'd like to visit [SHOP NAME]" class="mt-12 inline-block bg-[#9f1239] px-10 py-5 rounded-full text-lg font-semibold">Visit this shop via WhatsApp</a>
+        </div>
+    </section>
+
+</body>
+</html>

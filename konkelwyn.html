@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="station-logo-192.png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Konkelwyn | The Wine Experience</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+        
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #f8f8f8;
+            --accent-gold: #c5a059;
+            --muted: #b0a990;
+            --deep-red: #9f1239;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* === NAV CONSISTENCY === */
+        nav#main-nav {
+            transition: all 0.5s ease;
+            background: transparent;
+            border-bottom: 1px solid transparent;
+        }
+        nav#main-nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(176, 169, 144, 0.1);
+        }
+
+        /* === HERO SECTION === */
+        .konkelwyn-hero {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.2), rgba(10,10,10,0.8)), url('_X1A2874-Pano.webp') center/cover no-repeat;
+            position: relative;
+        }
+        .logo-main {
+            width: 280px;
+            filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));
+            animation: fadeIn 2.5s ease;
+            z-index: 2;
+        }
+
+        /* === EDITORIAL LAYOUT === */
+        .editorial-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 5vw;
+        }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+        }
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #111;
+        }
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 1s ease;
+            filter: brightness(0.9);
+        }
+        .grid-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        .span-12 { grid-column: span 12; height: 600px; }
+
+        .brand-story {
+            grid-column: span 12;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .brand-story h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        .brand-story p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        /* === WINE SECTION STYLES === */
+        .featured-wine-section {
+            padding: 100px 8%;
+            background: #0f0f0f;
+        }
+        .product-flex {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-image-side { flex: 1; }
+        .product-image-side img {
+            width: 100%;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 4px;
+        }
+        .product-info-side { flex: 1; }
+        .wine-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-gold {
+            background: var(--accent-gold);
+            color: black;
+            padding: 18px 40px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-gold:hover { background: #d4b477; }
+
+        @media (max-width: 768px) {
+            .product-flex { flex-direction: column; text-align: center; }
+            .span-12 { height: 350px; }
+            .logo-main { width: 200px; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <nav id="main-nav" class="fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="index.html">
+                <img src="station logo lines.png" alt="Montagu Stasie" class="h-[55px]">
+            </a>
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center text-white">
+                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
+                <div class="relative group">
+                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
+                        Stasie <span class="text-[10px]">▼</span>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
+                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
+                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
+                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
+                        <a href="wine-cellar.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wine Cellar</a>
+                        <a href="workshops.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Workshops</a>
+                    </div>
+                </div>
+                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
+                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-2.5 rounded-full text-xs font-white font-semibold uppercase tracking-wider text-white">WhatsApp</a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800 text-white">
+            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
+                <a href="main.html">HOME</a>
+                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
+                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
+                    <a href="konkelwyn.html">Konkelwyn</a>
+                    <a href="the-shack.html">The Shack</a>
+                    <a href="the-showroom.html">The Showroom</a>
+                    <a href="wine-cellar.html">Wine Cellar</a>
+                    <a href="workshops.html">Workshops</a>
+                </div>
+                <a href="menu.html">MENUS</a>
+                <a href="events.html">EVENTS</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="konkelwyn-hero">
+        <picture>
+            <source srcset="WhatsApp Image 2026-03-02 at 16.01.39.png" media="(min-width: 640px)">
+            <img src="WhatsApp Image 2026-03-02 at 16.01.39.png" alt="Konkelwyn" class="logo-main">
+        </picture>
+    </section>
+
+    <section class="editorial-container" style="background: #0a0a0a; padding-bottom: 0;">
+        <div class="brand-story">
+            <span style="color: var(--accent-gold); text-transform: uppercase; letter-spacing: 5px; font-size: 0.75rem; display: block; margin-bottom: 20px;">Passion & Place</span>
+            <h2>The Soul of the Karoo</h2>
+            <p>
+                In the heart of Montagu, where the mountains meet the sky, we practice the art of the perfect pour. From the meticulous craft of our signature cocktails to the deep heritage of our wine selection, every glass is a tribute to our passion for good food and the timeless spirit of our town.
+            </p>
+        </div>
+    </section>
+
+    <section class="featured-wine-section">
+        <div class="product-flex">
+            <div class="product-image-side">
+                <img src="_X1A2742.webp" alt="The Station Selection">
+            </div>
+            <div class="product-info-side">
+                <span style="color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 15px; display: block;">Konkelwyn Wine Cellar</span>
+                <h2 class="wine-title">The Station Selection Mix</h2>
+                <div style="font-size: 1.5rem; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
+                    <span style="color: #fff;">R 484.00</span>
+                    <span style="text-decoration: line-through; color: #666; font-size: 1.1rem;">R 605.00</span>
+                    <span style="background: var(--accent-gold); color: #000; padding: 4px 12px; font-size: 0.7rem; font-weight: bold; border-radius: 20px;">20% OFF</span>
+                </div>
+                <p style="color: #999; margin-bottom: 40px; line-height: 1.6;">
+                    A curated selection of our finest Karoo reds and crisp whites, hand-picked by our sommelier for the perfect evening at home.
+                </p>
+                <a href="#" class="btn-gold" style="width: 100%;">BUY IT NOW</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="editorial-container">
+        <div class="grid-layout">
+            <div class="brand-story">
+                <h2>The Art of the Pour</h2>
+                <p>Curated wines meet the historic soul of Montagu. Konkelwyn is more than a wine bar; it is a celebration of Karoo terroir and the stories hidden within every bottle.</p>
+            </div>
+            <div class="grid-item span-12"><img src="_X1A2727.webp" alt="Atmosphere"></div>
+            
+            <div class="brand-story">
+                <h2>The Wine Cellar</h2>
+                <p>Hand-selected vintages from the Cape and beyond. Every bottle tells a story of soil, sun, and patience.</p>
+            </div>
+            <div class="grid-item span-12"><img src="_X1A2729.webp" alt="Wine Cellar"></div>
+
+            <div class="brand-story">
+                <h2>The Bar & Kitchen</h2>
+                <p>Signature cocktails and seasonal plates that honour the land. Fire, flavour, and Karoo warmth.</p>
+            </div>
+            <div class="grid-item span-12"><img src="_X1A2943.webp" alt="The Bar"></div>
+        </div>
+    </div>
+
+    <footer style="padding: 80px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+        <p style="letter-spacing: 3px; font-size: 0.7rem; color: #444;">MONTAGU STASIE x KONKELWYN</p>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

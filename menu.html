@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="station-logo-192.png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Konkelwyn | Cinematic Menus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --text-color: #f8f8f8;
+            --accent-gold: #c5a059;
+            --card-bg: #111;
+            --deep-red: #9f1239;
+            --khaki: #b0a990;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav.fixed-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(176, 169, 144, 0.1);
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s ease;
+        }
+        nav.fixed-header img { height: 50px; }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a {
+            color: var(--khaki);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.current { color: var(--text-color); }
+        .nav-links a.current { color: var(--deep-red); font-weight: 600; }
+
+        .mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .mobile-toggle span { width: 25px; height: 1px; background: var(--khaki); transition: 0.3s; }
+
+        /* --- HERO --- */
+        .hero-cinematic {
+            position: relative;
+            height: 100vh;
+            height: 100dvh;
+            width: 100vw;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.2), rgba(5,5,5,1)), 
+                        url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+        .hero-content p {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--khaki);
+            text-transform: uppercase;
+        }
+
+        /* --- SCROLL INDICATOR --- */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
+        .arrow-line { width: 1px; height: 40px; background: var(--accent-gold); margin-top: 10px; }
+
+        /* --- GALLERIES --- */
+        .section-title {
+            padding: 60px 6% 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            letter-spacing: 4px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .menu-gallery {
+            display: flex;
+            gap: 1.5rem;
+            padding: 10px 6% 40px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            justify-content: center;
+        }
+        .menu-gallery::-webkit-scrollbar { display: none; }
+
+        /* Smaller, more compact cards */
+        .menu-card {
+            flex: 0 0 240px;
+            height: 340px;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--card-bg);
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .menu-card:hover { transform: scale(1.03); border-color: var(--accent-gold); }
+        .menu-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: 0.5s; }
+        .menu-card:hover img { filter: brightness(1); }
+
+        .menu-overlay {
+            position: absolute;
+            bottom: 0; width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            text-align: center;
+        }
+        .menu-title { font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center;
+            opacity: 0; transition: 0.4s;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content { max-width: 95%; max-height: 90vh; border-radius: 4px; transform: scale(0.9); transition: 0.4s; }
+        .modal.show .modal-content { transform: scale(1); }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+                background: rgba(5,5,5,0.98); flex-direction: column; justify-content: center;
+                transition: 0.4s; border-left: 1px solid rgba(176,169,144,0.1);
+            }
+            .nav-links.active { right: 0; }
+            .mobile-toggle { display: flex; }
+            .section-title { font-size: 1.6rem; padding-top: 40px; }
+            .menu-card { flex: 0 0 180px; height: 260px; }
+            .menu-title { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed-header">
+        <a href="index.html">
+            <img src="station logo lines.png" alt="Montagu Stasie">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="main.html">HOME</a>
+            <a href="konkelwyn.html">KONKELWYN</a>
+            <a href="menu.html" class="current">MENUS</a>
+            <a href="events.html">EVENTS</a>
+            <a href="https://wa.me/27662665145" class="bg-[#9f1239] px-5 py-2 rounded-full !text-white">WHATSAPP</a>
+        </div>
+        <div class="mobile-toggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <section class="hero-cinematic">
+        <div class="hero-content">
+            <h1>Eat & Drink</h1>
+            <p>Curated Menus by Konkelwyn</p>
+        </div>
+        <div class="scroll-indicator">
+            <p style="font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;">Scroll</p>
+            <div class="arrow-line"></div>
+        </div>
+    </section>
+
+    <div class="section-title">Eat</div>
+    <section class="menu-gallery">
+        <div class="menu-card" onclick="openModal('breakfast.webp')">
+            <picture>
+                <source srcset="breakfast.webp" media="(min-width: 640px)">
+                <img src="breakfast.webp" alt="Breakfast">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Breakfast</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('eat-pitas.webp')">
+            <picture>
+                <source srcset="eat-pitas.webp" media="(min-width: 640px)">
+                <img src="eat-pitas.webp" alt="Pitas">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Pitas & Tapas</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('eat-platter.webp')">
+            <picture>
+                <source srcset="eat-platter.webp" media="(min-width: 640px)">
+                <img src="eat-platter.webp" alt="Platters">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Platters</h3></div>
+        </div>
+    </section>
+
+    <div class="section-title">Drink</div>
+    <section class="menu-gallery">
+        <div class="menu-card" onclick="openModal('drinks-coffee.webp')">
+            <picture>
+                <source srcset="drinks-coffee.webp" media="(min-width: 640px)">
+                <img src="drinks-coffee.webp" alt="Coffee">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Café</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('drinks-non-alc.webp')">
+            <picture>
+                <source srcset="drinks-non-alc.webp" media="(min-width: 640px)">
+                <img src="drinks-non-alc.webp" alt="Drinks">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Non-Alcoholic</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('cocktails.webp')">
+            <picture>
+                <source srcset="cocktails.webp" media="(min-width: 640px)">
+                <img src="cocktails.webp" alt="Cocktails">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Cocktails</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('wine-list.webp')">
+            <picture>
+                <source srcset="wine-list.webp" media="(min-width: 640px)">
+                <img src="wine-list.webp" alt="Wine">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Wine Cellar</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('wine-pouring.webp')">
+            <picture>
+                <source srcset="wine-pouring.webp" media="(min-width: 640px)">
+                <img src="wine-pouring.webp" alt="Spirits">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Spirits & Beer</h3></div>
+        </div>
+    </section>
+
+    <div class="section-title">The Station View</div>
+    <section class="menu-gallery">
+        <div class="menu-card" onclick="openModal('_X1A2874-Pano.webp')">
+            <picture>
+                <source srcset="_X1A2874-Pano.webp" media="(min-width: 640px)">
+                <img src="_X1A2874-Pano.webp" alt="Pano">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">The Platform</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('_X1A2689-Pano.webp')">
+            <picture>
+                <source srcset="_X1A2689-Pano.webp" media="(min-width: 640px)">
+                <img src="_X1A2689-Pano.webp" alt="Pano">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">The Firepit</h3></div>
+        </div>
+    </section>
+
+    <div id="menuModal" class="modal" onclick="closeModal(event)">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-links").classList.toggle("active");
+        }
+
+        const modal = document.getElementById("menuModal");
+        const modalImg = document.getElementById("modalImg");
+
+        function openModal(imageSrc) {
+            modalImg.src = imageSrc;
+            modal.style.display = "flex";
+            setTimeout(() => modal.classList.add("show"), 10);
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(event) {
+            if (event.target === modal || event.target.classList.contains('close-btn')) {
+                modal.classList.remove("show");
+                setTimeout(() => modal.style.display = "none", 400);
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        // Horizontal Mousewheel support
+        document.querySelectorAll('.menu-gallery').forEach(gallery => {
+            gallery.addEventListener('wheel', (evt) => {
+                if (window.innerWidth > 768) {
+                    evt.preventDefault();
+                    gallery.scrollLeft += evt.deltaY;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

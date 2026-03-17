@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="station-logo-192.png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Events • Montagu Stasie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; }
+        /* Harmonize header padding */
+        body { padding-top: 96px; }
+        @media (max-width: 768px) { body { padding-top: 84px; } }
+        @media (min-width: 768px) {
+            nav.fixed { height: 64px; }
+            nav.fixed img { height: 48px; }
+            body { padding-top: 64px; }
+        }
+    </style>
+</head>
+<body class="text-stone-200">
+
+    <nav class="fixed top-0 w-full bg-[#1a1a1a]/95 backdrop-blur-md z-50 border-b border-stone-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="index.html">
+                <img src="station logo lines.png" alt="Montagu Stasie" class="h-[67px]">
+            </a>
+
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="main.html" class="hover:text-[#9f1239]">HOME</a>
+                <div class="relative group">
+                    <a href="#" class="hover:text-[#9f1239]">STASIE ▾</a>
+                    <div class="absolute hidden group-hover:block bg-[#1a1a1a] border border-stone-800 rounded-xl py-3 w-52 shadow-2xl mt-2">
+                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">Konkelwyn</a>
+                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">The Shack</a>
+                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">The Showroom</a>
+                        <a href="wine-cellar.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">Wine Cellar</a>
+                        <a href="workshops.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">Workshops</a>
+                    </div>
+                </div>
+                <a href="menu.html" class="hover:text-[#9f1239]">MENUS</a>
+                <a href="events.html" class="text-[#9f1239]">EVENTS</a>
+            </div>
+
+            <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+                <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+            </a>
+        </div>
+    </nav>
+
+    <section class="pt-16 pb-20">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="mb-16">
+                <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-stone-800">
+                    <picture>
+                        <source srcset="WhatsApp Image 2026-03-12 at 10.53.13 (1).jpeg" media="(min-width: 768px)">
+                        <img src="WhatsApp Image 2026-03-12 at 10.53.13 (1).jpeg" alt="Cape Epic at the Station" class="w-full h-[300px] md:h-[500px] object-cover">
+                    </picture>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <span class="bg-[#9f1239] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Happening Now</span>
+                        <h2 class="text-4xl md:text-6xl font-bold tracking-tighter text-white">Cape Epic 2026</h2>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16">Upcoming Events</h1>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Last Friday of the Month Market</h3>
+                    <a href="https://wa.me/27662665145?text=I'd like to book a spot at the Last Friday Market" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Yoga at the Station</h3>
+                    <a href="https://wa.me/27662665145?text=I'd like to book Yoga at the Station" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Games Night</h3>
+                    <a href="https://wa.me/27662665145?text=I'd like to book Games Night" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] overflow-hidden rounded-3xl border border-stone-800 transition hover:border-stone-600">
+                    <picture>
+                        <source srcset="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" media="(min-width: 768px)">
+                        <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" alt="Pizza Night Poster" class="w-full aspect-video object-cover">
+                    </picture>
+                    <div class="p-10">
+                        <h3 class="text-2xl font-bold mb-3">Pizza Night</h3>
+                        <a href="https://wa.me/27662665145?text=I'd like to book Pizza Night" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                    </div>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Drumming Circle</h3>
+                    <a href="https://wa.me/27662665145?text=I'd like to book the Drumming Circle" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Breathwork</h3>
+                    <a href="https://wa.me/27662665145?text=I'd like to book Breathwork" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Crypto Knights</h3>
+                    <a href="https://wa.me/27662665145?text=I'd like to book Crypto Knights" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] overflow-hidden rounded-3xl border border-stone-800 transition hover:border-stone-600">
+                    <picture>
+                        <source srcset="WhatsApp Image 2026-03-12 at 10.53.13.jpeg" media="(min-width: 768px)">
+                        <img src="WhatsApp Image 2026-03-12 at 10.53.13.jpeg" alt="Live Music Poster" class="w-full aspect-video object-cover">
+                    </picture>
+                    <div class="p-10">
+                        <h3 class="text-2xl font-bold mb-3">Live Music Nights</h3>
+                        <a href="https://wa.me/27662665145?text=I'd like to book a Live Music Night" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (function(){
+            const nav = document.querySelector('nav.fixed');
+            if(!nav) return;
+            const setPadding = () => { document.body.style.paddingTop = Math.ceil(nav.getBoundingClientRect().height) + 'px'; };
+            window.addEventListener('resize', setPadding);
+            window.addEventListener('load', setPadding);
+            setPadding();
+        })();
+    </script>
+</body>
+</html>

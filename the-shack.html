@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="station-logo-192.png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>The Shack • Montagu Stasie</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        /* === NAV SCROLL EFFECT === */
+        nav#main-nav {
+            transition: all 0.5s ease;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(120, 113, 108, 0.3);
+        }
+        nav#main-nav.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(176, 169, 144, 0.1);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        /* Harmonize header */
+        @media (min-width: 768px) {
+            nav.fixed { height: 64px; }
+            nav.fixed img { height: 48px; }
+            body { padding-top: 64px; }
+        }
+        @media (max-width: 768px) {
+            body { padding-top: 84px; }
+        }
+        /* Gallery scroll styling */
+        .panorama-gallery {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 6%;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .panorama-gallery::-webkit-scrollbar { display: none; }
+        .panorama-card {
+            flex: 0 0 320px;
+            height: 480px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .panorama-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .panorama-card:hover img {
+            transform: scale(1.06);
+        }
+    </style>
+</head>
+<body class="bg-[#1a1a1a] text-stone-200">
+
+    <!-- NAVBAR -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
+                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
+               
+                <div class="relative group">
+                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
+                        Stasie <span class="text-[10px]">▼</span>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
+                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
+                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
+                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
+                        <a href="wing-it.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
+                        <a href="nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
+                    </div>
+                </div>
+
+                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
+                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
+            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
+                <a href="main.html">HOME</a>
+                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
+                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
+                    <a href="konkelwyn.html">Konkelwyn</a>
+                    <a href="the-shack.html">The Shack</a>
+                    <a href="the-showroom.html">The Showroom</a>
+                    <a href="wing-it.html">Wing It</a>
+                    <a href="nursery.html">Nursery</a>
+                </div>
+                <a href="menu.html">MENUS</a>
+                <a href="events.html">EVENTS</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-28 pb-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="text-6xl font-bold tracking-tighter mb-6">The Shack</h1>
+            <p class="text-2xl text-stone-400 max-w-2xl mx-auto">The Shack is a woodwork art stop — art works created by 3 sisters and a brother.</p>
+            <a href="https://wa.me/27662665145?text=I'd like to visit The Shack" class="mt-12 inline-block bg-[#9f1239] px-10 py-5 rounded-full text-lg font-semibold">Visit via WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- === PANORAMIC ROLLING GALLERY === -->
+    <div class="section-title mt-12">The Shack Gallery</div>
+    <section class="menu-gallery px-6 pb-20">
+        <div class="menu-card" onclick="openModal('_X1A2725.webp')">
+            <picture>
+                <source srcset="_X1A2725.webp" media="(min-width: 768px)">
+                <img src="_X1A2725.webp" alt="The Shack">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">The Shack</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('_X1A2887-Pano.webp')">
+            <picture>
+                <source srcset="_X1A2887-Pano.webp" media="(min-width: 768px)">
+                <img src="_X1A2887-Pano.webp" alt="Panorama">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Full View</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('_X1A2709-Pano.webp')">
+            <picture>
+                <source srcset="_X1A2709-Pano.webp" media="(min-width: 768px)">
+                <img src="_X1A2709-Pano.webp" alt="Panorama">
+            </picture>
+            <div class="menu-overlay"><h3 class="menu-title">Karoo Sunset</h3></div>
+        </div>
+    </section>
+
+    <!-- Modal (kept from your menu page style) -->
+    <div id="menuModal" class="modal" onclick="closeModal(event)">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        }
+
+        const modal = document.getElementById("menuModal");
+        const modalImg = document.getElementById("modalImg");
+
+        function openModal(imageSrc) {
+            modalImg.src = imageSrc;
+            modal.style.display = "flex";
+            setTimeout(() => modal.classList.add("show"), 10);
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(event) {
+            if (event.target === modal || event.target.classList.contains('close-btn')) {
+                modal.classList.remove("show");
+                setTimeout(() => modal.style.display = "none", 400);
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && modal.classList.contains("show")) {
+                closeModal({ target: modal });
+            }
+        });
+
+        // Horizontal Mousewheel support
+        document.querySelectorAll('.menu-gallery').forEach(gallery => {
+            gallery.addEventListener('wheel', (evt) => {
+                evt.preventDefault();
+                gallery.scrollLeft += evt.deltaY;
+            });
+        });
+    </script>
+
+</body>
+</html>

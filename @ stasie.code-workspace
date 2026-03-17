@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menus • Konkelwyn @ Montagu Stasie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .menu-card { transition: all 0.4s ease; }
+        .menu-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { max-width: 95%; max-height: 95%; position: relative; }
+        .modal-img { max-height: 90vh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5); }
+    </style>
+</head>
+<body class="bg-[#1a1a1a] text-stone-200">
+
+    <!-- NAVBAR (same as homepage) -->
+    <nav class="fixed top-0 w-full bg-[#1a1a1a]/95 backdrop-blur-md z-50 border-b border-stone-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="images/WhatsApp Image 2026-03-02 at 16.01.34.jpeg" alt="Konkelwyn" class="h-10">
+                <div class="text-3xl font-bold tracking-tighter">KONKELWYN</div>
+            </div>
+            <a href="index.html" class="text-sm font-medium hover:text-[#9f1239]">← BACK TO HOME</a>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 text-center">
+        <h1 class="text-5xl font-bold tracking-tighter">Our Menus</h1>
+        <p class="mt-4 text-stone-400">Walk-ins welcome • Groups 8+ via WhatsApp only</p>
+    </div>
+
+    <!-- MENU CARDS -->
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-24">
+        <!-- Breakfast -->
+        <div onclick="openMenu('breakfast.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/breakfast.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Breakfast</h3>
+                <p class="text-stone-400 text-sm mt-2">Stasie Brekkie • Omelettes • Add-ons</p>
+            </div>
+        </div>
+
+        <!-- Eat - Pitas & Tapas -->
+        <div onclick="openMenu('eat-pitas.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/eat-pitas.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Eat – Pitas & Tapas</h3>
+                <p class="text-stone-400 text-sm mt-2">Chicken • Pork • Jalapeño • Sides</p>
+            </div>
+        </div>
+
+        <!-- Eat – Platters -->
+        <div onclick="openMenu('eat-platter.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/eat-platter.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Eat – Platters & Snacks</h3>
+                <p class="text-stone-400 text-sm mt-2">Snack Basket • Stasie Platter • Chef’s Special</p>
+            </div>
+        </div>
+
+        <!-- Drink – Coffee & Bottles -->
+        <div onclick="openMenu('drinks-coffee.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/drinks-coffee.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Drink – Coffee & Bottles</h3>
+                <p class="text-stone-400 text-sm mt-2">Coffee • Tea • Milkshakes • Cans • Water</p>
+            </div>
+        </div>
+
+        <!-- Drink – Sparkling & Cocktails -->
+        <div onclick="openMenu('drinks-non-alc.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/drinks-non-alc.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Drink – Non-Alc & Sparkling</h3>
+                <p class="text-stone-400 text-sm mt-2">Smoothies • Fruity • Savory • Homemade</p>
+            </div>
+        </div>
+
+        <!-- Cocktails -->
+        <div onclick="openMenu('cocktails.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/cocktails.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Cocktails</h3>
+                <p class="text-stone-400 text-sm mt-2">Fizzes • Tropical • Bold & Boozy</p>
+            </div>
+        </div>
+
+        <!-- Wine List -->
+        <div onclick="openMenu('wine-list.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/wine-list.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Wine List</h3>
+                <p class="text-stone-400 text-sm mt-2">Full selection from Klein Karoo & beyond</p>
+            </div>
+        </div>
+
+        <!-- Pouring Now / Spirits -->
+        <div onclick="openMenu('wine-pouring.jpeg')" class="menu-card bg-[#252525] rounded-3xl overflow-hidden cursor-pointer">
+            <img src="images/wine-pouring.jpeg" class="w-full h-64 object-cover">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold">Pouring Now • Spirits</h3>
+                <p class="text-stone-400 text-sm mt-2">Beer • Cider • Gin • Whiskey • Brandy</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeMenu()" class="absolute top-6 right-6 text-white text-4xl z-10 hover:text-[#9f1239]">×</button>
+            <img id="modal-image" class="modal-img" src="" alt="Menu">
+        </div>
+    </div>
+
+    <script>
+        function openMenu(filename) {
+            document.getElementById('modal-image').src = 'images/' + filename;
+            document.getElementById('modal').classList.add('active');
+        }
+        function closeMenu() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") closeMenu();
+        });
+    </script>
+
+</body>
+</html>
