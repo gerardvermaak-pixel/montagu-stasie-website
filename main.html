@@ -139,10 +139,9 @@
 
         /* Backgrounds */
         .pane-eat { background-image: url('_X1A2806.webp'); }
-        .pane-drink { background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png'); } /* ← Drinks image added back */
-
+        .pane-drink { background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png'); }
         .pane-shack { background-image: url('_X1A2725.webp'); }
-        .pane-showroom { background-image: url('_X1A2727.webp'); }
+        .pane-showroom { background-image: url('_X1A3232.jpg'); }
         .pane-wingit { background-image: url('_X1A3065.jpg'); }
 
         .desktop-layout .hero {
@@ -182,16 +181,13 @@
     </style>
 </head>
 <body>
-
     <nav id="main-nav" class="fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html">
                 <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="h-[40px] md:h-[67px]">
             </a>
-
-            <div class="flex gap-6 md:gap-10 text-xs font-medium tracking-[3px] uppercase items-center">
+            <div class="flex gap-4 md:gap-10 text-xs font-medium tracking-[2px] md:tracking-[3px] uppercase items-center">
                 <a href="main.html" class="hover:text-[#9f1239] transition hidden sm:inline">Home</a>
-
                 <div class="relative group cursor-pointer hidden sm:block">
                     <span class="hover:text-[#9f1239] transition flex items-center gap-1">
                         Stasie <i class="fa-solid fa-chevron-down text-[8px]"></i>
@@ -204,18 +200,17 @@
                         <a href="nursery.html">Nursery</a>
                     </div>
                 </div>
-
                 <a href="menu.html" class="hover:text-[#9f1239] transition hidden md:inline">Menus</a>
-                <a href="events.html" class="hover:text-[#9f1239] transition hidden md:inline">Events</a>
-                <a href="crypto.html" class="hover:text-[#9f1239] transition hidden md:inline">Crypto</a>
+                <a href="nursery.html" class="hover:text-[#9f1239] transition">Nursery</a>
+                <!-- === ABOUT US ADDED HERE (only change) === -->
+                <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
+                <a href="crypto.html" class="hover:text-[#9f1239] transition">Crypto</a>
             </div>
-
             <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-4 py-2 md:px-6 md:py-3 rounded-full text-[10px] md:text-xs font-semibold flex items-center gap-2 tracking-widest transition hover:brightness-110">
                 <i class="fa-brands fa-whatsapp"></i> <span class="hidden xs:inline">WHATSAPP</span>
             </a>
         </div>
     </nav>
-
     <div class="desktop-layout">
         <section class="hero">
             <picture>
@@ -228,7 +223,6 @@
                 <i class="fa-solid fa-chevron-down text-2xl"></i>
             </div>
         </section>
-
         <section class="content-split">
             <a href="menu.html" class="pane pane-eat">
                 <h2>Eat</h2>
@@ -239,7 +233,6 @@
                 <div class="learn-more-btn">Wine & Spirits</div>
             </a>
         </section>
-
         <section class="py-24 bg-[#0a0a0a] text-center border-y border-stone-900">
             <div class="max-w-xl mx-auto px-6">
                 <picture>
@@ -250,7 +243,6 @@
                 <a href="crypto.html" class="learn-more-btn">Payment Info</a>
             </div>
         </section>
-
         <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="relative z-10 text-center">
@@ -258,7 +250,6 @@
                 <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
             </div>
         </section>
-
         <section class="content-split" style="height: 80vh;">
             <a href="the-shack.html" class="pane pane-shack">
                 <h2>The Shack</h2>
@@ -273,17 +264,15 @@
                 <div class="learn-more-btn">Discover</div>
             </a>
         </section>
-
         <footer class="py-20 px-10 bg-[#050505] flex justify-between text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
             <div>Montagu Stasie © 2026</div>
             <div class="flex gap-8">
-                <a href="#">About</a>
-                <a href="#">Press</a>
-                <a href="#">Privacy</a>
+                <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
+                <a href="#" class="hover:text-[#9f1239] transition">Press</a>
+                <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
             </div>
         </footer>
     </div>
-
     <div class="mobile-layout hidden">
         <section class="mobile-hero min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('_X1A2948-Enhanced-NR.webp') center/cover;">
             <picture>
@@ -293,8 +282,6 @@
             <h1 class="text-4xl font-bold tracking-tighter mb-3">MONTAGU STASIE</h1>
             <p class="text-xs tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
         </section>
-
-        <!-- Eat/Drink Side-by-Side -->
         <section class="flex flex-row gap-0 h-[40vh] sm:h-[50vh]">
             <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative group" style="background-image: url('_X1A2806.webp');">
                 <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
@@ -305,8 +292,6 @@
                 <h2 class="text-2xl font-bold relative z-10">DRINK</h2>
             </a>
         </section>
-
-        <!-- Crypto Section -->
         <section class="py-16 bg-[#0a0a0a] text-center border-y border-stone-900">
             <div class="max-w-md mx-auto px-4">
                 <picture>
@@ -317,8 +302,6 @@
                 <a href="crypto.html" class="learn-more-btn">Payment Info</a>
             </div>
         </section>
-
-        <!-- Konkelwyn Section -->
         <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="relative z-10 text-center px-6">
@@ -326,14 +309,12 @@
                 <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
             </div>
         </section>
-
-        <!-- Shack/Showroom/Wing It Mobile Grid -->
         <section class="flex flex-col gap-0">
             <a href="the-shack.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A2725.webp');">
                 <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
                 <h2 class="text-3xl font-bold relative z-10">THE SHACK</h2>
             </a>
-            <a href="the-showroom.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A2727.webp');">
+            <a href="the-showroom.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A3232.jpg');">
                 <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
                 <h2 class="text-3xl font-bold relative z-10">THE SHOWROOM</h2>
             </a>
@@ -342,20 +323,14 @@
                 <h2 class="text-3xl font-bold relative z-10">WING IT</h2>
             </a>
         </section>
-
         <footer class="py-12 px-10 bg-[#050505] text-center text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
             <div>Montagu Stasie © 2026</div>
             <div class="flex gap-8 justify-center mt-4">
-                <a href="#" class="hover:text-[#9f1239] transition">About</a>
+                <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
                 <a href="#" class="hover:text-[#9f1239] transition">Press</a>
                 <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
             </div>
         </footer>
     </div>
-
-    <script>
-        // No scroll reveal needed - header always visible
-    </script>
-
 </body>
 </html>

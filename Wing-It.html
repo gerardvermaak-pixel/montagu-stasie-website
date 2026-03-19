@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="station-logo-192.png">
+    <title>Wing It | Roast Chicken • Montagu Stasie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0d0d0d; scroll-behavior: smooth; }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(13,13,13,0.4), rgba(13,13,13,1)), 
+                        url('_X1A3065.jpg') center/cover no-repeat;
+        }
+    </style>
+</head>
+<body class="text-stone-200">
+
+    <nav class="fixed top-0 w-full bg-[#0d0d0d]/90 backdrop-blur-md z-50 border-b border-stone-800/50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-10"></a>
+            <div class="hidden md:flex gap-8 text-[10px] tracking-[0.2em] font-semibold">
+                <a href="index.html" class="hover:text-[#9f1239] transition">HOME</a>
+                <a href="konkelwyn.html" class="hover:text-[#9f1239] transition">KONKELWYN</a>
+                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
+                <a href="#menu-section" class="text-[#c5a059] hover:text-[#9f1239] transition">WING IT</a>
+                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
+            </div>
+            <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-5 py-2 rounded-full text-[10px] tracking-widest font-bold flex items-center gap-2">
+                WHATSAPP
+            </a>
+        </div>
+    </nav>
+
+    <section class="hero-gradient min-h-[80vh] pt-40 pb-24 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <span class="text-[#c5a059] tracking-[0.4em] text-xs uppercase mb-4 block">The Station Rotisserie</span>
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-8">Wing It.</h1>
+            <p class="text-lg md:text-xl text-stone-400 max-w-2xl mx-auto font-light leading-relaxed">
+                Slow-roasted over open flames, seasoned with Montagu soul.
+            </p>
+            <div class="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
+                <a href="https://wa.me/27662665145?text=I'd like to order from Wing It" class="bg-[#9f1239] px-10 py-5 rounded-full text-sm tracking-widest font-bold hover:scale-105 transition-transform">
+                    ORDER FOR PICKUP
+                </a>
+                <a href="#menu-section" class="text-stone-400 hover:text-white text-sm tracking-widest border-b border-stone-700 pb-1">VIEW SPECIALS</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu-section" class="py-24 bg-[#0d0d0d]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl text-center mb-16 text-stone-400 italic">House Specials</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="group">
+                    <div class="overflow-hidden rounded-sm mb-6 bg-stone-900 aspect-[4/5]">
+                        <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition duration-700">
+                    </div>
+                    <h3 class="text-xl font-bold text-[#c5a059] mb-2">The Whole Bird</h3>
+                    <p class="text-sm text-stone-500">Lemon & herb or peri-peri. Brined for 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

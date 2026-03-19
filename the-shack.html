@@ -12,6 +12,16 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        
+        /* === SMOOTH SCROLLING (already here) === */
+        html { scroll-behavior: smooth; }
+
+        /* === EASY SCROLL (added only this for premium mobile + desktop momentum) === */
+        body, .panorama-gallery {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+        }
+
         /* === NAV SCROLL EFFECT === */
         nav#main-nav {
             transition: all 0.5s ease;
@@ -60,8 +70,9 @@
             object-fit: cover;
             transition: transform 0.6s ease;
         }
+        /* === HOVER POP UP 10% (already here) === */
         .panorama-card:hover img {
-            transform: scale(1.06);
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -73,7 +84,7 @@
             <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
             <div class="hidden md:flex gap-8 text-sm font-medium items-center">
                 <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
-               
+                
                 <div class="relative group">
                     <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
                         Stasie <span class="text-[10px]">▼</span>
@@ -116,10 +127,16 @@
         </div>
     </nav>
 
-    <section class="pt-28 pb-20">
+    <!-- === NEW HERO SECTION WITH YOUR IMAGE === -->
+    <section class="hero" style="height: 100vh; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85)), url('_X1A3238-2.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; position: relative;">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h1 class="text-6xl font-bold tracking-tighter mb-6">The Shack</h1>
             <p class="text-2xl text-stone-400 max-w-2xl mx-auto">The Shack is a woodwork art stop — art works created by 3 sisters and a brother.</p>
+        </div>
+    </section>
+
+    <section class="pt-20 pb-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
             <a href="https://wa.me/27662665145?text=I'd like to visit The Shack" class="mt-12 inline-block bg-[#9f1239] px-10 py-5 rounded-full text-lg font-semibold">Visit via WhatsApp</a>
         </div>
     </section>

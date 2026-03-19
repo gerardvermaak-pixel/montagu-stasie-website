@@ -13,6 +13,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; }
+        
         /* Harmonize header padding */
         body { padding-top: 96px; }
         @media (max-width: 768px) { body { padding-top: 84px; } }
@@ -21,108 +22,303 @@
             nav.fixed img { height: 48px; }
             body { padding-top: 64px; }
         }
+
+        /* Calendar Tooltip Arrow */
+        .tooltip-arrow::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #e8e4d9 transparent transparent transparent;
+        }
     </style>
 </head>
 <body class="text-stone-200">
 
-    <nav class="fixed top-0 w-full bg-[#1a1a1a]/95 backdrop-blur-md z-50 border-b border-stone-800">
+    <!-- CONSISTENT HEADER – EXACTLY LIKE HOME / SHACK / SHOWROOM (only this part updated) -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="index.html">
-                <img src="station logo lines.png" alt="Montagu Stasie" class="h-[67px]">
-            </a>
-
-            <div class="hidden md:flex gap-8 text-sm font-medium">
-                <a href="main.html" class="hover:text-[#9f1239]">HOME</a>
+            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
+                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
+                
                 <div class="relative group">
-                    <a href="#" class="hover:text-[#9f1239]">STASIE ▾</a>
-                    <div class="absolute hidden group-hover:block bg-[#1a1a1a] border border-stone-800 rounded-xl py-3 w-52 shadow-2xl mt-2">
-                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">Konkelwyn</a>
-                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">The Shack</a>
-                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">The Showroom</a>
-                        <a href="wine-cellar.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">Wine Cellar</a>
-                        <a href="workshops.html" class="block px-5 py-2.5 hover:bg-[#252525] hover:text-[#9f1239]">Workshops</a>
+                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
+                        Stasie <span class="text-[10px]">▼</span>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
+                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
+                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
+                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
+                        <a href="wing-it.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
+                        <a href="nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
                     </div>
                 </div>
-                <a href="menu.html" class="hover:text-[#9f1239]">MENUS</a>
-                <a href="events.html" class="text-[#9f1239]">EVENTS</a>
-                <a href="crypto.html" class="hover:text-[#9f1239]">CRYPTO</a>
-            </div>
 
-            <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-            </a>
+                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
+                <a href="events.html" class="text-[#9f1239]">EVENTS</a>
+                <a href="crypto.html" class="hover:text-[#9f1239] transition">CRYPTO</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
+            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
+                <a href="main.html">HOME</a>
+                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
+                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
+                    <a href="konkelwyn.html">Konkelwyn</a>
+                    <a href="the-shack.html">The Shack</a>
+                    <a href="the-showroom.html">The Showroom</a>
+                    <a href="wing-it.html">Wing It</a>
+                    <a href="nursery.html">Nursery</a>
+                </div>
+                <a href="menu.html">MENUS</a>
+                <a href="events.html">EVENTS</a>
+                <a href="crypto.html">CRYPTO</a>
+            </div>
         </div>
     </nav>
 
     <section class="pt-16 pb-20">
         <div class="max-w-6xl mx-auto px-6">
             
-            <div class="mb-16">
-                <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-stone-800">
-                    <picture>
-                        <source srcset="WhatsApp Image 2026-03-12 at 10.53.13 (1).jpeg" media="(min-width: 768px)">
-                        <img src="WhatsApp Image 2026-03-12 at 10.53.13 (1).jpeg" alt="Cape Epic at the Station" class="w-full h-[300px] md:h-[500px] object-cover">
-                    </picture>
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60"></div>
-                    <div class="absolute bottom-8 left-8">
-                        <span class="bg-[#9f1239] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Happening Now</span>
-                        <h2 class="text-4xl md:text-6xl font-bold tracking-tighter text-white">Cape Epic 2026</h2>
+            <div class="mb-20">
+                <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-10">Event Calendar</h1>
+                
+                <div class="bg-[#252525] p-6 md:p-10 rounded-3xl border border-stone-800 shadow-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">March 2026</h2>
+                        <div class="text-sm text-stone-400">Hover over dates for details</div>
+                    </div>
+
+                    <div class="grid grid-cols-7 gap-2 md:gap-4 text-center text-xs md:text-sm font-semibold text-stone-500 mb-2 uppercase tracking-widest">
+                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                    </div>
+
+                    <div class="grid grid-cols-7 gap-2 md:gap-4 text-center">
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">1</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">2</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">3</div>
+                        
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>4</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Drumming Circle</strong><br>18:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>5</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Crypto Knights</strong><br>19:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>6</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Games Night &<br>Pizza Friday</strong><br>17:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>7</span>
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-khaki"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                            </div>
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-44 z-10 tooltip-arrow">
+                                <strong>Chill Vinyasa Yoga</strong> (09:00)<br><strong>Live Music</strong> (19:00)
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-khaki transition cursor-pointer flex flex-col items-center">
+                            <span>8</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-khaki mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Breathwork</strong><br>10:00
+                            </div>
+                        </div>
+
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">9</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">10</div>
+                        
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>11</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Drumming Circle</strong><br>18:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>12</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Crypto Knights</strong><br>19:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>13</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Games Night &<br>Pizza Friday</strong><br>17:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>14</span>
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-khaki"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                            </div>
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-44 z-10 tooltip-arrow">
+                                <strong>Chill Vinyasa Yoga</strong> (09:00)<br><strong>Live Music</strong> (19:00)
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-khaki transition cursor-pointer flex flex-col items-center">
+                            <span>15</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-khaki mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Breathwork</strong><br>10:00
+                            </div>
+                        </div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">16</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">17</div>
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>18</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Drumming Circle</strong><br>18:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>19</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Crypto Knights</strong><br>19:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>20</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Games Night &<br>Pizza Friday</strong><br>17:00
+                            </div>
+                        </div>
+
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>21</span>
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-khaki"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                            </div>
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-44 z-10 tooltip-arrow">
+                                <strong>Chill Vinyasa Yoga</strong> (09:00)<br><strong>Live Music</strong> (19:00)
+                            </div>
+                        </div>
+                        
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-khaki transition cursor-pointer flex flex-col items-center">
+                            <span>22</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-khaki mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Breathwork</strong><br>10:00
+                            </div>
+                        </div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">23</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">24</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">25</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">26</div>
+                        
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>27</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Last Friday Market</strong><br>16:00
+                            </div>
+                        </div>
+                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                            <span>28</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Live Music</strong><br>19:00
+                            </div>
+                        </div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">29</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">30</div>
+                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">31</div>
+                        <div class="py-4 opacity-0"></div>
+                        <div class="py-4 opacity-0"></div>
+                        <div class="py-4 opacity-0"></div>
+                        <div class="py-4 opacity-0"></div>
                     </div>
                 </div>
             </div>
 
-            <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16">Upcoming Events</h1>
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tighter text-center mb-16">Featured Experiences</h2>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Last Friday of the Month Market</h3>
-                    <a href="https://wa.me/27662665145?text=I'd like to book a spot at the Last Friday Market" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
-                </div>
-
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Yoga at the Station</h3>
-                    <a href="https://wa.me/27662665145?text=I'd like to book Yoga at the Station" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
-                </div>
-
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Games Night</h3>
-                    <a href="https://wa.me/27662665145?text=I'd like to book Games Night" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
-                </div>
-
+                
                 <div class="bg-[#252525] overflow-hidden rounded-3xl border border-stone-800 transition hover:border-stone-600">
                     <picture>
                         <source srcset="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" media="(min-width: 768px)">
                         <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" alt="Pizza Night Poster" class="w-full aspect-video object-cover">
                     </picture>
                     <div class="p-10">
-                        <h3 class="text-2xl font-bold mb-3">Pizza Night</h3>
-                        <a href="https://wa.me/27662665145?text=I'd like to book Pizza Night" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                        <h3 class="text-2xl font-bold mb-3">Games Night & Pizza Friday</h3>
+                        <p class="text-sm text-stone-400 mb-6">Join us every Friday for a relaxed evening of board games, incredible wood-fired pizza, and great company.</p>
+                        <a href="https://wa.me/27662665145?text=I'd like to book for Games Night & Pizza Friday" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
                     </div>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-3">Chill Vinyasa Yoga & Breathwork</h3>
+                    <p class="text-sm text-stone-400 mb-6">Find your center with weekend sessions dedicated to mindful movement and deep, restorative breathing at the Station.</p>
+                    <a href="https://wa.me/27662665145?text=I'd like to book Yoga & Breathwork" class="mt-auto inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold self-start">Book via WhatsApp</a>
+                </div>
+
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Last Friday of the Month Market</h3>
+                    <p class="text-sm text-stone-400 mb-6">Discover local artisans, fresh produce, and unique crafts at our vibrant monthly community market.</p>
+                    <a href="https://wa.me/27662665145?text=I'd like to book a spot at the Last Friday Market" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
                 </div>
 
                 <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
                     <h3 class="text-2xl font-bold mb-3">Drumming Circle</h3>
-                    <a href="https://wa.me/27662665145?text=I'd like to book the Drumming Circle" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
-                </div>
-
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Breathwork</h3>
-                    <a href="https://wa.me/27662665145?text=I'd like to book Breathwork" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                    <p class="text-sm text-stone-400 mb-6">Connect with the rhythm of the Karoo. All skill levels welcome to join our rhythmic Wednesday sessions.</p>
+                    <a href="https://wa.me/27662665145?text=I'd like to book the Drumming Circle" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
                 </div>
 
                 <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
                     <h3 class="text-2xl font-bold mb-3">Crypto Knights</h3>
-                    <a href="https://wa.me/27662665145?text=I'd like to book Crypto Knights" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                    <p class="text-sm text-stone-400 mb-6">A weekly meetup to discuss Bitcoin Lightning, decentralized finance, and the future of digital currency.</p>
+                    <a href="https://wa.me/27662665145?text=I'd like to book Crypto Knights" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
                 </div>
 
                 <div class="bg-[#252525] overflow-hidden rounded-3xl border border-stone-800 transition hover:border-stone-600">
                     <picture>
-                        <source srcset="WhatsApp Image 2026-03-12 at 10.53.13.jpeg" media="(min-width: 768px)">
-                        <img src="WhatsApp Image 2026-03-12 at 10.53.13.jpeg" alt="Live Music Poster" class="w-full aspect-video object-cover">
+                        <source srcset="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" media="(min-width: 768px)">
+                        <img src="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" alt="Live Music Poster" class="w-full aspect-video object-cover">
                     </picture>
                     <div class="p-10">
                         <h3 class="text-2xl font-bold mb-3">Live Music Nights</h3>
-                        <a href="https://wa.me/27662665145?text=I'd like to book a Live Music Night" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                        <p class="text-sm text-stone-400 mb-6">Experience the best local talent under the stars. Perfect pairings of acoustic sets and Konkelwyn wine.</p>
+                        <a href="https://wa.me/27662665145?text=I'd like to book a Live Music Night" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
                     </div>
                 </div>
             </div>
@@ -130,6 +326,10 @@
     </section>
 
     <script>
+        function toggleMenu() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        }
+
         (function(){
             const nav = document.querySelector('nav.fixed');
             if(!nav) return;

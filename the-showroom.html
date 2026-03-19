@@ -6,11 +6,32 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon" href="station-logo-192.png">
-    <title>SHOP NAME • Montagu Stasie</title>
+    <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
+    <title>The Showroom • Montagu Stasie</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        
+        /* === SMOOTH SCROLLING === */
+        html { scroll-behavior: smooth; }
+
+        /* === NAV SCROLL EFFECT === */
+        nav#main-nav {
+            transition: all 0.5s ease;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(120, 113, 108, 0.3);
+        }
+        nav#main-nav.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(176, 169, 144, 0.1);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
         /* Harmonize header */
         @media (min-width: 768px) {
             nav.fixed { height: 64px; }
@@ -20,34 +41,174 @@
         @media (max-width: 768px) {
             body { padding-top: 84px; }
         }
+        /* Gallery scroll styling */
+        .panorama-gallery {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 6%;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .panorama-gallery::-webkit-scrollbar { display: none; }
+        .panorama-card {
+            flex: 0 0 320px;
+            height: 480px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .panorama-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .panorama-card:hover img {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="bg-[#1a1a1a] text-stone-200">
 
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full bg-[#1a1a1a]/95 backdrop-blur-md z-50 border-b border-stone-800">
+    <!-- NAVBAR (kept exactly as in The Shack) -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
-            <div class="flex gap-8 text-sm font-medium">
-                <a href="index.html" class="hover:text-[#9f1239]">HOME</a>
-                <a href="konkelwyn.html" class="hover:text-[#9f1239]">KONKELWYN</a>
-                <a href="menu.html" class="hover:text-[#9f1239]">MENUS</a>
-                <a href="events.html" class="hover:text-[#9f1239]">EVENTS</a>
-                <a href="crypto.html" class="hover:text-[#9f1239]">CRYPTO</a>
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
+                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
+                
+                <div class="relative group">
+                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
+                        Stasie <span class="text-[10px]">▼</span>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
+                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
+                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
+                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
+                        <a href="wing-it.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
+                        <a href="nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
+                    </div>
+                </div>
+
+                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
+                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
+                <a href="crypto.html" class="hover:text-[#9f1239] transition">CRYPTO</a>
             </div>
-            <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
+            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
+                <a href="main.html">HOME</a>
+                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
+                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
+                    <a href="konkelwyn.html">Konkelwyn</a>
+                    <a href="the-shack.html">The Shack</a>
+                    <a href="the-showroom.html">The Showroom</a>
+                    <a href="wing-it.html">Wing It</a>
+                    <a href="nursery.html">Nursery</a>
+                </div>
+                <a href="menu.html">MENUS</a>
+                <a href="events.html">EVENTS</a>
+                <a href="crypto.html">CRYPTO</a>
+            </div>
         </div>
     </nav>
 
-    <section class="pt-28 pb-20">
+    <!-- === HERO WITH YOUR FIRST IMAGE === -->
+    <section class="hero" style="height: 100vh; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85)), url('_X1A3232.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; position: relative;">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <h1 class="text-6xl font-bold tracking-tighter mb-6">SHOP NAME HERE</h1>
-            <p class="text-2xl text-stone-400 max-w-2xl mx-auto">Short description of this shop/experience goes here.</p>
-            <a href="https://wa.me/27662665145?text=I'd like to visit [SHOP NAME]" class="mt-12 inline-block bg-[#9f1239] px-10 py-5 rounded-full text-lg font-semibold">Visit this shop via WhatsApp</a>
+            <h1 class="text-6xl font-bold tracking-tighter mb-6">The Showroom</h1>
+            <p class="text-2xl text-stone-400 max-w-2xl mx-auto">The Showroom showcases original works by 8 independent Karoo artists — a living gallery of local talent on Route 62.</p>
         </div>
     </section>
+
+    <!-- === FEATURED INDEPENDENT ARTISTS (8 from real Montagu/Karoo research) === -->
+    <section class="py-20 bg-[#0a0a0a]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">8 Independent Karoo Artists</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
+                <div class="text-center"><strong>Richard Hickman</strong><br><span class="text-stone-400">Fine-art painter &amp; owner of Hick’s Art Gallery</span></div>
+                <div class="text-center"><strong>Carolyn Metcalfe</strong><br><span class="text-stone-400">Contemporary artist, IBIS Gallery founder</span></div>
+                <div class="text-center"><strong>Quinton Faro</strong><br><span class="text-stone-400">Master signwriter &amp; visual artist</span></div>
+                <div class="text-center"><strong>Hennie Kok</strong><br><span class="text-stone-400">Local sculptor &amp; Route 62 creator</span></div>
+                <div class="text-center"><strong>Riette Steenkamp</strong><br><span class="text-stone-400">Mixed-media &amp; Montagu Art Meander artist</span></div>
+                <div class="text-center"><strong>Jaco Stemmet</strong><br><span class="text-stone-400">Wood &amp; metal sculptor</span></div>
+                <div class="text-center"><strong>Francois Krige</strong><br><span class="text-stone-400">Landscape painter &amp; gallery artist</span></div>
+                <div class="text-center"><strong>Kupenda Collective</strong><br><span class="text-stone-400">Group of emerging independent potters &amp; textile artists</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === ROLLING GALLERY WITH YOUR 4 IMAGES === -->
+    <div class="section-title mt-12">The Showroom Gallery</div>
+    <section class="menu-gallery px-6 pb-20">
+        <div class="menu-card" onclick="openModal('_X1A3232.jpg')">
+            <picture><img src="_X1A3232.jpg" alt="Showroom Artwork 1"></picture>
+            <div class="menu-overlay"><h3 class="menu-title">Artwork 1</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('_X1A3234.jpg')">
+            <picture><img src="_X1A3234.jpg" alt="Showroom Artwork 2"></picture>
+            <div class="menu-overlay"><h3 class="menu-title">Artwork 2</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('_X1A3235.jpg')">
+            <picture><img src="_X1A3235.jpg" alt="Showroom Artwork 3"></picture>
+            <div class="menu-overlay"><h3 class="menu-title">Artwork 3</h3></div>
+        </div>
+        <div class="menu-card" onclick="openModal('_X1A3236.jpg')">
+            <picture><img src="_X1A3236.jpg" alt="Showroom Artwork 4"></picture>
+            <div class="menu-overlay"><h3 class="menu-title">Artwork 4</h3></div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="menuModal" class="modal" onclick="closeModal(event)">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        }
+
+        const modal = document.getElementById("menuModal");
+        const modalImg = document.getElementById("modalImg");
+
+        function openModal(imageSrc) {
+            modalImg.src = imageSrc;
+            modal.style.display = "flex";
+            setTimeout(() => modal.classList.add("show"), 10);
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(event) {
+            if (event.target === modal || event.target.classList.contains('close-btn')) {
+                modal.classList.remove("show");
+                setTimeout(() => modal.style.display = "none", 400);
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && modal.classList.contains("show")) {
+                closeModal({ target: modal });
+            }
+        });
+
+        // Horizontal Mousewheel support
+        document.querySelectorAll('.menu-gallery').forEach(gallery => {
+            gallery.addEventListener('wheel', (evt) => {
+                evt.preventDefault();
+                gallery.scrollLeft += evt.deltaY;
+            });
+        });
+    </script>
 
 </body>
 </html>
