@@ -14,7 +14,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; }
         
-        /* Harmonize header padding */
         body { padding-top: 96px; }
         @media (max-width: 768px) { body { padding-top: 84px; } }
         @media (min-width: 768px) {
@@ -34,17 +33,25 @@
             border-style: solid;
             border-color: #e8e4d9 transparent transparent transparent;
         }
+
+        /* Interactivity Enhancement */
+        .calendar-day {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .calendar-day:hover {
+            transform: translateY(-4px) scale(1.05);
+            background-color: #2a2a2a;
+            z-index: 20;
+        }
     </style>
 </head>
 <body class="text-stone-200">
 
-    <!-- CONSISTENT HEADER – EXACTLY LIKE HOME / SHACK / SHOWROOM (only this part updated) -->
-    <nav id="main-nav" class="fixed top-0 w-full z-50">
+    <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#1a1a1a]/90 backdrop-blur-md border-b border-stone-800">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
             <div class="hidden md:flex gap-8 text-sm font-medium items-center">
                 <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
-                
                 <div class="relative group">
                     <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
                         Stasie <span class="text-[10px]">▼</span>
@@ -57,7 +64,6 @@
                         <a href="nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
                     </div>
                 </div>
-
                 <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
                 <a href="events.html" class="text-[#9f1239]">EVENTS</a>
                 <a href="crypto.html" class="hover:text-[#9f1239] transition">CRYPTO</a>
@@ -66,7 +72,7 @@
                 <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
                     <i class="fa-brands fa-whatsapp"></i> WHATSAPP
                 </a>
-                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+                <button id="mobile-menu-btn" onclick="toggleMenu()" class="md:hidden text-2xl">☰</button>
             </div>
         </div>
         <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
@@ -96,7 +102,7 @@
                 <div class="bg-[#252525] p-6 md:p-10 rounded-3xl border border-stone-800 shadow-2xl">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl md:text-3xl font-bold text-white">March 2026</h2>
-                        <div class="text-sm text-stone-400">Hover over dates for details</div>
+                        <div class="text-sm text-stone-400">Tap or hover dates for details</div>
                     </div>
 
                     <div class="grid grid-cols-7 gap-2 md:gap-4 text-center text-xs md:text-sm font-semibold text-stone-500 mb-2 uppercase tracking-widest">
@@ -104,19 +110,27 @@
                     </div>
 
                     <div class="grid grid-cols-7 gap-2 md:gap-4 text-center">
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">1</div>
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
+                            <span>1</span>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>CLOSED</strong>
+                            </div>
+                        </div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">2</div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">3</div>
                         
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>4</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Drumming Circle</strong><br>18:00
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+                            </div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>5</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
@@ -124,7 +138,7 @@
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>6</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
@@ -132,37 +146,39 @@
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>7</span>
                             <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-khaki"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
                                 <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
                             </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-44 z-10 tooltip-arrow">
-                                <strong>Chill Vinyasa Yoga</strong> (09:00)<br><strong>Live Music</strong> (19:00)
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
+                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-khaki transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
                             <span>8</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-khaki mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Breathwork</strong><br>10:00
+                                <strong>CLOSED</strong>
                             </div>
                         </div>
-
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">9</div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">10</div>
                         
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>11</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Drumming Circle</strong><br>18:00
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+                            </div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>12</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
@@ -170,7 +186,7 @@
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>13</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
@@ -178,35 +194,39 @@
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>14</span>
                             <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-khaki"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
                                 <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
                             </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-44 z-10 tooltip-arrow">
-                                <strong>Chill Vinyasa Yoga</strong> (09:00)<br><strong>Live Music</strong> (19:00)
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
+                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-khaki transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
                             <span>15</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-khaki mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Breathwork</strong><br>10:00
+                                <strong>CLOSED</strong>
                             </div>
                         </div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">16</div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">17</div>
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>18</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Drumming Circle</strong><br>18:00
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+                            </div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>19</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
@@ -214,7 +234,7 @@
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>20</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
@@ -222,44 +242,72 @@
                             </div>
                         </div>
 
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>21</span>
                             <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-khaki"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
                                 <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
                             </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-44 z-10 tooltip-arrow">
-                                <strong>Chill Vinyasa Yoga</strong> (09:00)<br><strong>Live Music</strong> (19:00)
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
+                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
                             </div>
                         </div>
                         
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-khaki transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
                             <span>22</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-khaki mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Breathwork</strong><br>10:00
+                                <strong>CLOSED</strong>
                             </div>
                         </div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">23</div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">24</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">25</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">26</div>
                         
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
+                            <span>25</span>
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+                            </div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
+                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
+                            </div>
+                        </div>
+
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
+                            <span>26</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>Crypto Knights</strong><br>19:00
+                            </div>
+                        </div>
+                        
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>27</span>
                             <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
                             <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
                                 <strong>Last Friday Market</strong><br>16:00
                             </div>
                         </div>
-                        <div class="relative group py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] transition cursor-pointer flex flex-col items-center">
+
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
                             <span>28</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Live Music</strong><br>19:00
+                            <div class="flex gap-1 mt-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
+                            </div>
+                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
+                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
                             </div>
                         </div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">29</div>
+
+                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
+                            <span>29</span>
+                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
+                                <strong>CLOSED</strong>
+                            </div>
+                        </div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">30</div>
                         <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">31</div>
                         <div class="py-4 opacity-0"></div>
@@ -286,21 +334,21 @@
                     </div>
                 </div>
 
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold mb-3">Chill Vinyasa Yoga & Breathwork</h3>
-                    <p class="text-sm text-stone-400 mb-6">Find your center with weekend sessions dedicated to mindful movement and deep, restorative breathing at the Station.</p>
-                    <a href="https://wa.me/27662665145?text=I'd like to book Yoga & Breathwork" class="mt-auto inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold self-start">Book via WhatsApp</a>
+                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
+                    <h3 class="text-2xl font-bold mb-3">Saturday Braai Day & Live Music</h3>
+                    <p class="text-sm text-stone-400 mb-6">The ultimate weekend vibe. Enjoy traditional braai hospitality during the day followed by live local talent under the stars at 19:00.</p>
+                    <a href="https://wa.me/27662665145?text=I'd like to book for Saturday Braai and Music" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book a Table</a>
                 </div>
 
                 <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Last Friday of the Month Market</h3>
-                    <p class="text-sm text-stone-400 mb-6">Discover local artisans, fresh produce, and unique crafts at our vibrant monthly community market.</p>
-                    <a href="https://wa.me/27662665145?text=I'd like to book a spot at the Last Friday Market" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                    <h3 class="text-2xl font-bold mb-3">Wednesday Run Club</h3>
+                    <p class="text-sm text-stone-400 mb-6">Hit the road with the Stasie community at 18:00 every Wednesday. All fitness levels are welcome for a social run followed by drinks at the bar.</p>
+                    <a href="https://wa.me/27662665145?text=I'd like to join the Run Club" class="inline-block bg-stone-100 text-black px-8 py-3 rounded-full text-sm font-semibold">Join the Club</a>
                 </div>
 
                 <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
                     <h3 class="text-2xl font-bold mb-3">Drumming Circle</h3>
-                    <p class="text-sm text-stone-400 mb-6">Connect with the rhythm of the Karoo. All skill levels welcome to join our rhythmic Wednesday sessions.</p>
+                    <p class="text-sm text-stone-400 mb-6">Connect with the rhythm of the Karoo. All skill levels welcome to join our rhythmic Wednesday sessions at 18:00.</p>
                     <a href="https://wa.me/27662665145?text=I'd like to book the Drumming Circle" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
                 </div>
 
@@ -327,7 +375,8 @@
 
     <script>
         function toggleMenu() {
-            document.getElementById("mobile-menu").classList.toggle("hidden");
+            const menu = document.getElementById("mobile-menu");
+            menu.classList.toggle("hidden");
         }
 
         (function(){
