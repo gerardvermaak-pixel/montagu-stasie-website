@@ -26,7 +26,7 @@ Add a custom domain
 - Or via CLI:
 
 ```powershell
-vercel domains add yourdomain.com
+vercel domains add montagustasie.com
 ```
 
 Vercel will provide DNS records (A, CNAME). Add those records at your registrar and wait for DNS propagation.
