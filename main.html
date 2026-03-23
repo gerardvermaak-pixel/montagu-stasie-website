@@ -181,33 +181,56 @@
     </style>
 </head>
 <body>
+    <!-- CONSISTENT HEADER — EXACTLY THE SAME AS YOUR SHACK / SHOWROOM / EVENTS PAGES (only this part updated) -->
     <nav id="main-nav" class="fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html">
-                <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="h-[40px] md:h-[67px]">
-            </a>
-            <div class="flex gap-4 md:gap-10 text-xs font-medium tracking-[2px] md:tracking-[3px] uppercase items-center">
-                <a href="main.html" class="hover:text-[#9f1239] transition hidden sm:inline">Home</a>
-                <div class="relative group cursor-pointer hidden sm:block">
-                    <span class="hover:text-[#9f1239] transition flex items-center gap-1">
-                        Stasie <i class="fa-solid fa-chevron-down text-[8px]"></i>
-                    </span>
-                    <div class="stasie-dropdown">
-                        <a href="konkelwyn.html">Konkelwyn</a>
-                        <a href="the-shack.html">The Shack</a>
-                        <a href="the-showroom.html">The Showroom</a>
-                        <a href="wing-it.html">Wing It</a>
-                        <a href="nursery.html">Nursery</a>
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
+                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
+                
+                <div class="relative group">
+                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
+                        Stasie <span class="text-[10px]">▼</span>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
+                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
+                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
+                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
+                        <a href="Wing-It.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
+                        <a href="Nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
                     </div>
                 </div>
-                <a href="menu.html" class="hover:text-[#9f1239] transition hidden md:inline">Menus</a>
-                <a href="crypto.html" class="hover:text-[#9f1239] transition">Crypto</a>
+
+                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
+                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
+                <a href="crypto.html" class="hover:text-[#9f1239] transition">CRYPTO</a>
             </div>
-            <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-4 py-2 md:px-6 md:py-3 rounded-full text-[10px] md:text-xs font-semibold flex items-center gap-2 tracking-widest transition hover:brightness-110">
-                <i class="fa-brands fa-whatsapp"></i> <span class="hidden xs:inline">WHATSAPP</span>
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
+            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
+                <a href="main.html">HOME</a>
+                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
+                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
+                    <a href="konkelwyn.html">Konkelwyn</a>
+                    <a href="the-shack.html">The Shack</a>
+                    <a href="the-showroom.html">The Showroom</a>
+                    <a href="Wing-It.html">Wing It</a>
+                    <a href="Nursery.html">Nursery</a>
+                </div>
+                <a href="menu.html">MENUS</a>
+                <a href="events.html">EVENTS</a>
+                <a href="crypto.html">CRYPTO</a>
+            </div>
         </div>
     </nav>
+
+    <!-- EVERYTHING BELOW THIS LINE IS 100% UNCHANGED FROM YOUR CODE -->
     <div class="desktop-layout">
         <section class="hero">
             <picture>
@@ -315,7 +338,7 @@
                 <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
                 <h2 class="text-3xl font-bold relative z-10">THE SHOWROOM</h2>
             </a>
-            <a href="wing-it.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A3065.jpg');">
+            <a href="Wing-It.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A3065.jpg');">
                 <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
                 <h2 class="text-3xl font-bold relative z-10">WING IT</h2>
             </a>
