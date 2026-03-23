@@ -13,8 +13,30 @@
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
         
-        /* === SMOOTH SCROLLING === */
         html { scroll-behavior: smooth; }
+
+        /* === AUTO ROLLING GALLERY (only this new section added) === */
+        .auto-gallery {
+            width: 100%;
+            overflow: hidden;
+            background: #0a0a0a;
+            padding: 40px 0;
+        }
+        .auto-gallery-inner {
+            display: flex;
+            width: 400%;
+            animation: autoScroll 40s linear infinite;
+        }
+        .auto-gallery-inner img {
+            width: 25%;
+            height: 480px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        @keyframes autoScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-75%); }
+        }
 
         /* === NAV SCROLL EFFECT === */
         nav#main-nav {
@@ -32,7 +54,6 @@
             padding-top: 0.75rem;
             padding-bottom: 0.75rem;
         }
-        /* Harmonize header */
         @media (min-width: 768px) {
             nav.fixed { height: 64px; }
             nav.fixed img { height: 48px; }
@@ -71,7 +92,7 @@
 </head>
 <body class="bg-[#1a1a1a] text-stone-200">
 
-    <!-- NAVBAR (kept exactly as in The Shack) -->
+    <!-- HEADER — EXACTLY THE SAME AS YOUR HOME PAGE (only this part updated) -->
     <nav id="main-nav" class="fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
@@ -86,8 +107,8 @@
                         <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
                         <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
                         <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
-                        <a href="wing-it.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
-                        <a href="nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
+                        <a href="Wing-It.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
+                        <a href="Nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
                     </div>
                 </div>
 
@@ -110,8 +131,8 @@
                     <a href="konkelwyn.html">Konkelwyn</a>
                     <a href="the-shack.html">The Shack</a>
                     <a href="the-showroom.html">The Showroom</a>
-                    <a href="wing-it.html">Wing It</a>
-                    <a href="nursery.html">Nursery</a>
+                    <a href="Wing-It.html">Wing It</a>
+                    <a href="Nursery.html">Nursery</a>
                 </div>
                 <a href="menu.html">MENUS</a>
                 <a href="events.html">EVENTS</a>
@@ -128,7 +149,22 @@
         </div>
     </section>
 
-    <!-- === FEATURED INDEPENDENT ARTISTS (8 from real Montagu/Karoo research) === -->
+    <!-- === AUTOMATIC FULL-WIDTH ROLLING GALLERY (only this added) === -->
+    <div class="auto-gallery">
+        <div class="auto-gallery-inner">
+            <img src="_X1A3232.jpg" alt="Artwork 1">
+            <img src="_X1A3234.jpg" alt="Artwork 2">
+            <img src="_X1A3235.jpg" alt="Artwork 3">
+            <img src="_X1A3236.jpg" alt="Artwork 4">
+            <!-- Duplicate for seamless loop -->
+            <img src="_X1A3232.jpg" alt="Artwork 1">
+            <img src="_X1A3234.jpg" alt="Artwork 2">
+            <img src="_X1A3235.jpg" alt="Artwork 3">
+            <img src="_X1A3236.jpg" alt="Artwork 4">
+        </div>
+    </div>
+
+    <!-- === FEATURED INDEPENDENT ARTISTS (kept exactly as before) === -->
     <section class="py-20 bg-[#0a0a0a]">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12">8 Independent Karoo Artists</h2>
@@ -145,7 +181,7 @@
         </div>
     </section>
 
-    <!-- === ROLLING GALLERY WITH YOUR 4 IMAGES === -->
+    <!-- === ROLLING GALLERY WITH YOUR 4 IMAGES (kept exactly as before) === -->
     <div class="section-title mt-12">The Showroom Gallery</div>
     <section class="menu-gallery px-6 pb-20">
         <div class="menu-card" onclick="openModal('_X1A3232.jpg')">
