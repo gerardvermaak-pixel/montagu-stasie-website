@@ -54,14 +54,13 @@
             border-radius: 4px;
         }
         
-        /* Bridge to keep hover active */
         .stasie-dropdown::before {
             content: "";
             position: absolute;
             top: -10px;
             left: 0;
             width: 100%;
-            height: 10px;
+            height: 100%;
         }
 
         .group:hover .stasie-dropdown {
@@ -69,7 +68,6 @@
             animation: fadeIn 0.3s ease forwards;
         }
 
-        /* Mobile Menu Overlay */
         #mobile-menu {
             display: none;
             position: fixed;
@@ -174,13 +172,11 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     
-/* Mobile soft border and safe viewport */
         @media (max-width: 768px) {
             html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
             body { padding: 0 14px 20px; margin: 0; }
             nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
             #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
-            .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
         }
 </style>
 </head>
@@ -259,6 +255,45 @@
                 <p class="text-sm leading-relaxed text-[#b0a990] font-light">Built on the foundation of decentralization. Peer-to-peer security means you retain full ownership of every Satoshi.</p>
             </div>
         </div>
+
+        <section class="max-w-4xl mx-auto px-6 py-20 border-t border-zinc-900">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-3xl md:text-4xl text-[#c5a059] mb-4">Seamless Payments with Breez</h2>
+                <p class="text-[10px] md:text-xs text-[#b0a990] tracking-[3px] uppercase">Our Partner for Lightning Wallet & Point of Sale</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <div>
+                    <h4 class="text-white font-bold tracking-[2px] text-[10px] mb-4 uppercase">How it works</h4>
+                    <p class="text-sm leading-relaxed text-[#b0a990] font-light">
+                        Breez is a "Lightning Service Provider" that makes Bitcoin payments instant. Simply download the app, top up your wallet, and scan our QR code at the station. Breez automatically manages the technical "channels" in the background so you don't have to.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold tracking-[2px] text-[10px] mb-4 uppercase">Why Breez?</h4>
+                    <p class="text-sm leading-relaxed text-[#b0a990] font-light">
+                        It is non-custodial, meaning you—and only you—control your money. Breez allows us to offer zero-wait transactions with incredibly low fees, bypassing traditional banking delays while keeping your funds secure on the Bitcoin network.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="https://apps.apple.com/us/app/breez-lightning-wallet/id1463604142" target="_blank" class="flex items-center gap-4 px-8 py-4 border border-zinc-800 rounded-xl hover:border-[#c5a059] transition-all duration-500 group">
+                    <i class="fa-brands fa-apple text-2xl group-hover:text-[#c5a059]"></i>
+                    <div class="text-left">
+                        <p class="text-[9px] text-zinc-500 uppercase font-bold tracking-tighter">Download on the</p>
+                        <p class="text-sm font-bold">App Store</p>
+                    </div>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.breez.client" target="_blank" class="flex items-center gap-4 px-8 py-4 border border-zinc-800 rounded-xl hover:border-[#c5a059] transition-all duration-500 group">
+                    <i class="fa-brands fa-google-play text-xl group-hover:text-[#c5a059]"></i>
+                    <div class="text-left">
+                        <p class="text-[9px] text-zinc-500 uppercase font-bold tracking-tighter">Get it on</p>
+                        <p class="text-sm font-bold">Google Play</p>
+                    </div>
+                </a>
+            </div>
+        </section>
 
         <div class="text-center py-16 md:py-20 border-t border-zinc-900">
             <p class="text-zinc-600 uppercase tracking-[4px] text-[9px] mb-8">Simply ask our staff to generate a Lightning invoice</p>
