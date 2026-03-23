@@ -47,6 +47,17 @@
             transition: 0.3s ease;
         }
         nav.fixed-header img { height: 50px; }
+        .whatsapp-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .nav-links { display: flex; gap: 35px; align-items: center; }
         .nav-links a {
             color: var(--khaki);
@@ -179,7 +190,7 @@
             /* Switch back to flex-start on mobile so scrolling works cleanly without clipping */
             .menu-gallery { justify-content: flex-start; } 
             
-            .menu-card { flex: 0 0 180px; height: 260px; }
+            .menu-card { flex: 0 0 140px; height: 200px; }
             .menu-title { font-size: 0.8rem; }
         }
     
@@ -199,13 +210,13 @@
         <a href="index.html">
             <img src="station logo lines.png" alt="Montagu Stasie">
         </a>
+        <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fab fa-whatsapp"></i></a>
         <div class="nav-links" id="nav-links">
             <a href="main.html">HOME</a>
             <a href="konkelwyn.html">KONKELWYN</a>
             <a href="menu.html" class="current">MENUS</a>
             <a href="events.html">EVENTS</a>
             <a href="crypto.html">CRYPTO</a>
-            <a href="https://wa.me/27662665145" class="bg-[#9f1239] px-5 py-2 rounded-full !text-white">WHATSAPP</a>
         </div>
         <div class="mobile-toggle" onclick="toggleMenu()">
             <span></span><span></span><span></span>
