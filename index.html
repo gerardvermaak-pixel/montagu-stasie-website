@@ -1,21 +1,141 @@
 
-function fadeOutEffect() {
-      const el = document.getElementById("typewriter");
-      el.style.transition = "opacity 1s ease";
-      el.style.opacity = "0";
-            
-      setTimeout(() => {
-        i = 0; 
-        txt = '';
-        messageIndex = (messageIndex + 1) % messages.length;
-        el.innerHTML = '';
-        el.style.opacity = "1";
-        typeWriter();
-      }, 1000);
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montagu Stasie | Welcome</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400&display=swap');
+        
+        :root {
+            --deep-black: #050505;
+            --brass: #c4a77d;
+            --khaki: #b0a990;
+        }
 
-    window.onload = typeWriter;
-  </script>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--deep-black);
+            overflow: hidden; 
+        }
+
+        /* Cinematic Background: Full-width Station image */
+        .intro { 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            flex-direction: column; 
+            background: url('_X1A2689-Pano.jpg') center/cover no-repeat,
+                        radial-gradient(circle at center, #121212 0%, #050505 100%);
+            position: relative;
+        }
+
+        .typewriter { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.4rem; 
+            line-height: 1.4; 
+            color: var(--brass); 
+            min-height: 120px;
+            font-style: italic;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-top: auto;           /* Pushes typewriter down below the image */
+            margin-bottom: 4rem;
+        }
+
+        /* Cinematic Button Logic */
+        .enter-btn {
+            padding: 1.2rem 4rem;
+            border: 1px solid rgba(176, 169, 144, 0.3);
+            border-radius: 9999px;
+            color: var(--khaki);
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .enter-btn:hover {
+            border-color: var(--brass);
+            color: var(--deep-black);
+            background-color: var(--brass);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Subtle film grain overlay for that cinematic texture */
+        .intro::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <section class="intro">
+        <!-- Small logo image completely removed as requested -->
+
+        <div id="typewriter" class="typewriter max-w-4xl px-6"></div>
+
+        <a href="main.html" class="enter-btn">
+            Enter the Station
+        </a>
+    </section>
+
+    <script>
+        const messages = [
+            "The old bus station whispers your name...",
+            "Where journeys once paused... magic now begins.",
+            "Come, the fire is waiting for you.",
+            "Let the Karoo light your path home."
+        ];
+        
+        let i = 0, txt = '', messageIndex = 0;
+
+        function typeWriter() {
+            const currentMessage = messages[messageIndex];
+            
+            if (i < currentMessage.length) {
+                txt += currentMessage.charAt(i);
+                document.getElementById("typewriter").innerHTML = txt;
+                i++;
+                setTimeout(typeWriter, 70);
+            } else {
+                setTimeout(() => {
+                    fadeOutEffect();
+                }, 3000);
+            }
+        }
+
+        function fadeOutEffect() {
+            const el = document.getElementById("typewriter");
+            el.style.transition = "opacity 1s ease";
+            el.style.opacity = "0";
+            
+            setTimeout(() => {
+                i = 0; 
+                txt = '';
+                messageIndex = (messageIndex + 1) % messages.length;
+                el.innerHTML = '';
+                el.style.opacity = "1";
+                typeWriter();
+            }, 1000);
+        }
+
+        window.onload = typeWriter;
+    </script>
 
 </body>
 </html>
