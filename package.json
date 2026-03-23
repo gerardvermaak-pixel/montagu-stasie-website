@@ -1,0 +1,14 @@
+{
+  "name": "montagu-stasie-website",
+  "version": "1.0.0",
+  "description": "Montagu Stasie website with Vercel Speed Insights",
+  "scripts": {
+    "build": "echo 'Static HTML site - no build needed'",
+    "lint": "echo 'No linter configured for static HTML'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  },
+  "devDependencies": {},
+  "private": true
+}
