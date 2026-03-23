@@ -89,28 +89,32 @@
 
         @media (max-width: 768px) {
             .typewriter {
-                font-size: 1.6rem;
-                min-height: 90px;
-                margin-bottom: 2.5rem;
+                font-size: 1.2rem;
+                min-height: 40px;
+                margin-bottom: 2rem;
                 letter-spacing: 0.5px;
+                line-height: 1.2;
             }
             
             .enter-btn {
-                padding: 1rem 2.5rem;
-                font-size: 0.75rem;
-                letter-spacing: 0.25em;
-                margin-bottom: 8vh;
+                padding: 1.2rem 3rem;
+                font-size: 0.8rem;
+                letter-spacing: 0.3em;
+                margin-bottom: 6vh;
+                background-color: rgba(196, 167, 125, 0.1);
+                border-color: var(--brass);
+                color: var(--brass);
             }
 
             .intro {
-                background-position: 60% center; 
+                background-position: center center; 
             }
         }
     
 /* Mobile soft border and safe viewport */
         @media (max-width: 768px) {
             html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
-            body { padding: 0 14px 20px; margin: 0; }
+            body { padding: 0; margin: 0; }
             nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
             #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
             .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
