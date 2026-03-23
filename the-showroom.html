@@ -88,7 +88,16 @@
         .panorama-card:hover img {
             transform: scale(1.1);
         }
-    </style>
+    
+/* Mobile soft border and safe viewport */
+        @media (max-width: 768px) {
+            html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
+            body { padding: 0 14px 20px; margin: 0; }
+            nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+            #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+            .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
+        }
+</style>
 </head>
 <body class="bg-[#1a1a1a] text-stone-200">
 
@@ -246,5 +255,23 @@
         });
     </script>
 
+
+<script>
+    (function(){
+        if (window._stasieResponsiveInit) return;
+        window._stasieResponsiveInit = true;
+
+        window.toggleMenu = window.toggleMenu || function() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            if (btn) btn.addEventListener('click', window.toggleMenu);
+        });
+    })();
+    </script>
 </body>
 </html>

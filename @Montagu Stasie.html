@@ -17,15 +17,15 @@
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: var(--deep-black);
-            overflow: hidden; /* Prevents scroll on the landing page */
+            overflow: hidden; 
             margin: 0;
             padding: 0;
         }
 
-        /* Cinematic Background: Gradient Blend to Black */
+        /* Cinematic Background with the new Hero Image */
         .intro { 
             height: 100vh; 
-            height: 100dvh; /* Fixes mobile browser UI cutoff */
+            height: 100dvh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -45,13 +45,12 @@
             font-style: italic;
             letter-spacing: 1px;
             opacity: 0.9;
-            margin-top: auto; /* Pushes text down below image center */
+            margin-top: auto; 
             margin-bottom: 4rem;
             z-index: 10;
             padding: 0 20px;
         }
 
-        /* Cinematic Button Logic */
         .enter-btn {
             padding: 1.2rem 4rem;
             border: 1px solid rgba(176, 169, 144, 0.3);
@@ -67,7 +66,7 @@
             background: transparent;
             z-index: 10;
             text-decoration: none;
-            margin-bottom: 10vh; /* Keeps it slightly off the bottom */
+            margin-bottom: 10vh;
         }
 
         .enter-btn:hover {
@@ -78,7 +77,6 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        /* Subtle film grain overlay */
         .intro::after {
             content: "";
             position: absolute;
@@ -89,7 +87,6 @@
             z-index: 1;
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 768px) {
             .typewriter {
                 font-size: 1.6rem;
@@ -106,11 +103,19 @@
             }
 
             .intro {
-                /* Adjust focus for mobile portrait screens so the focal point of the image isn't lost */
                 background-position: 60% center; 
             }
         }
-    </style>
+    
+/* Mobile soft border and safe viewport */
+        @media (max-width: 768px) {
+            html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
+            body { padding: 0 14px 20px; margin: 0; }
+            nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+            #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+            .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
+        }
+</style>
 </head>
 <body>
 
@@ -165,5 +170,23 @@
         window.onload = typeWriter;
     </script>
 
+
+<script>
+    (function(){
+        if (window._stasieResponsiveInit) return;
+        window._stasieResponsiveInit = true;
+
+        window.toggleMenu = window.toggleMenu || function() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            if (btn) btn.addEventListener('click', window.toggleMenu);
+        });
+    })();
+    </script>
 </body>
 </html>

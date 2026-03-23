@@ -12,46 +12,71 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; }
         
-        body { padding-top: 96px; }
-        @media (max-width: 768px) { body { padding-top: 84px; } }
-        @media (min-width: 768px) {
-            nav.fixed { height: 64px; }
-            nav.fixed img { height: 48px; }
-            body { padding-top: 64px; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; padding-top: 96px; overflow-x: hidden; }
+        
+        .serif { font-family: 'Playfair Display', serif; }
 
-        /* Calendar Tooltip Arrow */
-        .tooltip-arrow::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #e8e4d9 transparent transparent transparent;
-        }
-
-        /* Interactivity Enhancement */
+        /* Calendar Enhancements */
         .calendar-day {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(40, 40, 40, 0.4);
+            backdrop-filter: blur(5px);
         }
         .calendar-day:hover {
-            transform: translateY(-4px) scale(1.05);
-            background-color: #2a2a2a;
-            z-index: 20;
+            background: rgba(159, 18, 57, 0.2);
+            border-color: #9f1239;
+            transform: scale(1.02);
         }
-    </style>
+        .calendar-day.has-event { border-bottom: 2px solid #9f1239; cursor: pointer; }
+
+        /* Poster Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            cursor: zoom-out;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #lightbox img { max-height: 90vh; max-width: 95vw; object-fit: contain; border-radius: 4px; }
+
+        /* Live Show Banner */
+        .live-banner {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('WhatsApp Image 2026-03-17 at 12.48.51.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) { body { padding-top: 84px; } .live-banner { height: 250px; } }
+    
+/* Mobile soft border and safe viewport */
+        @media (max-width: 768px) {
+            html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
+            body { padding: 0 14px 20px; margin: 0; }
+            nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+            #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+            .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
+        }
+</style>
 </head>
 <body class="text-stone-200">
 
-    <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#1a1a1a]/90 backdrop-blur-md border-b border-stone-800">
+    <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-stone-800">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
             <div class="hidden md:flex gap-8 text-sm font-medium items-center">
                 <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
+                <a href="about.html" class="hover:text-[#9f1239] transition uppercase tracking-widest">ABOUT</a>
                 <div class="relative group">
                     <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
                         Stasie <span class="text-[10px]">▼</span>
@@ -78,6 +103,7 @@
         <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
             <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
                 <a href="main.html">HOME</a>
+                <a href="about.html">ABOUT</a>
                 <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
                 <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
                     <a href="konkelwyn.html">Konkelwyn</a>
@@ -93,300 +119,142 @@
         </div>
     </nav>
 
-    <section class="pt-16 pb-20">
+    <section class="pt-16">
         <div class="max-w-6xl mx-auto px-6">
+            <h1 class="serif text-5xl md:text-7xl font-bold tracking-tighter text-center mb-10">Event Calendar</h1>
             
-            <div class="mb-20">
-                <h1 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-10">Event Calendar</h1>
-                
-                <div class="bg-[#252525] p-6 md:p-10 rounded-3xl border border-stone-800 shadow-2xl">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-bold text-white">March 2026</h2>
-                        <div class="text-sm text-stone-400">Tap or hover dates for details</div>
+            <div class="bg-stone-900/50 p-6 md:p-10 rounded-[3rem] border border-stone-800 shadow-2xl mb-12">
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="serif text-3xl font-bold text-white">March 2026</h2>
+                    <div class="text-xs uppercase tracking-widest text-stone-500">Tap dates with dots for info</div>
+                </div>
+
+                <div class="grid grid-cols-7 gap-2 md:gap-4 text-center text-[10px] md:text-xs font-bold text-stone-600 mb-4 uppercase tracking-[3px]">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+
+                <div class="grid grid-cols-7 gap-2 md:gap-4 text-center">
+                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">1</div>
+                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">2</div>
+                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">3</div>
+                    
+                    <div onclick="showEvent('Run Club & Drumming Circle', 'Wednesday at 18:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center">
+                        <span>4</span><div class="flex gap-1 mt-1"><div class="w-1 h-1 rounded-full bg-[#9f1239]"></div><div class="w-1 h-1 rounded-full bg-orange-500"></div></div>
                     </div>
 
-                    <div class="grid grid-cols-7 gap-2 md:gap-4 text-center text-xs md:text-sm font-semibold text-stone-500 mb-2 uppercase tracking-widest">
-                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                    <div onclick="showEvent('Crypto Knights', 'Thursday at 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center">
+                        <span>5</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div>
                     </div>
 
-                    <div class="grid grid-cols-7 gap-2 md:gap-4 text-center">
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
-                            <span>1</span>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>CLOSED</strong>
-                            </div>
-                        </div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">2</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">3</div>
-                        
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>4</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>5</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Crypto Knights</strong><br>19:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>6</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Games Night &<br>Pizza Friday</strong><br>17:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>7</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                            </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
-                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
-                            <span>8</span>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>CLOSED</strong>
-                            </div>
-                        </div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">9</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">10</div>
-                        
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>11</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>12</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Crypto Knights</strong><br>19:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>13</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Games Night &<br>Pizza Friday</strong><br>17:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>14</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                            </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
-                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
-                            <span>15</span>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>CLOSED</strong>
-                            </div>
-                        </div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">16</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">17</div>
-                        
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>18</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>19</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Crypto Knights</strong><br>19:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>20</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Games Night &<br>Pizza Friday</strong><br>17:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>21</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                            </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
-                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
-                            </div>
-                        </div>
-                        
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
-                            <span>22</span>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>CLOSED</strong>
-                            </div>
-                        </div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">23</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">24</div>
-                        
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>25</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Run Club</strong> (18:00)<br><strong>Drumming Circle</strong> (18:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>26</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>Crypto Knights</strong><br>19:00
-                            </div>
-                        </div>
-                        
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>27</span>
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239] mt-1"></div>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-40 z-10 tooltip-arrow">
-                                <strong>Last Friday Market</strong><br>16:00
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 hover:border-[#9f1239] cursor-pointer flex flex-col items-center">
-                            <span>28</span>
-                            <div class="flex gap-1 mt-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-stone-400"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-orange-600"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#9f1239]"></div>
-                            </div>
-                            <div class="absolute bottom-full right-0 mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-48 z-10 tooltip-arrow">
-                                <strong>Vinyasa Yoga</strong> (09:00)<br><strong>Braai Day</strong> (Day)<br><strong>Live Music</strong> (19:00)
-                            </div>
-                        </div>
-
-                        <div class="relative group calendar-day py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-60">
-                            <span>29</span>
-                            <div class="absolute bottom-full mb-3 hidden group-hover:block bg-[#e8e4d9] text-[#1a1a1a] text-xs p-3 rounded-lg shadow-xl w-32 z-10 tooltip-arrow">
-                                <strong>CLOSED</strong>
-                            </div>
-                        </div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">30</div>
-                        <div class="py-4 rounded-xl bg-[#1a1a1a] border border-stone-800 opacity-50">31</div>
-                        <div class="py-4 opacity-0"></div>
-                        <div class="py-4 opacity-0"></div>
-                        <div class="py-4 opacity-0"></div>
-                        <div class="py-4 opacity-0"></div>
+                    <div onclick="showEvent('Games Night & Pizza Friday', 'Friday from 17:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center">
+                        <span>6</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div>
                     </div>
+
+                    <div onclick="showEvent('Braai Day & Live Music', 'Saturday - Braai all day, Music at 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center">
+                        <span>7</span><div class="flex gap-1 mt-1"><div class="w-1 h-1 rounded-full bg-stone-400"></div><div class="w-1 h-1 rounded-full bg-[#9f1239]"></div></div>
+                    </div>
+
+                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">8</div>
+                    <div class="py-6 rounded-2xl opacity-40">...</div> </div>
+
+                <div id="event-display" class="mt-8 p-6 bg-black/40 rounded-2xl border border-stone-800 text-center hidden">
+                    <h3 id="event-title" class="serif text-xl text-white mb-1"></h3>
+                    <p id="event-detail" class="text-sm text-stone-500"></p>
                 </div>
             </div>
 
-            <h2 class="text-4xl md:text-5xl font-bold tracking-tighter text-center mb-16">Featured Experiences</h2>
+            <div class="live-banner text-center">
+                <div class="p-8">
+                    <span class="text-xs tracking-[5px] uppercase text-white/70 mb-4 block">Every Saturday Night</span>
+                    <h2 class="serif text-4xl md:text-6xl text-white mb-6">Live Shows at Stasie</h2>
+                    <a href="https://wa.me/27662665145?text=I'd like to inquire about upcoming live shows" class="bg-white text-black px-10 py-4 rounded-full text-xs font-bold tracking-widest hover:bg-[#9f1239] hover:text-white transition">VIEW SCHEDULE</a>
+                </div>
+            </div>
+
+            <h2 class="serif text-4xl md:text-6xl font-bold tracking-tighter text-center mb-16">Featured Posters</h2>
             
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-12 mb-24">
                 
-                <div class="bg-[#252525] overflow-hidden rounded-3xl border border-stone-800 transition hover:border-stone-600">
-                    <picture>
-                        <source srcset="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" media="(min-width: 768px)">
-                        <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" alt="Pizza Night Poster" class="w-full aspect-video object-cover">
-                    </picture>
+                <div class="group relative bg-[#1a1a1a] rounded-[2rem] overflow-hidden border border-stone-800">
+                    <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" 
+                         onclick="openLightbox(this.src)" 
+                         alt="Pizza Night" 
+                         class="w-full h-[500px] object-cover cursor-pointer group-hover:scale-105 transition duration-700">
                     <div class="p-10">
-                        <h3 class="text-2xl font-bold mb-3">Games Night & Pizza Friday</h3>
-                        <p class="text-sm text-stone-400 mb-6">Join us every Friday for a relaxed evening of board games, incredible wood-fired pizza, and great company.</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to book for Games Night & Pizza Friday" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                        <h3 class="serif text-3xl font-bold mb-4">Games Night & Pizza Friday</h3>
+                        <p class="text-stone-400 mb-8 leading-relaxed">The ultimate social evening. Wood-fired sourdough pizza paired with local Konkelwyn spirits and board games.</p>
+                        <a href="https://wa.me/27662665145" class="inline-block border border-stone-700 px-8 py-3 rounded-full text-xs font-bold tracking-widest hover:bg-white hover:text-black transition">BOOK TABLE</a>
                     </div>
                 </div>
 
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Saturday Braai Day & Live Music</h3>
-                    <p class="text-sm text-stone-400 mb-6">The ultimate weekend vibe. Enjoy traditional braai hospitality during the day followed by live local talent under the stars at 19:00.</p>
-                    <a href="https://wa.me/27662665145?text=I'd like to book for Saturday Braai and Music" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book a Table</a>
-                </div>
-
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Wednesday Run Club</h3>
-                    <p class="text-sm text-stone-400 mb-6">Hit the road with the Stasie community at 18:00 every Wednesday. All fitness levels are welcome for a social run followed by drinks at the bar.</p>
-                    <a href="https://wa.me/27662665145?text=I'd like to join the Run Club" class="inline-block bg-stone-100 text-black px-8 py-3 rounded-full text-sm font-semibold">Join the Club</a>
-                </div>
-
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Drumming Circle</h3>
-                    <p class="text-sm text-stone-400 mb-6">Connect with the rhythm of the Karoo. All skill levels welcome to join our rhythmic Wednesday sessions at 18:00.</p>
-                    <a href="https://wa.me/27662665145?text=I'd like to book the Drumming Circle" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
-                </div>
-
-                <div class="bg-[#252525] p-10 rounded-3xl border border-stone-800">
-                    <h3 class="text-2xl font-bold mb-3">Crypto Knights</h3>
-                    <p class="text-sm text-stone-400 mb-6">A weekly meetup to discuss Bitcoin Lightning, decentralized finance, and the future of digital currency.</p>
-                    <a href="https://wa.me/27662665145?text=I'd like to book Crypto Knights" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
-                </div>
-
-                <div class="bg-[#252525] overflow-hidden rounded-3xl border border-stone-800 transition hover:border-stone-600">
-                    <picture>
-                        <source srcset="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" media="(min-width: 768px)">
-                        <img src="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" alt="Live Music Poster" class="w-full aspect-video object-cover">
-                    </picture>
+                <div class="group relative bg-[#1a1a1a] rounded-[2rem] overflow-hidden border border-stone-800">
+                    <img src="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" 
+                         onclick="openLightbox(this.src)" 
+                         alt="Live Music" 
+                         class="w-full h-[500px] object-cover cursor-pointer group-hover:scale-105 transition duration-700">
                     <div class="p-10">
-                        <h3 class="text-2xl font-bold mb-3">Live Music Nights</h3>
-                        <p class="text-sm text-stone-400 mb-6">Experience the best local talent under the stars. Perfect pairings of acoustic sets and Konkelwyn wine.</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to book a Live Music Night" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold">Book via WhatsApp</a>
+                        <h3 class="serif text-3xl font-bold mb-4">Saturday Live Music</h3>
+                        <p class="text-stone-400 mb-8 leading-relaxed">Experience South Africa's best acoustic talent in a setting like no other. Music starts at 19:00.</p>
+                        <a href="https://wa.me/27662665145" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-xs font-bold tracking-widest hover:opacity-80 transition">RESERVE SEAT</a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Full View">
+        <div class="absolute top-10 right-10 text-white text-3xl">&times;</div>
+    </div>
+
     <script>
         function toggleMenu() {
-            const menu = document.getElementById("mobile-menu");
-            menu.classList.toggle("hidden");
+            document.getElementById("mobile-menu").classList.toggle("hidden");
         }
 
+        // Lightbox Logic
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = src;
+            lb.style.display = 'flex';
+        }
+
+        // Calendar Detail Logic
+        function showEvent(title, detail) {
+            const display = document.getElementById('event-display');
+            document.getElementById('event-title').innerText = title;
+            document.getElementById('event-detail').innerText = detail;
+            display.classList.remove('hidden');
+            display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Keep nav padding consistent
         (function(){
-            const nav = document.querySelector('nav.fixed');
-            if(!nav) return;
-            const setPadding = () => { document.body.style.paddingTop = Math.ceil(nav.getBoundingClientRect().height) + 'px'; };
+            const nav = document.getElementById('main-nav');
+            const setPadding = () => { document.body.style.paddingTop = nav.offsetHeight + 'px'; };
             window.addEventListener('resize', setPadding);
             window.addEventListener('load', setPadding);
-            setPadding();
         })();
+    </script>
+
+<script>
+    (function(){
+        if (window._stasieResponsiveInit) return;
+        window._stasieResponsiveInit = true;
+
+        window.toggleMenu = window.toggleMenu || function() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            if (btn) btn.addEventListener('click', window.toggleMenu);
+        });
+    })();
     </script>
 </body>
 </html>
