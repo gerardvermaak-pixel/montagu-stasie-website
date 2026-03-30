@@ -3,293 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="station-logo-192.png">
-    <link rel="manifest" href="manifest.json">
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>Events • Montagu Stasie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@200;400;600&display=swap');
+        
+        :root {
+            --deep-black: #050505;
+            --brass: #c4a77d;
+            --khaki: #b0a990;
+            --stasie-red: #9f1239;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--deep-black); 
+            color: var(--khaki);
+            padding-top: 80px; 
+            overflow-x: hidden; 
+        }
+        
+        .serif { font-family: 'Playfair Display', serif; }
+
+        /* --- NAVIGATION (Consistency with Home) --- */
         nav.fixed-header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(5, 5, 5, 0.95) !important;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(176, 169, 144, 0.15);
-            padding: 1rem 6%;
+            border-bottom: 1px solid rgba(196, 167, 125, 0.1);
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.3s ease;
         }
-        nav.fixed-header img { height: 50px; }
-        .whatsapp-center {
+        .nav-links a { 
+            color: var(--khaki); 
+            font-size: 0.7rem; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover { color: var(--brass); }
+
+        /* --- LIVE PERFORMANCE STACK --- */
+        .stack-container {
+            position: relative;
+            height: 450px;
+            width: 320px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        .stack-card {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            border-radius: 999px;
-            background: #9f1239;
-            color:white;
-            text-decoration:none;
-        }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { color: var(--khaki, #b0a990); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.current { color: var(--text-color, #f8f8f8); }
-        .nav-links.active { right: 0; }
-        .mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
-        .mobile-toggle span { width: 25px; height: 2px; background: var(--khaki, #b0a990); transition: 0.3s; }
-
-        @media (max-width: 768px) {
-            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(5,5,5,0.98); flex-direction: column; justify-content: center; padding-left: 2rem; border-left: 1px solid rgba(176,169,144,0.1); transition: 0.4s; }
-            .nav-links.active { right: 0; }
-            .mobile-toggle { display: flex; }
-            .nav-links a { font-size: 1rem; padding: 1rem 0; }
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
-        
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; padding-top: 96px; overflow-x: hidden; }
-        
-        .serif { font-family: 'Playfair Display', serif; }
-
-        /* === FULL MONTH CALENDAR (already full March 2026) === */
-        .calendar-day {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            background: rgba(40, 40, 40, 0.4);
-            backdrop-filter: blur(5px);
-        }
-        .calendar-day:hover {
-            background: rgba(159, 18, 57, 0.2);
-            border-color: #9f1239;
-            transform: scale(1.02);
-        }
-        .calendar-day.has-event { border-bottom: 2px solid #9f1239; cursor: pointer; }
-
-        /* === LIVE PERFORMANCES - STACK OF CARDS WITH HOVER ENLARGE === */
-        .live-card {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .live-card:hover {
-            transform: scale(1.06);
-            box-shadow: 0 20px 40px rgba(159, 18, 57, 0.3);
-        }
-        .live-card img {
             width: 100%;
-            height: 320px;
-            object-fit: cover;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(196, 167, 125, 0.2);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
+        .stack-card img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Stack Layout */
+        .card-1 { transform: rotate(-5deg) translateX(-20px); z-index: 3; }
+        .card-2 { transform: rotate(0deg); z-index: 2; }
+        .card-3 { transform: rotate(5deg) translateX(20px); z-index: 1; }
 
-        /* Poster Lightbox */
+        .stack-container:hover .card-1 { transform: rotate(-15deg) translateX(-180px) scale(1.05); }
+        .stack-container:hover .card-2 { transform: translateY(-20px) scale(1.1); z-index: 10; }
+        .stack-container:hover .card-3 { transform: rotate(15deg) translateX(180px) scale(1.05); }
+
+        /* --- POSTER BOXES --- */
+        .poster-box {
+            background: #0f0f0f;
+            border: 1px solid rgba(176, 169, 144, 0.1);
+            padding: 15px;
+            border-radius: 4px;
+            transition: 0.4s;
+        }
+        .poster-box:hover { border-color: var(--brass); transform: translateY(-5px); }
+        .poster-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 2px;
+            margin-bottom: 15px;
+        }
+        .enquire-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid var(--brass);
+            color: var(--brass);
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .enquire-btn:hover { background: var(--brass); color: black; }
+
+        /* --- LIGHTBOX --- */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 1000;
-            cursor: zoom-out;
+            background: rgba(0,0,0,0.98);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 2rem;
         }
-        #lightbox img { max-height: 90vh; max-width: 95vw; object-fit: contain; border-radius: 4px; }
+        #lightbox img { max-height: 90vh; border: 1px solid var(--brass); }
 
-        /* Live Show Banner */
-        .live-banner {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('WhatsApp Image 2026-03-17 at 12.48.51.jpeg');
-            background-size: cover;
-            background-position: center;
-            height: 350px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 2rem;
-            margin-bottom: 4rem;
+        /* --- CALENDAR MINI STYLE --- */
+        .calendar-day.has-event { border-bottom: 2px solid var(--brass); cursor: pointer; }
+        
+        @media (max-width: 768px) {
+            .stack-container:hover .card-1 { transform: translateY(-50px) scale(0.9); }
+            .stack-container:hover .card-3 { transform: translateY(50px) scale(0.9); }
+            .stack-container { width: 260px; }
         }
-
-        @media (max-width: 768px) { body { padding-top: 84px; } .live-banner { height: 100vh; } }
     </style>
 </head>
-<body class="text-stone-200">
+<body>
 
     <nav class="fixed-header">
-        <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie"></a>
-        <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
-        <div class="nav-links" id="nav-links">
-            <a href="main.html">HOME</a>
-            <a href="konkelwyn.html">KONKELWYN</a>
-            <a href="menu.html">MENUS</a>
-            <a href="events.html">EVENTS</a>
-            <a href="crypto.html">CRYPTO</a>
+        <a href="main.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-10"></a>
+        <div class="nav-links hidden md:flex gap-8">
+            <a href="main.html">Home</a>
+            <a href="konkelwyn.html">Konkelwyn</a>
+            <a href="menu.html">Menus</a>
+            <a href="events.html" class="text-white border-b border-brass">Events</a>
+            <a href="shop-template.html">Shop</a>
         </div>
-        <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        <a href="https://wa.me/27662665145" class="bg-brass text-black p-2 rounded-full px-4 text-xs font-bold">BOOK</a>
     </nav>
 
-    <section class="pt-16">
-        <div class="max-w-6xl mx-auto px-6">
-            <h1 class="serif text-5xl md:text-7xl font-bold tracking-tighter text-center mb-10">Event Calendar</h1>
-            
-            <div class="bg-stone-900/50 p-6 md:p-10 rounded-[3rem] border border-stone-800 shadow-2xl mb-12">
-                <div class="flex justify-between items-center mb-10">
-                    <h2 class="serif text-3xl font-bold text-white">March 2026</h2>
-                    <div class="text-xs uppercase tracking-widest text-stone-500">Tap dates with dots for info</div>
-                </div>
-
-                <div class="grid grid-cols-7 gap-2 md:gap-4 text-center text-[10px] md:text-xs font-bold text-stone-600 mb-4 uppercase tracking-[3px]">
-                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                </div>
-
-                <!-- FULL MONTH CALENDAR (March 2026) -->
-                <div class="grid grid-cols-7 gap-2 md:gap-4 text-center">
-                    <!-- Week 1 -->
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">1</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">2</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">3</div>
-                    <div onclick="showEvent('Drumming Circle', 'Wednesday at 18:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>4</span><div class="flex gap-1 mt-1"><div class="w-1 h-1 rounded-full bg-[#9f1239]"></div></div></div>
-                    <div onclick="showEvent('Crypto Knights', 'Thursday at 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>5</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Games Night & Pizza Friday', 'Friday from 17:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>6</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Yoga & Live Music Saturday', 'Yoga at 14:00 | Braai & Music from 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>7</span><div class="flex gap-1 mt-1"><div class="w-1 h-1 rounded-full bg-teal-500"></div><div class="w-1 h-1 rounded-full bg-[#9f1239]"></div></div></div>
-
-                    <!-- Week 2 -->
-                    <div onclick="showEvent('Cacao & Ecstatic Dance', 'Sunday 09:00 - 13:00 | Free Entry')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>8</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">9</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">10</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">11</div>
-                    <div onclick="showEvent('Drumming Circle', 'Wednesday at 18:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>12</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Crypto Knights', 'Thursday at 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>13</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Games Night & Pizza Friday', 'Friday from 17:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>14</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-
-                    <!-- Week 3 -->
-                    <div onclick="showEvent('Chill Vipassana Yoga', 'Saturday at 14:00 with Hallie')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>15</span><div class="w-1 h-1 rounded-full bg-teal-500 mt-1"></div></div>
-                    <div onclick="showEvent('Breathwork', 'Sunday at 10:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>16</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">17</div>
-                    <div onclick="showEvent('Drumming Circle', 'Wednesday at 18:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>18</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Crypto Knights', 'Thursday at 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>19</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Games Night & Pizza Friday', 'Friday from 17:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>20</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Yoga & Live Music Saturday', 'Yoga at 14:00 | Braai & Music from 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>21</span><div class="flex gap-1 mt-1"><div class="w-1 h-1 rounded-full bg-teal-500"></div><div class="w-1 h-1 rounded-full bg-[#9f1239]"></div></div></div>
-
-                    <!-- Week 4 -->
-                    <div onclick="showEvent('Breathwork', 'Sunday at 10:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>22</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">23</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">24</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">25</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">26</div>
-                    <div onclick="showEvent('Last Friday Market', 'Friday at 16:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>27</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-                    <div onclick="showEvent('Live Music', 'Saturday at 19:00')" class="calendar-day has-event py-6 rounded-2xl border border-stone-800 flex flex-col items-center"><span>28</span><div class="w-1 h-1 rounded-full bg-[#9f1239] mt-1"></div></div>
-
-                    <!-- Week 5 -->
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">29</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">30</div>
-                    <div class="py-6 rounded-2xl bg-[#1a1a1a] border border-stone-800 opacity-40">31</div>
-                    <div class="py-6 opacity-0"></div>
-                    <div class="py-6 opacity-0"></div>
-                    <div class="py-6 opacity-0"></div>
-                    <div class="py-6 opacity-0"></div>
-                </div>
-
-                <div id="event-display" class="mt-8 p-6 bg-black/40 rounded-2xl border border-stone-800 text-center hidden">
-                    <h3 id="event-title" class="serif text-xl text-white mb-1"></h3>
-                    <p id="event-detail" class="text-sm text-stone-500"></p>
-                </div>
+    <section class="py-12 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="uppercase tracking-[5px] text-[10px] text-brass">Upcoming Performances</span>
+                <h1 class="serif text-5xl md:text-7xl text-white mt-4">The Live Series</h1>
             </div>
 
-            <!-- LIVE BANNER -->
-            <div class="live-banner text-center">
-                <div class="p-8">
-                    <span class="text-xs tracking-[5px] uppercase text-white/70 mb-4 block">Every Saturday Night</span>
-                    <h2 class="serif text-4xl md:text-6xl text-white mb-6">Live Shows at Stasie</h2>
-                    <a onclick="openLightbox('WhatsApp Image 2026-03-17 at 12.48.51.jpeg')" class="bg-white text-black px-10 py-4 rounded-full text-xs font-bold tracking-widest hover:bg-[#9f1239] hover:text-white transition cursor-pointer">VIEW SCHEDULE</a>
+            <div class="stack-container mb-32">
+                <div class="stack-card card-1" onclick="openLightbox('WhatsApp Image 2026-03-17 at 12.48.51.jpeg')">
+                    <img src="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" alt="Horizon">
                 </div>
-            </div>
-
-            <!-- LIVE PERFORMANCES - STACK OF CARDS (hover enlarges) -->
-            <h2 class="serif text-4xl md:text-6xl font-bold tracking-tighter text-center mb-8">Live Performances</h2>
-            <div class="flex flex-col md:flex-row gap-8 mb-16">
-                <!-- Hanepoot Brass Band Card -->
-                <div class="live-card flex-1 cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-03-30 at 09.53.03.jpeg')">
+                <div class="stack-card card-2" onclick="openLightbox('WhatsApp Image 2026-03-30 at 09.53.03.jpeg')">
                     <img src="WhatsApp Image 2026-03-30 at 09.53.03.jpeg" alt="Hanepoot Brass Band">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Hanepoot Brass Band</h3>
-                        <p class="text-stone-400">Acoustic & original SA jazz grooves live on stage</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to enquire about Hanepoot Brass Band" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire Now</a>
-                    </div>
                 </div>
-
-                <!-- Live Music Nights Card -->
-                <div class="live-card flex-1 cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-03-17 at 12.48.51.jpeg')">
-                    <img src="WhatsApp Image 2026-03-17 at 12.48.51.jpeg" alt="Live Music">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Saturday Live Music</h3>
-                        <p class="text-stone-400">Acoustic talent under the stars with Konkelwyn wine</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to enquire about Live Music Nights" class="mt-6 inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire Now</a>
-                    </div>
+                <div class="stack-card card-3" onclick="openLightbox('yoga hallie saturday.jpeg')">
+                    <img src="yoga hallie saturday.jpeg" alt="Vipassana Yoga">
                 </div>
             </div>
 
-            <!-- POSTERS BELOW - INDIVIDUAL BOXES WITH ENQUIRE BUTTON -->
-            <h2 class="serif text-4xl md:text-6xl font-bold tracking-tighter text-center mb-8">Event Posters</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-                <!-- Yoga -->
-                <div class="group relative bg-[#1a1a1a] rounded-3xl overflow-hidden border border-stone-800 cursor-pointer" onclick="openLightbox('yoga hallie saturday.jpeg')">
-                    <img src="yoga hallie saturday.jpeg" alt="Chill Vipassana Yoga" class="w-full h-[420px] object-cover group-hover:scale-105 transition">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Chill Vipassana Yoga</h3>
-                        <p class="text-stone-400 mb-8">Hosted by Hallie – every Saturday at 14:00</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to book Chill Vipassana Yoga" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire / Book</a>
-                    </div>
+            <h2 class="serif text-3xl text-white mb-10 border-b border-white/10 pb-4">Upcoming Journeys</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+                
+                <div class="poster-box">
+                    <img src="CVKu6.jpg" class="poster-img" onclick="openLightbox(this.src)">
+                    <h3 class="text-white text-sm tracking-widest uppercase mb-2">Easter Egg Hunt</h3>
+                    <p class="text-[10px] mb-4">April 4, 2026 • 15:30</p>
+                    <a href="https://wa.me/27662665145?text=Enquiry%20Easter%20Egg%20Hunt" class="enquire-btn">Enquire Now</a>
                 </div>
 
-                <!-- Easter Egg Hunt -->
-                <div class="group relative bg-[#1a1a1a] rounded-3xl overflow-hidden border border-stone-800 cursor-pointer" onclick="openLightbox('Fbjh6.jpg')">
-                    <img src="Fbjh6.jpg" alt="Easter Egg Hunt" class="w-full h-[420px] object-cover group-hover:scale-105 transition">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Easter Egg Hunt</h3>
-                        <p class="text-stone-400 mb-8">25 April 2026 – prizes worth R5,000</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to enquire about Easter Egg Hunt" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire / Book</a>
-                    </div>
+                <div class="poster-box">
+                    <img src="URQhs.jpg" class="poster-img" onclick="openLightbox(this.src)">
+                    <h3 class="text-white text-sm tracking-widest uppercase mb-2">Crypto Night</h3>
+                    <p class="text-[10px] mb-4">Every Thursday • 18:00</p>
+                    <a href="https://wa.me/27662665145?text=Enquiry%20Crypto%20Night" class="enquire-btn">Enquire Now</a>
                 </div>
 
-                <!-- Box Cart Race -->
-                <div class="group relative bg-[#1a1a1a] rounded-3xl overflow-hidden border border-stone-800 cursor-pointer" onclick="openLightbox('box cart race 5sept.jpeg')">
-                    <img src="box cart race 5sept.jpeg" alt="Box Cart Race" class="w-full h-[420px] object-cover group-hover:scale-105 transition">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Ultimate Box Cart Race</h3>
-                        <p class="text-stone-400 mb-8">5 September – downhill excitement on Kohler Street</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to enquire about Box Cart Race" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire / Book</a>
-                    </div>
+                <div class="poster-box">
+                    <img src="Fbjh6.jpg" class="poster-img" onclick="openLightbox(this.src)">
+                    <h3 class="text-white text-sm tracking-widest uppercase mb-2">Epic Cacao & Dance</h3>
+                    <p class="text-[10px] mb-4">Sunday Morning • 09:00</p>
+                    <a href="https://wa.me/27662665145?text=Enquiry%20Cacao%20Ceremony" class="enquire-btn">Enquire Now</a>
                 </div>
 
-                <!-- Crypto Night -->
-                <div class="group relative bg-[#1a1a1a] rounded-3xl overflow-hidden border border-stone-800 cursor-pointer" onclick="openLightbox('URQhs.jpg')">
-                    <img src="URQhs.jpg" alt="Crypto Night" class="w-full h-[420px] object-cover group-hover:scale-105 transition">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Crypto Night</h3>
-                        <p class="text-stone-400 mb-8">Weekly info session on Bitcoin Lightning</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to enquire about Crypto Night" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire / Book</a>
-                    </div>
+                <div class="poster-box">
+                    <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" class="poster-img" onclick="openLightbox(this.src)">
+                    <h3 class="text-white text-sm tracking-widest uppercase mb-2">Pizza & Game Night</h3>
+                    <p class="text-[10px] mb-4">Every Friday • 18:00</p>
+                    <a href="https://wa.me/27662665145?text=Enquiry%20Pizza%20Night" class="enquire-btn">Enquire Now</a>
                 </div>
 
-                <!-- Cacao & Dance -->
-                <div class="group relative bg-[#1a1a1a] rounded-3xl overflow-hidden border border-stone-800 cursor-pointer" onclick="openLightbox('cacao-dance.jpg')">
-                    <img src="cacao-dance.jpg" alt="Cacao & Ecstatic Dance" class="w-full h-[420px] object-cover group-hover:scale-105 transition">
-                    <div class="p-8">
-                        <h3 class="serif text-3xl font-bold mb-3">Cacao & Ecstatic Dance</h3>
-                        <p class="text-stone-400 mb-8">Sunday mornings – heart-opening ceremony & free dance</p>
-                        <a href="https://wa.me/27662665145?text=I'd like to enquire about Cacao & Ecstatic Dance" class="inline-block bg-[#9f1239] px-8 py-3 rounded-full text-sm font-semibold w-full text-center">Enquire / Book</a>
+            </div>
+
+            <div class="opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+                <h2 class="serif text-2xl text-white mb-8">Past Memories</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="poster-box">
+                        <img src="box cart race 5sept.jpeg" class="poster-img" onclick="openLightbox(this.src)">
+                        <p class="text-[9px] uppercase tracking-widest">Sept 5 • Box Cart Race</p>
                     </div>
                 </div>
             </div>
@@ -297,29 +212,16 @@
     </section>
 
     <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="" alt="Full View">
-        <div class="absolute top-10 right-10 text-white text-3xl">&times;</div>
+        <img id="lightbox-img" src="">
+        <div class="absolute top-10 right-10 text-brass text-4xl cursor-pointer">&times;</div>
     </div>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById("nav-links");
-            menu.classList.toggle("active");
-        }
-
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
-            const lbImg = document.getElementById('lightbox-img');
-            lbImg.src = src;
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
             lb.style.display = 'flex';
-        }
-
-        function showEvent(title, detail) {
-            const display = document.getElementById('event-display');
-            document.getElementById('event-title').innerText = title;
-            document.getElementById('event-detail').innerText = detail;
-            display.classList.remove('hidden');
-            display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 </body>
