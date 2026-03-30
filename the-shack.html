@@ -10,6 +10,52 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>The Shack • Montagu Stasie</title>
     <style>
+        nav.fixed-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95) !important;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(176, 169, 144, 0.15);
+            padding: 1rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s ease;
+        }
+        nav.fixed-header img { height: 50px; }
+        .whatsapp-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border-radius: 999px;
+            background: #9f1239;
+            color:white;
+            text-decoration:none;
+        }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: var(--khaki, #b0a990); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.current { color: var(--text-color, #f8f8f8); }
+        .nav-links.active { right: 0; }
+        .mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .mobile-toggle span { width: 25px; height: 2px; background: var(--khaki, #b0a990); transition: 0.3s; }
+
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(5,5,5,0.98); flex-direction: column; justify-content: center; padding-left: 2rem; border-left: 1px solid rgba(176,169,144,0.1); transition: 0.4s; }
+            .nav-links.active { right: 0; }
+            .mobile-toggle { display: flex; }
+            .nav-links a { font-size: 1rem; padding: 1rem 0; }
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
         
@@ -95,53 +141,18 @@
 <body class="bg-[#1a1a1a] text-stone-200">
 
     <!-- NAVBAR -->
-    <nav id="main-nav" class="fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
-            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
-                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
-                
-                <div class="relative group">
-                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
-                        Stasie <span class="text-[10px]">▼</span>
-                    </button>
-                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
-                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
-                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
-                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
-                        <a href="Wing-It.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
-                        <a href="Nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
-                    </div>
-                </div>
-
-                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
-                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
-                <a href="crypto.html" class="hover:text-[#9f1239] transition">CRYPTO</a>
-            </div>
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
-            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
-                <a href="main.html">HOME</a>
-                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
-                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
-                    <a href="konkelwyn.html">Konkelwyn</a>
-                    <a href="the-shack.html">The Shack</a>
-                    <a href="the-showroom.html">The Showroom</a>
-                    <a href="Wing-It.html">Wing It</a>
-                    <a href="Nursery.html">Nursery</a>
-                </div>
-                <a href="menu.html">MENUS</a>
-                <a href="events.html">EVENTS</a>
-                <a href="crypto.html">CRYPTO</a>
-            </div>
-        </div>
-    </nav>
+    <nav class="fixed-header">
+    <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie"></a>
+    <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
+    <div class="nav-links" id="nav-links">
+        <a href="main.html">HOME</a>
+        <a href="konkelwyn.html">KONKELWYN</a>
+        <a href="menu.html">MENUS</a>
+        <a href="events.html">EVENTS</a>
+        <a href="crypto.html">CRYPTO</a>
+    </div>
+    <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
 
     <!-- === NEW HERO SECTION WITH YOUR IMAGE === -->
     <section class="hero" style="height: 100vh; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85)), url('_X1A3238-2.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; position: relative;">

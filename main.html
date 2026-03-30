@@ -11,6 +11,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Montagu Stasie | Cinematic</title>
     <style>
+        nav.fixed-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95) !important;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(176, 169, 144, 0.15);
+            padding: 1rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s ease;
+        }
+        nav.fixed-header img { height: 50px; }
+        .whatsapp-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border-radius: 999px;
+            background: #9f1239;
+            color:white;
+            text-decoration:none;
+        }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: var(--khaki, #b0a990); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.current { color: var(--text-color, #f8f8f8); }
+        .nav-links.active { right: 0; }
+        .mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .mobile-toggle span { width: 25px; height: 2px; background: var(--khaki, #b0a990); transition: 0.3s; }
+
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(5,5,5,0.98); flex-direction: column; justify-content: center; padding-left: 2rem; border-left: 1px solid rgba(176,169,144,0.1); transition: 0.4s; }
+            .nav-links.active { right: 0; }
+            .mobile-toggle { display: flex; }
+            .nav-links a { font-size: 1rem; padding: 1rem 0; }
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap');
         
         :root {
@@ -36,49 +82,6 @@
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(176, 169, 144, 0.15);
             padding: 1rem 0 !important;
-        }
-
-        /* === DROPDOWN STYLES === */
-        .stasie-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #0a0a0a;
-            border: 1px solid rgba(176, 169, 144, 0.15);
-            min-width: 200px;
-            z-index: 100;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            margin-top: 0;
-            padding-top: 10px;
-        }
-        
-        .group:hover .stasie-dropdown {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .stasie-dropdown:before {
-            content: "";
-            position: absolute;
-            top: -20px;
-            left: 0;
-            width: 100%;
-            height: 20px;
-        }
-
-        .stasie-dropdown a {
-            display: block;
-            padding: 12px 20px;
-            color: var(--khaki);
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-        .stasie-dropdown a:hover {
-            background: #111;
-            color: white;
-            padding-left: 25px;
         }
 
         /* Cinematic Split Panes */
@@ -159,225 +162,183 @@
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 1024px) {
-            .pane h2 { font-size: 2rem; }
-        }
-
-        /* Mobile adjustments */
         @media (max-width: 768px) {
             .desktop-layout { display: none !important; }
             .mobile-layout { display: block !important; }
             .content-split { flex-direction: row; height: auto; }
             .pane { height: 50vh; padding: 30px 20px; flex: 1; }
-            .pane h2 { font-size: 1.8rem; }
-            nav#main-nav { padding: 0.5rem 0.75rem !important; height: auto; }
-            nav#main-nav .flex { flex-wrap: wrap; gap: 4px !important; }
-            nav#main-nav a { font-size: 0.65rem !important; }
-            .stasie-dropdown { min-width: 150px; }
+            nav#main-nav { padding: 0.5rem 0.75rem !important; }
         }
         @media (min-width: 769px) {
             .mobile-layout { display: none !important; }
         }
     
-/* Mobile soft border and safe viewport */
+        /* Mobile soft border and safe viewport */
         @media (max-width: 768px) {
             html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
             body { padding: 0 14px 20px; margin: 0; }
-            nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
-            #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
-            .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
+            nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; }
         }
-</style>
+    </style>
 </head>
 <body>
-    <!-- CONSISTENT HEADER — EXACTLY THE SAME AS YOUR SHACK / SHOWROOM / EVENTS PAGES (only this part updated) -->
-    <nav id="main-nav" class="fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie" class="h-12"></a>
-            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
-                <a href="main.html" class="hover:text-[#9f1239] transition">HOME</a>
-                
-                <div class="relative group">
-                    <button class="hover:text-[#9f1239] flex items-center gap-1 uppercase tracking-widest">
-                        Stasie <span class="text-[10px]">▼</span>
-                    </button>
-                    <div class="absolute hidden group-hover:block bg-[#0a0a0a] border border-stone-800 py-3 w-52 shadow-2xl mt-0 left-0">
-                        <a href="konkelwyn.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Konkelwyn</a>
-                        <a href="the-shack.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Shack</a>
-                        <a href="the-showroom.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">The Showroom</a>
-                        <a href="Wing-It.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Wing It</a>
-                        <a href="Nursery.html" class="block px-5 py-2.5 hover:bg-[#1a1a1a] hover:text-white text-stone-400">Nursery</a>
-                    </div>
-                </div>
 
-                <a href="menu.html" class="hover:text-[#9f1239] transition">MENUS</a>
-                <a href="events.html" class="hover:text-[#9f1239] transition">EVENTS</a>
-                <a href="crypto.html" class="hover:text-[#9f1239] transition">CRYPTO</a>
-            </div>
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/27662665145" target="_blank" class="bg-[#9f1239] px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden bg-[#0a0a0a] border-t border-stone-800">
-            <div class="flex flex-col px-6 py-6 gap-5 text-sm font-medium">
-                <a href="main.html">HOME</a>
-                <p class="text-stone-500 text-xs tracking-widest uppercase">Explore Stasie</p>
-                <div class="pl-4 flex flex-col gap-4 border-l border-stone-800">
-                    <a href="konkelwyn.html">Konkelwyn</a>
-                    <a href="the-shack.html">The Shack</a>
-                    <a href="the-showroom.html">The Showroom</a>
-                    <a href="Wing-It.html">Wing It</a>
-                    <a href="Nursery.html">Nursery</a>
-                </div>
-                <a href="menu.html">MENUS</a>
-                <a href="events.html">EVENTS</a>
-                <a href="crypto.html">CRYPTO</a>
-            </div>
-        </div>
-    </nav>
+<nav class="fixed-header">
+    <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie"></a>
+    <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
+    <div class="nav-links" id="nav-links">
+        <a href="main.html">HOME</a>
+        <a href="konkelwyn.html">KONKELWYN</a>
+        <a href="menu.html">MENUS</a>
+        <a href="events.html" class="current">EVENTS</a>
+        <a href="crypto.html">CRYPTO</a>
+    </div>
+    <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
 
-    <!-- EVERYTHING BELOW THIS LINE IS 100% UNCHANGED FROM YOUR CODE -->
-    <div class="desktop-layout">
-        <section class="hero">
-            <picture>
-                <source srcset="Stsielogojpeg.png" media="(min-width: 1024px)">
-                <img src="Stsielogojpeg.png" alt="Montagu Stasie" style="max-width: 620px; margin: 0 auto 40px; display: block;">
-            </picture>
-            <h1 class="text-8xl font-bold tracking-[20px] uppercase mb-4" style="animation: fadeIn 2s ease;">Montagu Stasie</h1>
-            <p class="text-khaki tracking-[4px] uppercase font-light opacity-80">Curators of extraordinary Karoo journeys</p>
-            <div class="absolute bottom-10 animate-bounce opacity-40">
-                <i class="fa-solid fa-chevron-down text-2xl"></i>
-            </div>
-        </section>
-        <section class="content-split">
-            <a href="menu.html" class="pane pane-eat">
-                <h2>Eat</h2>
-                <div class="learn-more-btn">The Menu</div>
-            </a>
-            <a href="menu.html" class="pane pane-drink">
-                <h2>Drink</h2>
-                <div class="learn-more-btn">Wine & Spirits</div>
-            </a>
-        </section>
-        <section class="py-24 bg-[#0a0a0a] text-center border-y border-stone-900">
-            <div class="max-w-xl mx-auto px-6">
-                <picture>
-                    <source srcset="Crypto accepted here.png" media="(min-width: 640px)">
-                    <img src="Crypto accepted here.png" alt="Crypto" class="w-64 mx-auto mb-8 opacity-80">
-                </picture>
-                <p class="uppercase tracking-[3px] text-stone-400 mb-6">We accept Bitcoin Lightning</p>
-                <a href="crypto.html" class="learn-more-btn">Payment Info</a>
-            </div>
-        </section>
-        <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
-            <div class="absolute inset-0 bg-black/40"></div>
-            <div class="relative z-10 text-center">
-                <h2 class="text-7xl uppercase tracking-[12px] mb-6">Konkelwyn</h2>
-                <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
-            </div>
-        </section>
-        <section class="content-split" style="height: 80vh;">
-            <a href="the-shack.html" class="pane pane-shack">
-                <h2>The Shack</h2>
-                <div class="learn-more-btn">View Space</div>
-            </a>
-            <a href="the-showroom.html" class="pane pane-showroom">
-                <h2>The Showroom</h2>
-                <div class="learn-more-btn">Explore</div>
-            </a>
-            <a href="Wing-It.html" class="pane pane-wingit">
-                <h2>Wing It</h2>
-                <div class="learn-more-btn">Discover</div>
-            </a>
-        </section>
-        <footer class="py-20 px-10 bg-[#050505] flex justify-between text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
-            <div>Montagu Stasie © 2026</div>
-            <div class="flex gap-8">
-                <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
-                <a href="#" class="hover:text-[#9f1239] transition">Press</a>
-                <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
-            </div>
-        </footer>
-    </div>
-    <div class="mobile-layout hidden">
-        <section class="mobile-hero min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('_X1A2948-Enhanced-NR.webp') center/cover;">
-            <picture>
-                <source srcset="Stsielogojpeg.png" media="(min-width: 640px)">
-                <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="w-40 mb-4 opacity-90">
-            </picture>
-            <h1 class="text-4xl font-bold tracking-tighter mb-3">MONTAGU STASIE</h1>
-            <p class="text-xs tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
-        </section>
-        <section class="flex flex-row gap-0 h-[40vh] sm:h-[50vh]">
-            <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative group" style="background-image: url('_X1A2806.webp');">
-                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
-                <h2 class="text-2xl font-bold relative z-10">EAT</h2>
-            </a>
-            <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative group border-l border-black" style="background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png');">
-                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
-                <h2 class="text-2xl font-bold relative z-10">DRINK</h2>
-            </a>
-        </section>
-        <section class="py-16 bg-[#0a0a0a] text-center border-y border-stone-900">
-            <div class="max-w-md mx-auto px-4">
-                <picture>
-                    <source srcset="Crypto accepted here.png" media="(min-width: 640px)">
-                    <img src="Crypto accepted here.png" alt="Crypto accepted" class="w-40 mx-auto mb-4 opacity-80">
-                </picture>
-                <p class="uppercase tracking-[2px] text-stone-400 mb-6 text-xs">We accept Bitcoin Lightning</p>
-                <a href="crypto.html" class="learn-more-btn">Payment Info</a>
-            </div>
-        </section>
-        <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
-            <div class="absolute inset-0 bg-black/40"></div>
-            <div class="relative z-10 text-center px-6">
-                <h2 class="text-5xl md:text-6xl uppercase tracking-[8px] mb-6 font-bold">Konkelwyn</h2>
-                <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
-            </div>
-        </section>
-        <section class="flex flex-col gap-0">
-            <a href="the-shack.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A2725.webp');">
-                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
-                <h2 class="text-3xl font-bold relative z-10">THE SHACK</h2>
-            </a>
-            <a href="the-showroom.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A3232.jpg');">
-                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
-                <h2 class="text-3xl font-bold relative z-10">THE SHOWROOM</h2>
-            </a>
-            <a href="Wing-It.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative group" style="background-image: url('_X1A3065.jpg');">
-                <div class="absolute inset-0 bg-gradient-to-top from-black/70 via-transparent"></div>
-                <h2 class="text-3xl font-bold relative z-10">WING IT</h2>
-            </a>
-        </section>
-        <footer class="py-12 px-10 bg-[#050505] text-center text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
-            <div>Montagu Stasie © 2026</div>
-            <div class="flex gap-8 justify-center mt-4">
-                <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
-                <a href="#" class="hover:text-[#9f1239] transition">Press</a>
-                <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
-            </div>
-        </footer>
-    </div>
+<div class="desktop-layout">
+    <section class="hero">
+        <img src="Stsielogojpeg.png" alt="Montagu Stasie" style="max-width: 620px; margin: 0 auto 40px; display: block;">
+        <h1 class="text-8xl font-bold tracking-[20px] uppercase mb-4" style="animation: fadeIn 2s ease;">Montagu Stasie</h1>
+        <p class="text-khaki tracking-[4px] uppercase font-light opacity-80">Curators of extraordinary Karoo journeys</p>
+        <div class="absolute bottom-10 animate-bounce opacity-40">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <section class="relative h-screen flex items-center justify-center bg-cover bg-fixed bg-center" style="background-image: url('yoga hallie saturday.jpeg');">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 text-center">
+            <h2 class="text-7xl uppercase tracking-[12px] mb-6">Saturday Yoga</h2>
+            <p class="text-khaki tracking-[5px] uppercase mb-8">Chill Vipassana with Hallie @ 14:00</p>
+            <a href="events.html" class="learn-more-btn">View Event Details</a>
+        </div>
+    </section>
+
+    <section class="content-split">
+        <a href="menu.html" class="pane pane-eat">
+            <h2>Eat</h2>
+            <div class="learn-more-btn">The Menu</div>
+        </a>
+        <a href="menu.html" class="pane pane-drink">
+            <h2>Drink</h2>
+            <div class="learn-more-btn">Wine & Spirits</div>
+        </a>
+    </section>
+
+    <section class="py-24 bg-[#0a0a0a] text-center border-y border-stone-900">
+        <div class="max-w-xl mx-auto px-6">
+            <img src="Crypto accepted here.png" alt="Crypto" class="w-64 mx-auto mb-8 opacity-80">
+            <p class="uppercase tracking-[3px] text-stone-400 mb-6">We accept Bitcoin Lightning</p>
+            <a href="crypto.html" class="learn-more-btn">Payment Info</a>
+        </div>
+    </section>
+
+    <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 text-center">
+            <h2 class="text-7xl uppercase tracking-[12px] mb-6">Konkelwyn</h2>
+            <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
+        </div>
+    </section>
+
+    <section class="content-split" style="height: 80vh;">
+        <a href="the-shack.html" class="pane pane-shack">
+            <h2>The Shack</h2>
+            <div class="learn-more-btn">View Space</div>
+        </a>
+        <a href="the-showroom.html" class="pane pane-showroom">
+            <h2>The Showroom</h2>
+            <div class="learn-more-btn">Explore</div>
+        </a>
+        <a href="Wing-It.html" class="pane pane-wingit">
+            <h2>Wing It</h2>
+            <div class="learn-more-btn">Discover</div>
+        </a>
+    </section>
+
+    <footer class="py-20 px-10 bg-[#050505] flex justify-between text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
+        <div>Montagu Stasie © 2026</div>
+        <div class="flex gap-8">
+            <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
+            <a href="#" class="hover:text-[#9f1239] transition">Press</a>
+            <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
+        </div>
+    </footer>
+</div>
+
+<div class="mobile-layout hidden">
+    <section class="mobile-hero min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('_X1A2948-Enhanced-NR.webp') center/cover;">
+        <img src="Stsielogojpeg.png" alt="Montagu Stasie" class="w-40 mb-4 opacity-90">
+        <h1 class="text-4xl font-bold tracking-tighter mb-3">MONTAGU STASIE</h1>
+        <p class="text-xs tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
+    </section>
+
+    <section class="relative h-[80vh] flex flex-col justify-center items-center text-center px-6" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('yoga hallie saturday.jpeg') center/cover;">
+        <h2 class="text-4xl font-bold tracking-tighter mb-3 uppercase">Yoga Sessions</h2>
+        <p class="text-xs tracking-[4px] mb-8">Every Saturday at 14:00</p>
+        <a href="events.html" class="learn-more-btn">Join Us</a>
+    </section>
+
+    <section class="flex flex-row gap-0 h-[40vh]">
+        <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative" style="background-image: url('_X1A2806.webp');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
+            <h2 class="text-2xl font-bold relative z-10">EAT</h2>
+        </a>
+        <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative border-l border-black" style="background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
+            <h2 class="text-2xl font-bold relative z-10">DRINK</h2>
+        </a>
+    </section>
+
+    <section class="py-16 bg-[#0a0a0a] text-center border-y border-stone-900">
+        <div class="max-w-md mx-auto px-4">
+            <img src="Crypto accepted here.png" alt="Crypto accepted" class="w-40 mx-auto mb-4 opacity-80">
+            <p class="uppercase tracking-[2px] text-stone-400 mb-6 text-xs">We accept Bitcoin Lightning</p>
+            <a href="crypto.html" class="learn-more-btn">Payment Info</a>
+        </div>
+    </section>
+
+    <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('_X1A2742.webp');">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 text-center px-6">
+            <h2 class="text-5xl uppercase tracking-[8px] mb-6 font-bold">Konkelwyn</h2>
+            <a href="konkelwyn.html" class="learn-more-btn">Explore Wine</a>
+        </div>
+    </section>
+
+    <section class="flex flex-col gap-0">
+        <a href="the-shack.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative" style="background-image: url('_X1A2725.webp');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
+            <h2 class="text-3xl font-bold relative z-10 uppercase">The Shack</h2>
+        </a>
+        <a href="the-showroom.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative" style="background-image: url('_X1A3232.jpg');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
+            <h2 class="text-3xl font-bold relative z-10 uppercase">The Showroom</h2>
+        </a>
+        <a href="Wing-It.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative" style="background-image: url('_X1A3065.jpg');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
+            <h2 class="text-3xl font-bold relative z-10 uppercase">Wing It</h2>
+        </a>
+    </section>
+
+    <footer class="py-12 px-10 bg-[#050505] text-center text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
+        <div>Montagu Stasie © 2026</div>
+        <div class="flex gap-8 justify-center mt-4">
+            <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
+            <a href="#" class="hover:text-[#9f1239] transition">Press</a>
+            <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
+        </div>
+    </footer>
+</div>
 
 <script>
-    (function(){
-        if (window._stasieResponsiveInit) return;
-        window._stasieResponsiveInit = true;
+    function toggleMenu(){
+        const links = document.getElementById('nav-links');
+        if(!links) return;
+        links.classList.toggle('active');
+    }
+</script>
 
-        window.toggleMenu = window.toggleMenu || function() {
-            const menu = document.getElementById('mobile-menu');
-            if (!menu) return;
-            menu.classList.toggle('hidden');
-        };
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const btn = document.getElementById('mobile-menu-btn');
-            if (btn) btn.addEventListener('click', window.toggleMenu);
-        });
-    })();
-    </script>
 </body>
 </html>
