@@ -142,17 +142,19 @@
 
     <!-- NAVBAR -->
     <nav class="fixed-header">
-    <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie"></a>
-    <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="landing.html"><img src="station-logo-192.png" alt="Montagu Stasie"></a>
     <div class="nav-links" id="nav-links">
-        <a href="main.html">HOME</a>
-        <a href="konkelwyn.html">KONKELWYN</a>
-        <a href="menu.html">MENUS</a>
-        <a href="events.html">EVENTS</a>
-        <a href="crypto.html">CRYPTO</a>
+        <a href="main.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="menu.html">Menus</a>
+        <a href="konkelwyn.html">Konkelwyn</a>
     </div>
+    <a href="https://wa.me/27662665145" class="bg-brass whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
     <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
+<style>.nav-links a.current{color:#9f1239 !important}</style>
+<script>(function(){const p=location.pathname.split('/').pop()||'landing.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p) a.classList.add('current');});})();</script>
 
     <!-- === NEW HERO SECTION WITH YOUR IMAGE === -->
     <section class="hero" style="height: 100vh; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85)), url('_X1A3238-2.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; position: relative;">
