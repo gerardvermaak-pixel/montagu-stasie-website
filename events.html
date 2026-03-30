@@ -26,7 +26,7 @@
         
         .serif { font-family: 'Playfair Display', serif; }
 
-        /* --- NAVIGATION (Consistency with Home) --- */
+        /* --- NAVIGATION --- */
         nav.fixed-header {
             position: fixed;
             top: 0;
@@ -70,7 +70,6 @@
         }
         .stack-card img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Stack Layout */
         .card-1 { transform: rotate(-5deg) translateX(-20px); z-index: 3; }
         .card-2 { transform: rotate(0deg); z-index: 2; }
         .card-3 { transform: rotate(5deg) translateX(20px); z-index: 1; }
@@ -113,6 +112,51 @@
         }
         .enquire-btn:hover { background: var(--brass); color: black; }
 
+        /* --- CALENDAR SYSTEM --- */
+        .calendar-container {
+            background: #0a0a0a;
+            border: 1px solid rgba(196, 167, 125, 0.1);
+            padding: 40px;
+            border-radius: 8px;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: rgba(196, 167, 125, 0.1);
+            border: 1px solid rgba(196, 167, 125, 0.1);
+        }
+        .calendar-day-label {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: #050505;
+            color: var(--brass);
+        }
+        .calendar-day {
+            min-height: 100px;
+            padding: 10px;
+            background: #0a0a0a;
+            position: relative;
+            transition: 0.3s;
+        }
+        .calendar-day:hover { background: #111; }
+        .day-num { font-size: 0.7rem; opacity: 0.4; }
+        .day-event {
+            font-size: 0.6rem;
+            color: white;
+            background: var(--stasie-red);
+            padding: 2px 6px;
+            border-radius: 2px;
+            margin-top: 5px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .day-event.recurring { background: transparent; border: 1px solid var(--brass); color: var(--brass); }
+
         /* --- LIGHTBOX --- */
         #lightbox {
             display: none;
@@ -130,6 +174,8 @@
             .stack-container:hover .card-1 { transform: translateY(-50px) scale(0.9); }
             .stack-container:hover .card-3 { transform: translateY(50px) scale(0.9); }
             .stack-container { width: 260px; }
+            .calendar-day { min-height: 60px; padding: 5px; }
+            .day-event { font-size: 0.5rem; letter-spacing: 0; }
         }
     </style>
 </head>
@@ -168,7 +214,6 @@
 
             <h2 class="serif text-3xl text-white mb-10 border-b border-white/10 pb-4">Upcoming Journeys</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-                
                 <div class="poster-box">
                     <img src="CVKu6.jpg" class="poster-img" onclick="openLightbox(this.src)">
                     <div>
@@ -195,25 +240,48 @@
                     </div>
                     <a href="https://wa.me/27662665145?text=Enquiry%20Crypto%20Night" class="enquire-btn">Enquire Now</a>
                 </div>
+            </div>
 
-                <div class="poster-box">
-                    <img src="Fbjh6.jpg" class="poster-img" onclick="openLightbox(this.src)">
-                    <div>
-                        <h3 class="text-white text-sm tracking-widest uppercase mb-2">Epic Cacao & Dance</h3>
-                        <p class="text-[10px] mb-4">Sunday Morning • 09:00</p>
-                    </div>
-                    <a href="https://wa.me/27662665145?text=Enquiry%20Cacao%20Ceremony" class="enquire-btn">Enquire Now</a>
+            <div class="mb-24">
+                <div class="flex justify-between items-end mb-8">
+                    <h2 class="serif text-3xl text-white">Stasie Schedule</h2>
+                    <span class="uppercase tracking-[3px] text-xs text-brass">April 2026</span>
                 </div>
+                <div class="calendar-container">
+                    <div class="calendar-grid">
+                        <div class="calendar-day-label">Mon</div>
+                        <div class="calendar-day-label">Tue</div>
+                        <div class="calendar-day-label">Wed</div>
+                        <div class="calendar-day-label">Thu</div>
+                        <div class="calendar-day-label">Fri</div>
+                        <div class="calendar-day-label">Sat</div>
+                        <div class="calendar-day-label">Sun</div>
 
-                <div class="poster-box">
-                    <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" class="poster-img" onclick="openLightbox(this.src)">
-                    <div>
-                        <h3 class="text-white text-sm tracking-widest uppercase mb-2">Pizza & Game Night</h3>
-                        <p class="text-[10px] mb-4">Every Friday • 18:00</p>
+                        <div class="calendar-day"><span class="day-num">30</span></div>
+                        <div class="calendar-day"><span class="day-num">31</span></div>
+                        <div class="calendar-day"><span class="day-num">01</span></div>
+                        <div class="calendar-day"><span class="day-num">02</span><span class="day-event recurring">Crypto</span></div>
+                        <div class="calendar-day"><span class="day-num">03</span><span class="day-event recurring">Pizza</span></div>
+                        <div class="calendar-day"><span class="day-num">04</span><span class="day-event">Easter Hunt</span><span class="day-event recurring">Yoga</span></div>
+                        <div class="calendar-day"><span class="day-num">05</span><span class="day-event">Cacao</span></div>
+
+                        <div class="calendar-day"><span class="day-num">06</span></div>
+                        <div class="calendar-day"><span class="day-num">07</span></div>
+                        <div class="calendar-day"><span class="day-num">08</span></div>
+                        <div class="calendar-day"><span class="day-num">09</span><span class="day-event recurring">Crypto</span></div>
+                        <div class="calendar-day"><span class="day-num">10</span><span class="day-event recurring">Pizza</span></div>
+                        <div class="calendar-day"><span class="day-num">11</span><span class="day-event recurring">Yoga</span></div>
+                        <div class="calendar-day"><span class="day-num">12</span></div>
+
+                        <div class="calendar-day"><span class="day-num">13</span></div>
+                        <div class="calendar-day"><span class="day-num">14</span></div>
+                        <div class="calendar-day"><span class="day-num">15</span></div>
+                        <div class="calendar-day"><span class="day-num">16</span><span class="day-event recurring">Crypto</span></div>
+                        <div class="calendar-day"><span class="day-num">17</span><span class="day-event recurring">Pizza</span></div>
+                        <div class="calendar-day"><span class="day-num">18</span><span class="day-event">Live Series</span></div>
+                        <div class="calendar-day"><span class="day-num">19</span></div>
                     </div>
-                    <a href="https://wa.me/27662665145?text=Enquiry%20Pizza%20Night" class="enquire-btn">Enquire Now</a>
                 </div>
-
             </div>
 
             <div class="opacity-40 grayscale hover:grayscale-0 transition-all duration-700">

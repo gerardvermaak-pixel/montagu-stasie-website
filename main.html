@@ -27,26 +27,9 @@
             transition: 0.3s ease;
         }
         nav.fixed-header img { height: 50px; }
-        .whatsapp-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            border-radius: 999px;
-            background: #9f1239;
-            color:white;
-            text-decoration:none;
-        }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { color: var(--khaki, #b0a990); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
         .nav-links a:hover, .nav-links a.current { color: var(--text-color, #f8f8f8); }
-        .nav-links.active { right: 0; }
         .mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
         .mobile-toggle span { width: 25px; height: 2px; background: var(--khaki, #b0a990); transition: 0.3s; }
 
@@ -54,7 +37,6 @@
             .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(5,5,5,0.98); flex-direction: column; justify-content: center; padding-left: 2rem; border-left: 1px solid rgba(176,169,144,0.1); transition: 0.4s; }
             .nav-links.active { right: 0; }
             .mobile-toggle { display: flex; }
-            .nav-links a { font-size: 1rem; padding: 1rem 0; }
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap');
@@ -72,16 +54,6 @@
             background-color: var(--deep-black);
             color: var(--soft-white);
             margin: 0;
-        }
-
-        /* === CONSISTENT HEADER === */
-        nav#main-nav {
-            transition: all 0.3s ease;
-            background: rgba(10, 10, 10, 0.95) !important;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(176, 169, 144, 0.15);
-            padding: 1rem 0 !important;
         }
 
         /* Cinematic Split Panes */
@@ -117,7 +89,7 @@
         .pane h2 {
             position: relative;
             z-index: 2;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             letter-spacing: 4px;
             color: var(--soft-white);
             text-transform: uppercase;
@@ -140,7 +112,6 @@
             color: var(--deep-black);
         }
 
-        /* Backgrounds */
         .pane-eat { background-image: url('_X1A2806.webp'); }
         .pane-drink { background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png'); }
         .pane-shack { background-image: url('_X1A2725.webp'); }
@@ -167,17 +138,10 @@
             .mobile-layout { display: block !important; }
             .content-split { flex-direction: row; height: auto; }
             .pane { height: 50vh; padding: 30px 20px; flex: 1; }
-            nav#main-nav { padding: 0.5rem 0.75rem !important; }
+            .pane h2 { font-size: 1.5rem; }
         }
         @media (min-width: 769px) {
             .mobile-layout { display: none !important; }
-        }
-    
-        /* Mobile soft border and safe viewport */
-        @media (max-width: 768px) {
-            html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
-            body { padding: 0 14px 20px; margin: 0; }
-            nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; }
         }
     </style>
 </head>
@@ -185,14 +149,14 @@
 
 <nav class="fixed-header">
     <img src="station-logo-192.png" alt="Montagu Stasie">
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
         <a href="index.html" class="current">Home</a>
         <a href="about.html">About</a>
         <a href="events.html">Events</a>
         <a href="gallery.html">Gallery</a>
         <a href="menu.html">Menu</a>
     </div>
-    <div class="mobile-toggle">
+    <div class="mobile-toggle" onclick="toggleMenu()">
         <span></span>
         <span></span>
         <span></span>
@@ -204,9 +168,6 @@
         <img src="Stsielogojpeg.png" alt="Montagu Stasie" style="max-width: 620px; margin: 0 auto 40px; display: block;">
         <h1 class="text-8xl font-bold tracking-[20px] uppercase mb-4" style="animation: fadeIn 2s ease;">Montagu Stasie</h1>
         <p class="text-khaki tracking-[4px] uppercase font-light opacity-80">Curators of extraordinary Karoo journeys</p>
-        <div class="absolute bottom-10 animate-bounce opacity-40">
-            <i class="fa-solid fa-chevron-down text-2xl"></i>
-        </div>
     </section>
 
     <section class="content-split">
@@ -220,12 +181,24 @@
         </a>
     </section>
 
-    <section class="relative h-screen flex items-center justify-center bg-cover bg-fixed bg-center" style="background-image: url('CVKu6.jpg');">
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="relative z-10 text-center">
-            <h2 class="text-7xl uppercase tracking-[12px] mb-6">Easter Egg Hunt</h2>
-        </div>
+    <section class="content-split" style="height: 85vh;">
+        <a href="events.html" class="pane" style="background-image: url('WhatsApp Image 2026-03-30 at 09.53.03.jpeg');">
+            <h2>Live Series</h2>
+            <div class="learn-more-btn">Music Events</div>
+        </a>
+        <a href="events.html" class="pane" style="background-image: url('CVKu6.jpg');">
+            <h2>Easter Hunt</h2>
+            <div class="learn-more-btn">View Details</div>
+        </a>
+        <a href="events.html" class="pane" style="background-image: url('box cart race 5sept.jpeg');">
+            <h2>Box Cart</h2>
+            <div class="learn-more-btn">The Race</div>
+        </a>
     </section>
+    
+    <div class="py-12 bg-[#0a0a0a] text-center">
+        <a href="events.html" class="learn-more-btn" style="border-color: #9f1239; color: #9f1239;">View Full Calendar</a>
+    </div>
 
     <section class="py-24 bg-[#0a0a0a] text-center border-y border-stone-900">
         <div class="max-w-xl mx-auto px-6">
@@ -262,8 +235,7 @@
         <div>Montagu Stasie © 2026</div>
         <div class="flex gap-8">
             <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
-            <a href="#" class="hover:text-[#9f1239] transition">Press</a>
-            <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
+            <a href="events.html" class="hover:text-[#9f1239] transition">Events</a>
         </div>
     </footer>
 </div>
@@ -272,26 +244,34 @@
     <section class="mobile-hero min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('CVKu6.jpg') center/cover;">
         <img src="station-logo-192.png" alt="Montagu Stasie" class="w-40 mb-4 opacity-90">
         <h1 class="text-4xl font-bold tracking-tighter mb-3">MONTAGU STASIE</h1>
-        <p class="text-xs tracking-widest opacity-70">Curators of extraordinary Karoo journeys</p>
+        <p class="text-xs tracking-widest opacity-70">Extraordinary Karoo Journeys</p>
     </section>
 
     <section class="flex flex-row gap-0 h-[40vh]">
         <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative" style="background-image: url('_X1A2806.webp');">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
-            <h2 class="text-2xl font-bold relative z-10">EAT</h2>
+            <h2 class="text-2xl font-bold relative z-10 uppercase">EAT</h2>
         </a>
         <a href="menu.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative border-l border-black" style="background-image: url('Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png');">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
-            <h2 class="text-2xl font-bold relative z-10">DRINK</h2>
+            <h2 class="text-2xl font-bold relative z-10 uppercase">DRINK</h2>
         </a>
     </section>
 
-    <section class="relative h-[80vh] flex flex-col justify-center items-center text-center px-6" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('CVKu6.jpg') center/cover;">
-        <span class="text-xs tracking-[4px] mb-2 uppercase opacity-80">Next Date: April 9th</span>
-        <h2 class="text-4xl font-bold tracking-tighter mb-3 uppercase">Easter Egg Hunt</h2>
-        <p class="text-xs tracking-[4px] mb-8">Every Saturday at 14:00</p>
-        <a href="events.html" class="learn-more-btn">Join Us</a>
+    <section class="flex flex-row gap-0 h-[50vh]">
+        <a href="events.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative" style="background-image: url('WhatsApp Image 2026-03-30 at 09.53.03.jpeg');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80"></div>
+            <h2 class="text-xl font-bold relative z-10 uppercase">LIVE MUSIC</h2>
+        </a>
+        <a href="events.html" class="flex-1 flex items-end p-6 bg-cover bg-center relative border-l border-black" style="background-image: url('CVKu6.jpg');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80"></div>
+            <h2 class="text-xl font-bold relative z-10 uppercase">EASTER</h2>
+        </a>
     </section>
+    
+    <div class="py-8 bg-[#0a0a0a] text-center px-4">
+        <a href="events.html" class="learn-more-btn block w-full">View All Events</a>
+    </div>
 
     <section class="py-16 bg-[#0a0a0a] text-center border-y border-stone-900">
         <div class="max-w-md mx-auto px-4">
@@ -318,18 +298,13 @@
             <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
             <h2 class="text-3xl font-bold relative z-10 uppercase">The Showroom</h2>
         </a>
-        <a href="Wing-It.html" class="h-[50vh] flex items-end p-8 bg-cover bg-center relative" style="background-image: url('_X1A3065.jpg');">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70"></div>
-            <h2 class="text-3xl font-bold relative z-10 uppercase">Wing It</h2>
-        </a>
     </section>
 
     <footer class="py-12 px-10 bg-[#050505] text-center text-[10px] tracking-widest text-stone-500 uppercase border-t border-stone-900">
         <div>Montagu Stasie © 2026</div>
         <div class="flex gap-8 justify-center mt-4">
             <a href="about.html" class="hover:text-[#9f1239] transition">About</a>
-            <a href="#" class="hover:text-[#9f1239] transition">Press</a>
-            <a href="#" class="hover:text-[#9f1239] transition">Privacy</a>
+            <a href="events.html" class="hover:text-[#9f1239] transition">Events</a>
         </div>
     </footer>
 </div>
@@ -337,7 +312,6 @@
 <script>
     function toggleMenu(){
         const links = document.getElementById('nav-links');
-        if(!links) return;
         links.classList.toggle('active');
     }
 </script>
