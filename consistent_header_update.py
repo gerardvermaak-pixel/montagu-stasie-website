@@ -6,8 +6,17 @@ nav_markup='''<nav class="fixed-header">
     <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
     <div class="nav-links" id="nav-links">
         <a href="main.html">HOME</a>
-        <a href="konkelwyn.html">KONKELWYN</a>
         <a href="menu.html">MENUS</a>
+        <div class="nav-dropdown" onmouseover="this.querySelector('.dropdown-content').style.display='block'" onmouseout="this.querySelector('.dropdown-content').style.display='none'" style="position:relative; display:inline-block;">
+            <a href="#">STASIE</a>
+            <div class="dropdown-content" style="display:none; position:absolute; background:rgba(5,5,5,0.95); min-width:160px; right:0; box-shadow:0 8px 16px rgba(0,0,0,0.6); z-index:1001;">
+                <a href="konkelwyn.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Konkelwyn</a>
+                <a href="the-shack.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">The Shack</a>
+                <a href="the-showroom.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">The Showroom</a>
+                <a href="Wing-It.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Wing It</a>
+                <a href="Nursery.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Nursery</a>
+            </div>
+        </div>
         <a href="events.html">EVENTS</a>
         <a href="crypto.html">CRYPTO</a>
     </div>
