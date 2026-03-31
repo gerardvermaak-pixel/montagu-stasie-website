@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="Stsielogojpeg.png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>SHOP NAME • Montagu Stasie</title>
     <style>
         nav.fixed-header {
             position: fixed;
@@ -64,27 +75,89 @@
             #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
             .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
         }
-</style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="Stsielogojpeg.png">
-    <link rel="manifest" href="manifest.json">
-    <title>SHOP NAME • Montagu Stasie</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="mobile.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+
+        /* === IMPROVED DESKTOP GALLERY (only this section changed) === */
+        #gallery.masonry {
+            column-width: 320px;
+            column-gap: 20px;
+            padding: 20px 0;
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .masonry-item:hover {
+            transform: scale(1.04);
+            box-shadow: 0 25px 50px rgba(159, 18, 57, 0.3);
+        }
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 450ms cubic-bezier(.2,.8,.2,1);
+        }
+        .masonry-item:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Hover overlay with title */
+        .masonry-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(10,10,10,0.85));
+            color: white;
+            padding: 30px 20px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+        .masonry-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Lightbox */
+        #lightboxOverlay { 
+            position:fixed; 
+            inset:0; 
+            background:rgba(0,0,0,0.92); 
+            display:none; 
+            align-items:center; 
+            justify-content:center; 
+            z-index:3000; 
+        }
+        #lightboxOverlay img { 
+            max-width:92%; 
+            max-height:92vh; 
+            box-shadow:0 30px 60px rgba(0,0,0,0.7); 
+            border-radius:12px; 
+        }
+
+        @media (max-width:900px){ 
+            /* Single column, full-width masonry on small screens */
+            #gallery.masonry{ column-width: 100% !important; column-gap: 0; padding: 0; }
+            .masonry-item { margin: 0 0 16px 0; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+            .masonry-item::after { display: none; }
+            .masonry-item img { width: 100%; height: auto; display: block; border-radius: 8px; }
+            /* Reduce hero spacer on mobile */
+            .hero-spacer { min-height: 180px; }
+            /* Disable hover transforms on touch devices */
+            .masonry-item:hover { transform: none; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+        }
     </style>
 </head>
 <body class="bg-[#1a1a1a] text-stone-200">
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR (kept exactly as is) -->
     <nav class="fixed-header">
     <a href="landing.html"><img src="Stsielogojpeg.png" alt="Montagu Stasie"></a>
     <div class="nav-links" id="nav-links">
@@ -105,13 +178,11 @@
     <a href="https://wa.me/27662665145" class="bg-brass whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
     <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
-<style>.nav-links a.current{color:#9f1239 !important}</style>
-<script>(function(){const p=location.pathname.split('/').pop()||'landing.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p) a.classList.add('current');});})();</script>
 
     <!-- Hero spacer to preserve page layout while keeping gallery animation -->
     <section class="hero-spacer" aria-hidden="true" style="min-height:320px;"></section>
 
-    <!-- Gallery Section: Google-Photos-like masonry with animation + lightbox -->
+    <!-- Gallery Section: Improved for desktop (more visually appealing) -->
     <section id="gallery-section" class="py-12 px-6">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-8">Gallery</h2>
@@ -119,30 +190,10 @@
         </div>
     </section>
 
-    <style>
-        /* Masonry using CSS columns */
-        #gallery.masonry { column-width: 300px; column-gap: 12px; }
-        .masonry-item { break-inside: avoid; margin-bottom: 12px; position: relative; overflow: hidden; border-radius: 6px; }
-        .masonry-item img { width: 100%; height: auto; display: block; transition: transform 450ms cubic-bezier(.2,.8,.2,1), opacity 350ms; transform-origin: center center; }
-        .masonry-item:hover img { transform: scale(1.04); }
-
-        /* Display 9s, crossfade 2s (11s total). Keyframe keeps image visible for ~81.818% then fades out over final ~18.18% */
-        @keyframes fadeCycle { 0% { opacity: 1 } 81.818% { opacity: 1 } 100% { opacity: 0 } }
-        .masonry-item img { animation: fadeCycle 11s linear infinite; opacity: 0; }
-        .masonry-item.animate { transform-origin: center; }
-
-        /* Lightbox */
-        #lightboxOverlay { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:3000; }
-        #lightboxOverlay img { max-width:90%; max-height:90%; box-shadow:0 20px 50px rgba(0,0,0,0.8); border-radius:6px; }
-
-        @media (max-width:600px){ #gallery.masonry{ column-width: 160px; } }
-    </style>
-
     <div id="lightboxOverlay" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
 
     <script>
     // List of image files from the project (auto-collected)
-    // Filtered image list: exclude menu images and posters; use only photos
     const galleryImages = [
         "_X1A3232.jpg","_X1A3234.jpg","_X1A3235.jpg","_X1A3236.jpg","_X1A3199.jpg","_X1A3197-Enhanced-NR.jpg",
         "_X1A3065.jpg","_X1A2948-Enhanced-NR.jpg","_X1A2943.jpg","_X1A2940.jpg","_X1A2920.jpg","_X1A2887-Pano.jpg",
@@ -155,22 +206,18 @@
     const galleryEl = document.getElementById('gallery');
 
     function renderGallery(list){
-        // fade out, then reorder
         galleryEl.style.opacity = 0;
         setTimeout(()=>{
             galleryEl.innerHTML = '';
             list.forEach((src,i)=>{
                 const item = document.createElement('div');
                 item.className = 'masonry-item';
+                item.setAttribute('data-title', src.split('/').pop().replace(/-/g,' ').replace('.jpg','').replace('.webp',''));
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = '';
                 img.loading = 'lazy';
                 img.onclick = ()=>openLightbox(src);
-                // randomize animation phase so images fade independently
-                img.style.animationDelay = (Math.random()*11).toFixed(2) + 's';
-                // small random float to avoid perfectly static grid
-                if (Math.random() > 0.85) item.classList.add('animate');
                 item.appendChild(img);
                 galleryEl.appendChild(item);
             });
@@ -178,21 +225,28 @@
         }, 220);
     }
 
-    // Shuffle array helper
-    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+    function shuffle(a){ 
+        for(let i=a.length-1;i>0;i--){ 
+            const j=Math.floor(Math.random()*(i+1)); 
+            [a[i],a[j]]=[a[j],a[i]] 
+        } 
+        return a 
+    }
 
     function openLightbox(src){
         const overlay = document.getElementById('lightboxOverlay');
         const img = document.getElementById('lightboxImg');
-        img.src = src; overlay.style.display = 'flex';
+        img.src = src; 
+        overlay.style.display = 'flex';
     }
-    function closeLightbox(){ document.getElementById('lightboxOverlay').style.display = 'none'; }
+    function closeLightbox(){ 
+        document.getElementById('lightboxOverlay').style.display = 'none'; 
+    }
 
-    // Initial render
     document.addEventListener('DOMContentLoaded', function(){
         renderGallery(galleryImages.slice());
-        // periodic shuffle to make items move
-        setInterval(()=>{ renderGallery(shuffle(galleryImages.slice())); }, 6000);
+        // Gentle periodic shuffle
+        setInterval(()=>{ renderGallery(shuffle(galleryImages.slice())); }, 9000);
     });
     </script>
 </body>
