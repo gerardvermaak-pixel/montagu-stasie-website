@@ -57,3 +57,27 @@
     color: inherit;
   }
 }
+
+/* Global header layout to match landing: logo left, BOOK centered, nav right */
+nav.fixed-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+nav.fixed-header .nav-links { margin-left: auto; }
+nav.fixed-header a[href*="wa.me"], nav.fixed-header a.whatsapp-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1110;
+}
+
+/* Ensure logo remains left-aligned and clickable */
+nav.fixed-header > a:first-child { z-index: 1111; }
+
+/* On very small screens, slightly offset the center pill to avoid overlap */
+@media (max-width: 360px) {
+  nav.fixed-header a[href*="wa.me"], nav.fixed-header a.whatsapp-center { left: 52%; }
+}
