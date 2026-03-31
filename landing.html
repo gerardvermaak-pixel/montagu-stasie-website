@@ -74,9 +74,12 @@
             justify-content: center; 
             text-align: center; 
             flex-direction: column; 
-            background: url('_X1A2689-Pano.webp') center/cover no-repeat,
+            background: url('_X1A2940.webp') center/cover no-repeat,
                         radial-gradient(circle at center, #121212 0%, #050505 100%);
             position: relative;
+            margin: 0;
+            padding: 0 6px;
+            overflow: hidden;
         }
 
         .typewriter { 
@@ -134,7 +137,11 @@
             #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
             .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
             /* Mobile cinematic landing adjustments */
-            .intro { height: 100svh; padding: 0 6px; justify-content: center; margin: 0; }
+            html, body { padding: 0; }
+            .intro { height: 100svh; padding: 0; justify-content: center; margin: 0; }
+            /* make the nav overlay borderless on landing */
+            nav.fixed-header { background: transparent; border-bottom: none; padding: 0.75rem 6%; }
+            nav.fixed-header img { height: 44px; }
             .typewriter {
                 white-space: nowrap;
                 overflow: hidden;
@@ -155,12 +162,30 @@
 </head>
 <body class="text-white">
 
+    <nav class="fixed-header" aria-label="Main navigation">
+        <a href="landing.html"><img src="Stsielogojpeg.png" alt="Montagu Stasie"></a>
+        <div class="nav-links" id="nav-links">
+            <a href="main.html">Home</a>
+            <a href="events.html">Events</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="menu.html">Menus</a>
+        </div>
+        <a href="https://wa.me/27662665145" class="bg-brass text-black p-2 rounded-full px-4 text-xs font-bold">BOOK</a>
+        <div class="mobile-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
     <section class="intro">
-        <!-- Small logo image completely removed as requested -->
+        <div id="hero-logo" style="position:absolute; left:6%; top:14px; z-index:1001;">
+            <a href="landing.html"><img src="Stsielogojpeg.png" alt="Montagu Stasie" style="height:48px;"></a>
+        </div>
 
         <div id="typewriter" class="typewriter max-w-4xl px-6"></div>
 
-    <a href="main.html" class="enter-btn">
+        <a href="main.html" class="enter-btn">
             Enter the Station
         </a>
     </section>
