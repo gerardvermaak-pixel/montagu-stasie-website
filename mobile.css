@@ -26,4 +26,34 @@
   /* Posters and grids adjust to single column for readability */
   .poster-box { width: 100%; }
   .grid-cols-2, .grid-cols-3, .grid-cols-4 { grid-template-columns: 1fr !important; }
+
+  /* Make WhatsApp/book anchor visible and consistent like Home header button */
+  nav.fixed-header a.whatsapp-center,
+  nav.fixed-header a[href*="wa.me"] {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 9999px;
+    background: #c4a77d;
+    color: #050505 !important;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    border: 1px solid rgba(0,0,0,0.06);
+    z-index: 1110;
+  }
+
+  /* Add visible text label for icon-only anchors */
+  nav.fixed-header a.whatsapp-center::after {
+    content: "BOOK";
+    margin-left: 6px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    color: inherit;
+  }
 }
