@@ -2,7 +2,7 @@
 root=pathlib.Path(r'C:/Users/ACER/Desktop/Montagu-Stasie-Website')
 html_files=sorted(root.glob('*.html'))
 nav_markup='''<nav class="fixed-header">
-    <a href="index.html"><img src="station logo lines.png" alt="Montagu Stasie"></a>
+    <a href="landing.html"><img src="Stsielogojpeg.png" alt="Montagu Stasie"></a>
     <a href="https://wa.me/27662665145" class="bg-[#9f1239] whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
     <div class="nav-links" id="nav-links">
         <a href="main.html">HOME</a>
