@@ -125,9 +125,10 @@
         .masonry-item img { width: 100%; height: auto; display: block; transition: transform 450ms cubic-bezier(.2,.8,.2,1), opacity 350ms; transform-origin: center center; }
         .masonry-item:hover img { transform: scale(1.04); }
 
-        /* subtle animated drift */
-        @keyframes floaty { 0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)} }
-        .masonry-item.animate { animation: floaty 6s ease-in-out infinite; }
+        /* Fade-in/out cycle: 3s fade in, 3s stay, 3s fade out (9s total) */
+        @keyframes fadeCycle { 0% { opacity: 0 } 33.333% { opacity: 1 } 66.666% { opacity: 1 } 100% { opacity: 0 } }
+        .masonry-item img { animation: fadeCycle 9s linear infinite; opacity: 0; }
+        .masonry-item.animate { /* small float + cycle */ transform-origin: center; }
 
         /* Lightbox */
         #lightboxOverlay { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:3000; }
@@ -170,12 +171,15 @@
             list.forEach((src,i)=>{
                 const item = document.createElement('div');
                 item.className = 'masonry-item';
-                if (i % 7 === 0) item.classList.add('animate');
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = '';
                 img.loading = 'lazy';
                 img.onclick = ()=>openLightbox(src);
+                // randomize animation phase so images fade independently
+                img.style.animationDelay = (Math.random()*9).toFixed(2) + 's';
+                // small random float to avoid perfectly static grid
+                if (Math.random() > 0.85) item.classList.add('animate');
                 item.appendChild(img);
                 galleryEl.appendChild(item);
             });
