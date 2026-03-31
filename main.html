@@ -130,6 +130,25 @@
             background-position: center;
             text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+        .desktop-layout .hero .hero-book-btn {
+            position: absolute;
+            top: 22px;
+            right: 6%;
+            z-index: 1002;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            background: var(--khaki);
+            color: var(--deep-black);
+            border: 1px solid rgba(0,0,0,0.05);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .desktop-layout .hero .hero-book-btn { top: 12px; right: 14px; padding: 8px 14px; font-size: 0.7rem; }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -178,7 +197,8 @@
 
 <div class="desktop-layout">
     <section class="hero">
-        <img src="Stsielogojpeg.png" alt="Montagu Stasie" style="max-width: 620px; margin: 0 auto 40px; display: block;">
+        <a href="landing.html"><img src="Stsielogojpeg.png" alt="Montagu Stasie" style="max-width: 620px; margin: 0 auto 40px; display: block;"></a>
+        <a href="https://wa.me/27662665145" class="hero-book-btn">BOOK</a>
         <h1 class="text-8xl font-bold tracking-[20px] uppercase mb-4" style="animation: fadeIn 2s ease;">Montagu Stasie</h1>
         <p class="text-khaki tracking-[4px] uppercase font-light opacity-80">Curators of extraordinary Karoo journeys</p>
     </section>
