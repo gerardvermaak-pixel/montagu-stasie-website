@@ -90,7 +90,6 @@
         <a href="main.html">Home</a>
         <a href="events.html">Events</a>
         <a href="gallery.html">Gallery</a>
-        <a href="menu.html">Menus</a>
         <div class="nav-dropdown" onmouseover="this.querySelector('.dropdown-content').style.display='block'" onmouseout="this.querySelector('.dropdown-content').style.display='none'" style="position:relative; display:inline-block;">
             <a href="#">Stasie</a>
             <div class="dropdown-content" style="display:none; position:absolute; background:rgba(5,5,5,0.95); min-width:160px; right:0; box-shadow:0 8px 16px rgba(0,0,0,0.6); z-index:1001;">
@@ -125,10 +124,10 @@
         .masonry-item img { width: 100%; height: auto; display: block; transition: transform 450ms cubic-bezier(.2,.8,.2,1), opacity 350ms; transform-origin: center center; }
         .masonry-item:hover img { transform: scale(1.04); }
 
-        /* Fade-in/out cycle: 3s fade in, 3s stay, 3s fade out (9s total) */
-        @keyframes fadeCycle { 0% { opacity: 0 } 33.333% { opacity: 1 } 66.666% { opacity: 1 } 100% { opacity: 0 } }
-        .masonry-item img { animation: fadeCycle 9s linear infinite; opacity: 0; }
-        .masonry-item.animate { /* small float + cycle */ transform-origin: center; }
+        /* Display 9s, crossfade 2s (11s total). Keyframe keeps image visible for ~81.818% then fades out over final ~18.18% */
+        @keyframes fadeCycle { 0% { opacity: 1 } 81.818% { opacity: 1 } 100% { opacity: 0 } }
+        .masonry-item img { animation: fadeCycle 11s linear infinite; opacity: 0; }
+        .masonry-item.animate { transform-origin: center; }
 
         /* Lightbox */
         #lightboxOverlay { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:3000; }
@@ -141,24 +140,14 @@
 
     <script>
     // List of image files from the project (auto-collected)
+    // Filtered image list: exclude menu images and posters; use only photos
     const galleryImages = [
-        "CVKu6.jpg","cocktails.webp","cocktails.jpeg","breakfast.webp","breakfast.jpeg","box cart race 5sept.jpeg",
-        "WhatsApp Image 2026-03-02 at 16.01.34.webp","WhatsApp Image 2026-03-02 at 16.01.34.png","WhatsApp Image 2026-03-02 at 16.01.34.jpeg","URQhs.jpg",
-        "_X1A2725.webp","_X1A2725.jpg","_X1A2723.webp","_X1A2723.jpg","_X1A2709-Pano.webp","_X1A2709-Pano.jpg",
-        "_X1A2689.webp","_X1A2689.jpg","_X1A2689-Pano.webp","_X1A2689-Pano.jpg","_X1A2684.webp","_X1A2684.jpg",
-        "_X1A2679.webp","_X1A2679.jpg","_X1A2677.webp","_X1A2677.jpg","yoga hallie saturday.jpeg","wine-pouring.webp","wine-pouring.jpeg",
-        "wine-list.webp","wine-list.jpeg","WhatsApp Image 2026-03-30 at 09.53.03.jpeg","WhatsApp Image 2026-03-17 at 12.48.51.jpeg",
-        "WhatsApp Image 2026-03-12 at 10.53.14.jpeg","WhatsApp Image 2026-03-12 at 10.53.13.jpeg","WhatsApp Image 2026-03-12 at 10.53.13 (1).jpeg",
-        "WhatsApp Image 2026-03-02 at 16.01.39.webp","WhatsApp Image 2026-03-02 at 16.01.39.png","WhatsApp Image 2026-03-02 at 16.01.39.jpeg",
-        "_X1A2874-Pano.jpg","_X1A2829.jpg","_X1A2828.jpg","_X1A2827.jpg","_X1A2825.jpg","_X1A2808.webp","_X1A2808.jpg",
-        "_X1A2806.webp","_X1A2806.jpg","_X1A2784.webp","_X1A2784.jpg","_X1A2779.webp","_X1A2779.jpg","_X1A2742.webp","_X1A2742.jpg",
-        "_X1A2740.webp","_X1A2740.jpg","_X1A2739.webp","_X1A2739.jpg","_X1A2732-Pano.webp","_X1A2732-Pano.jpg","_X1A2729.webp","_X1A2729.jpg",
-        "_X1A2727.webp","_X1A2727.jpg","_X1A2948-Enhanced-NR.webp","_X1A2948-Enhanced-NR.jpg","_X1A2943.webp","_X1A2943.jpg","_X1A2940.webp",
-        "_X1A2940.jpg","_X1A2920.webp","_X1A2920.jpg","_X1A2887-Pano.webp","_X1A2887-Pano.jpg","_X1A2879.webp","_X1A2879.jpg",
-        "_X1A2878.webp","_X1A2878.jpg","_X1A2874-Pano.webp","_X1A3174-Edit.jpg","_X1A3127.jpg","_X1A3065.jpg","_X1A2980.webp",
-        "_X1A2980.jpg","_X1A2962.webp","_X1A2962.jpg","_X1A3234.jpg","_X1A3232.jpg","_X1A3199.jpg","_X1A3197-Enhanced-NR.jpg",
-        "_X1A3236.jpg","_X1A3235.jpg","_X1A3238-2.jpg","Fbjh6.jpg","eat-platter.webp","eat-platter.jpeg","eat-pitas.webp","eat-pitas.jpeg",
-        "drinks-coffee.webp","drinks-coffee.jpeg","drinks-non-alc.jpeg","drinks-non-alc.webp","Gemini_Generated_Image_wfv6v5wfv6v5wfv6.png","NmAOg.jpg"
+        "_X1A3232.jpg","_X1A3234.jpg","_X1A3235.jpg","_X1A3236.jpg","_X1A3199.jpg","_X1A3197-Enhanced-NR.jpg",
+        "_X1A3065.jpg","_X1A2948-Enhanced-NR.jpg","_X1A2943.jpg","_X1A2940.jpg","_X1A2920.jpg","_X1A2887-Pano.jpg",
+        "_X1A2879.jpg","_X1A2878.jpg","_X1A2874-Pano.jpg","_X1A2829.jpg","_X1A2828.jpg","_X1A2827.jpg","_X1A2825.jpg",
+        "_X1A2808.jpg","_X1A2806.jpg","_X1A2784.jpg","_X1A2779.jpg","_X1A2742.jpg","_X1A2740.jpg","_X1A2739.jpg",
+        "_X1A2732-Pano.jpg","_X1A2729.jpg","_X1A2727.jpg","_X1A3174-Edit.jpg","_X1A3127.jpg","_X1A2980.jpg","_X1A2962.jpg",
+        "_X1A3238-2.jpg","_X1A2874-Pano.webp","_X1A2725.jpg","_X1A2723.jpg","Fbjh6.jpg","NmAOg.jpg"
     ];
 
     const galleryEl = document.getElementById('gallery');
@@ -177,7 +166,7 @@
                 img.loading = 'lazy';
                 img.onclick = ()=>openLightbox(src);
                 // randomize animation phase so images fade independently
-                img.style.animationDelay = (Math.random()*9).toFixed(2) + 's';
+                img.style.animationDelay = (Math.random()*11).toFixed(2) + 's';
                 // small random float to avoid perfectly static grid
                 if (Math.random() > 0.85) item.classList.add('animate');
                 item.appendChild(img);
