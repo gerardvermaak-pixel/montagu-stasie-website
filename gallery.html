@@ -107,7 +107,8 @@
 <style>.nav-links a.current{color:#9f1239 !important}</style>
 <script>(function(){const p=location.pathname.split('/').pop()||'landing.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p) a.classList.add('current');});})();</script>
 
-    <!-- Gallery only: hero removed as requested -->
+    <!-- Hero spacer to preserve page layout while keeping gallery animation -->
+    <section class="hero-spacer" aria-hidden="true" style="min-height:320px;"></section>
 
     <!-- Gallery Section: Google-Photos-like masonry with animation + lightbox -->
     <section id="gallery-section" class="py-12 px-6">
