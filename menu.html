@@ -214,18 +214,18 @@
         <a href="events.html">Events</a>
         <a href="gallery.html">Gallery</a>
         <a href="menu.html">Menus</a>
-        <div class="nav-dropdown" onmouseover="this.querySelector('.dropdown-content').style.display='block'" onmouseout="this.querySelector('.dropdown-content').style.display='none'" style="position:relative; display:inline-block;">
-            <a href="#">Stasie</a>
-            <div class="dropdown-content" style="display:none; position:absolute; background:rgba(5,5,5,0.95); min-width:160px; right:0; box-shadow:0 8px 16px rgba(0,0,0,0.6); z-index:1001;">
-                <a href="konkelwyn.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Konkelwyn</a>
-                <a href="the-shack.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">The Shack</a>
-                <a href="the-showroom.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">The Showroom</a>
-                <a href="Wing-It.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Wing It</a>
-                <a href="Nursery.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Nursery</a>
+        <div class="nav-dropdown">
+            <a href="#">Stasie <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i></a>
+            <div class="dropdown-content">
+                <a href="konkelwyn.html">Konkelwyn</a>
+                <a href="the-shack.html">The Shack</a>
+                <a href="the-showroom.html">The Showroom</a>
+                <a href="Wing-It.html">Wing It</a>
+                <a href="Nursery.html">Nursery</a>
             </div>
         </div>
     </div>
-    <a href="https://wa.me/27662665145" class="bg-brass whatsapp-center"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://wa.me/27662665145" class="bg-[#b0a990] text-black p-2 rounded-full px-4 text-xs font-bold transition hover:bg-white">BOOK</a>
     <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 <style>.nav-links a.current{color:#9f1239 !important}</style>
@@ -379,9 +379,65 @@
             if (btn) btn.addEventListener('click', window.toggleMenu);
         });
     })();
+
+    <script>
+    if (!window._stasieNavInit) {
+        window._stasieNavInit = true;
+        function toggleMenu() {
+            const links = document.getElementById('nav-links');
+            if (links) links.classList.toggle('active');
+        }
+
+        (function() {
+            const currentPage = location.pathname.split('/').pop() || 'landing.html';
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) link.classList.add('current');
+            });
+
+            document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const content = this.nextElementSibling;
+                        if (!content) return;
+                        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+                    }
+                });
+            });
+        })();
+    }
     </script>
-</body>
-</html>
+
+    <script>
+    if (!window._stasieNavInit) {
+        window._stasieNavInit = true;
+        function toggleMenu() {
+            const links = document.getElementById('nav-links');
+            if (links) links.classList.toggle('active');
+        }
+
+        (function() {
+            const currentPage = location.pathname.split('/').pop() || 'landing.html';
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) link.classList.add('current');
+            });
+
+            document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const content = this.nextElementSibling;
+                        if (!content) return;
+                        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+                    }
+                });
+            });
+        })();
+    }
+    </script>
+
+    </body>
+    </html>
 
     <script>
     (function(){
