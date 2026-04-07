@@ -179,32 +179,12 @@
             .day-event { font-size: 0.5rem; letter-spacing: 0; }
         }
     </style>
+
 </head>
 <body>
 
-    <nav class="fixed-header">
-        <a href="landing.html"><img src="Stsielogojpeg.png" alt="Montagu Stasie" class="h-10"></a>
-        <div class="nav-links hidden md:flex gap-8" id="nav-links">
-            <a href="main.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="menu.html">Menus</a>
-            <div class="nav-dropdown">
-                <a href="#">Stasie</a>
-                <div class="dropdown-content" style="display:none; position:absolute; background:rgba(5,5,5,0.95); min-width:160px; right:0; box-shadow:0 8px 16px rgba(0,0,0,0.6); z-index:1001;">
-                    <a href="konkelwyn.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Konkelwyn</a>
-                    <a href="the-shack.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">The Shack</a>
-                    <a href="the-showroom.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">The Showroom</a>
-                    <a href="Wing-It.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Wing It</a>
-                    <a href="Nursery.html" style="display:block; padding:8px 12px; color:var(--khaki); text-decoration:none;">Nursery</a>
-                </div>
-            </div>
-        </div>
-        <a href="https://wa.me/27662665145" class="bg-brass text-black p-2 rounded-full px-4 text-xs font-bold">BOOK</a>
-        <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </nav>
-    <style>.nav-links a.current{color:#9f1239 !important}</style>
-    <script>(function(){const p=location.pathname.split('/').pop()||'landing.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p) a.classList.add('current');});})();</script>
+<div id="site-header-placeholder"></div>
+<script src="scripts/header-loader.js" defer></script>
 
     <section class="py-12 px-6">
         <div class="max-w-6xl mx-auto">
