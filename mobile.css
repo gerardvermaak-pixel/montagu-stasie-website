@@ -5,8 +5,9 @@
   /* Ensure header stays above hero imagery on mobile */
   nav.fixed-header { z-index: 1100; }
 
-  /* Hide desktop link list on mobile (use mobile menu) */
-  .nav-links { display: none !important; }
+  /* Replace desktop link list with slide-in mobile menu */
+  .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(5,5,5,0.98); flex-direction: column; justify-content: center; padding-left: 2rem; border-left: 1px solid rgba(176,169,144,0.1); transition: right 0.35s ease; display: flex; gap: 16px; }
+  .nav-links.active { right: 0; }
   .mobile-toggle, #mobile-menu-btn { display: block !important; }
   #mobile-menu { display: block !important; }
 

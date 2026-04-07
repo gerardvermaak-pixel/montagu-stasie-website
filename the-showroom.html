@@ -298,3 +298,31 @@
     </script>
 </body>
 </html>
+
+    <script>
+    (function(){
+        function initSubmenus(){
+            document.querySelectorAll('.nav-dropdown').forEach(function(drop){
+                var trigger = drop.querySelector('a');
+                var content = drop.querySelector('.dropdown-content');
+                if(!trigger || !content) return;
+                trigger.addEventListener('click', function(e){
+                    if(window.innerWidth <= 768){
+                        e.preventDefault();
+                        content.style.display = (content.style.display==='block') ? 'none' : 'block';
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(e){
+                if(window.innerWidth <= 768){
+                    document.querySelectorAll('.nav-dropdown .dropdown-content').forEach(function(c){
+                        var parent = c.parentElement;
+                        if(!parent.contains(e.target) && c.style.display==='block') c.style.display='none';
+                    });
+                }
+            });
+        }
+        if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initSubmenus); else initSubmenus();
+    })();
+    </script>
