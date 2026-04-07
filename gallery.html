@@ -43,7 +43,7 @@
             color:white;
             text-decoration:none;
         }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links { display: flex; gap: 25px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); z-index: 1001; }
         .nav-links a { color: var(--khaki, #b0a990); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
         .nav-links a:hover, .nav-links a.current { color: var(--text-color, #f8f8f8); }
         .nav-links.active { right: 0; }
