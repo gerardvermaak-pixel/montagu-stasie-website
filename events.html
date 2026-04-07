@@ -117,19 +117,145 @@
         .calendar-container {
             background: #0a0a0a;
             border: 1px solid rgba(196, 167, 125, 0.1);
-            padding: 40px;
+            padding: 20px;
             border-radius: 8px;
         }
-            .calendar-grid {
+        .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            border-radius: 2px;
-            margin-top: 5px;
+            gap: 10px;
+            border-radius: 6px;
+            margin-top: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            align-items: start;
         }
-        .day-event.recurring { background: transparent; border: 1px solid var(--brass); color: var(--brass); }
+
+        .calendar-day {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.03);
+            min-height: 110px;
+            padding: 10px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .calendar-day:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+
+        .day-num {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--khaki);
+            background: rgba(0,0,0,0.2);
+            padding: 4px 8px;
+            border-radius: 999px;
+        }
+
+        .dots-container { position: absolute; right: 8px; top: 8px; display: flex; gap: 6px; }
+        .event-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(176,169,144,0.6); box-shadow: 0 6px 12px rgba(0,0,0,0.4); }
+        .event-dot.recurring { background: var(--brass); }
+
+        .event-popup { position: absolute; left: 10px; bottom: 8px; right: 10px; display: flex; flex-direction: column; gap: 6px; opacity: 0.95; }
+        .popup-item { display: inline-block; background: rgba(255,255,255,0.03); padding: 6px 8px; border-radius: 4px; font-size: 11px; color: #ddd; }
+
+        .calendar-day.opacity-20 { opacity: 0.28; filter: grayscale(60%); }
+
+        @media (max-width: 768px) {
+            .calendar-grid { gap: 6px; }
+            .calendar-day { min-height: 80px; padding: 8px; }
+            .day-num { font-size: 0.75rem; top: 6px; left: 6px; }
+        }
+        .calendar-day-label {
+            text-align: center;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            color: var(--brass);
+        }
+        .calendar-day {
+            min-height: 80px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(196, 167, 125, 0.05);
+            padding: 10px;
+            position: relative;
+            transition: 0.3s;
+        }
+        .calendar-day:hover {
+            background: rgba(196, 167, 125, 0.05);
+        }
+        .day-num {
+            font-size: 0.75rem;
+            font-weight: 200;
+            opacity: 0.6;
+        }
+        .dots-container {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .event-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--brass);
+            border-radius: 50%;
+        }
+        .event-dot.recurring {
+            background: transparent;
+            border: 1px solid var(--brass);
+        }
+
+        /* --- POPUP LOGIC --- */
+        .event-popup {
+            display: none;
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a;
+            border: 1px solid var(--brass);
+            padding: 12px;
+            z-index: 100;
+            width: 160px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
+        .event-popup::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--brass) transparent transparent transparent;
+        }
+        .calendar-day:hover .event-popup {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .popup-item {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            color: white;
+            display: block;
+            border-left: 2px solid var(--brass);
+            padding-left: 6px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
 
         /* --- LIGHTBOX --- */
         #lightbox {
@@ -145,19 +271,14 @@
         #lightbox img { max-height: 90vh; border: 1px solid var(--brass); }
 
         @media (max-width: 768px) {
-            .stack-container:hover .card-1 { transform: translateY(-50px) scale(0.9); }
-            .stack-container:hover .card-3 { transform: translateY(50px) scale(0.9); }
-            .stack-container { width: 260px; }
-            .calendar-day { min-height: 60px; padding: 5px; }
-            .day-event { font-size: 0.5rem; letter-spacing: 0; }
+            .calendar-day { min-height: 50px; padding: 5px; }
+            .event-popup { width: 120px; font-size: 8px; }
         }
     </style>
-
 </head>
 <body>
 
 <div id="site-header-placeholder"></div>
-<script src="scripts/header-loader.js" defer></script>
 
     <section class="py-12 px-6">
         <div class="max-w-6xl mx-auto">
@@ -174,11 +295,9 @@
                     <img src="WhatsApp Image 2026-03-30 at 09.53.03.jpeg" alt="Hanepoot Brass Band">
                 </div>
                 <div class="stack-card card-3" onclick="openLightbox('yoga hallie saturday.jpeg')">
-                    <img src="yoga hallie saturday.jpeg" alt="Vipassana Yoga">
+                    <img src="WhatsApp Image 2026-03-12 at 10.53.14.jpeg" alt="Pizza & Games Night">
                 </div>
             </div>
-
-            <h2 class="serif text-3xl text-white mb-10 border-b border-white/10 pb-4">Upcoming Journeys</h2>
 
             <div class="mb-24">
                 <div class="flex justify-between items-end mb-8">
@@ -195,42 +314,105 @@
                         <div class="calendar-day-label">Sat</div>
                         <div class="calendar-day-label">Sun</div>
 
-                        <div class="calendar-day"><span class="day-num">30</span></div>
-                        <div class="calendar-day"><span class="day-num">31</span></div>
+                        <div class="calendar-day opacity-20"><span class="day-num">30</span></div>
+                        <div class="calendar-day opacity-20"><span class="day-num">31</span></div>
+
                         <div class="calendar-day"><span class="day-num">01</span></div>
-                        <div class="calendar-day"><span class="day-num">02</span><span class="day-event recurring">Crypto</span></div>
-                        <div class="calendar-day"><span class="day-num">03</span><span class="day-event recurring">Pizza</span></div>
-                        <div class="calendar-day"><span class="day-num">04</span><span class="day-event">Easter Hunt</span><span class="day-event recurring">Yoga</span></div>
-                        <div class="calendar-day"><span class="day-num">05</span><span class="day-event">Cacao</span></div>
+                        <div class="calendar-day">
+                            <span class="day-num">02</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Crypto Night</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">03</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Pizza & Games</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">04</span>
+                            <div class="dots-container"><div class="event-dot"></div><div class="event-dot recurring"></div></div>
+                            <div class="event-popup">
+                                <span class="popup-item">Easter Hunt</span>
+                                <span class="popup-item">Yoga Session</span>
+                            </div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">05</span>
+                            <div class="dots-container"><div class="event-dot"></div></div>
+                            <div class="event-popup"><span class="popup-item">Cacao Ceremony</span></div>
+                        </div>
 
                         <div class="calendar-day"><span class="day-num">06</span></div>
                         <div class="calendar-day"><span class="day-num">07</span></div>
                         <div class="calendar-day"><span class="day-num">08</span></div>
-                        <div class="calendar-day"><span class="day-num">09</span><span class="day-event recurring">Crypto</span></div>
-                        <div class="calendar-day"><span class="day-num">10</span><span class="day-event recurring">Pizza</span></div>
-                        <div class="calendar-day"><span class="day-num">11</span><span class="day-event recurring">Yoga</span></div>
+                        <div class="calendar-day">
+                            <span class="day-num">09</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Crypto Night</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">10</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Pizza & Games</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">11</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Yoga Session</span></div>
+                        </div>
                         <div class="calendar-day"><span class="day-num">12</span></div>
 
                         <div class="calendar-day"><span class="day-num">13</span></div>
                         <div class="calendar-day"><span class="day-num">14</span></div>
                         <div class="calendar-day"><span class="day-num">15</span></div>
-                        <div class="calendar-day"><span class="day-num">16</span><span class="day-event recurring">Crypto</span></div>
-                        <div class="calendar-day"><span class="day-num">17</span><span class="day-event recurring">Pizza</span></div>
-                        <div class="calendar-day"><span class="day-num">18</span><span class="day-event">Live Series</span></div>
+                        <div class="calendar-day">
+                            <span class="day-num">16</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Crypto Night</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">17</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Pizza & Games</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">18</span>
+                            <div class="dots-container"><div class="event-dot"></div></div>
+                            <div class="event-popup"><span class="popup-item">Live Series Performance</span></div>
+                        </div>
                         <div class="calendar-day"><span class="day-num">19</span></div>
 
                         <div class="calendar-day"><span class="day-num">20</span></div>
                         <div class="calendar-day"><span class="day-num">21</span></div>
                         <div class="calendar-day"><span class="day-num">22</span></div>
-                        <div class="calendar-day"><span class="day-num">23</span><span class="day-event recurring">Crypto</span></div>
-                        <div class="calendar-day"><span class="day-num">24</span><span class="day-event recurring">Pizza</span></div>
-                        <div class="calendar-day"><span class="day-num">25</span><span class="day-event recurring">Yoga</span></div>
+                        <div class="calendar-day">
+                            <span class="day-num">23</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Crypto Night</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">24</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Pizza & Games</span></div>
+                        </div>
+                        <div class="calendar-day">
+                            <span class="day-num">25</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Yoga Session</span></div>
+                        </div>
                         <div class="calendar-day"><span class="day-num">26</span></div>
 
                         <div class="calendar-day"><span class="day-num">27</span></div>
                         <div class="calendar-day"><span class="day-num">28</span></div>
                         <div class="calendar-day"><span class="day-num">29</span></div>
-                        <div class="calendar-day"><span class="day-num">30</span><span class="day-event recurring">Crypto</span></div>
+                        <div class="calendar-day">
+                            <span class="day-num">30</span>
+                            <div class="dots-container"><div class="event-dot recurring"></div></div>
+                            <div class="event-popup"><span class="popup-item">Crypto Night</span></div>
+                        </div>
+                        <div class="calendar-day opacity-20"><span class="day-num">01</span></div>
+                        <div class="calendar-day opacity-20"><span class="day-num">02</span></div>
+                        <div class="calendar-day opacity-20"><span class="day-num">03</span></div>
                     </div>
                 </div>
             </div>
@@ -285,89 +467,13 @@
             lb.style.display = 'flex';
         }
 
-    <script>
-    if (!window._stasieNavInit) {
-        window._stasieNavInit = true;
-        function toggleMenu() {
-            const links = document.getElementById('nav-links');
-            if (links) links.classList.toggle('active');
-        }
-
-        (function() {
+        // Single Initialization of Navigation
+        document.addEventListener('DOMContentLoaded', function() {
             const currentPage = location.pathname.split('/').pop() || 'landing.html';
             document.querySelectorAll('.nav-links a').forEach(link => {
                 if (link.getAttribute('href') === currentPage) link.classList.add('current');
             });
-
-            document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
-                trigger.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        const content = this.nextElementSibling;
-                        if (!content) return;
-                        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-                    }
-                });
-            });
-        })();
-    }
+        });
     </script>
-
-    <script>
-    if (!window._stasieNavInit) {
-        window._stasieNavInit = true;
-        function toggleMenu() {
-            const links = document.getElementById('nav-links');
-            if (links) links.classList.toggle('active');
-        }
-
-        (function() {
-            const currentPage = location.pathname.split('/').pop() || 'landing.html';
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                if (link.getAttribute('href') === currentPage) link.classList.add('current');
-            });
-
-            document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
-                trigger.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        const content = this.nextElementSibling;
-                        if (!content) return;
-                        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-                    }
-                });
-            });
-        })();
-    }
-    </script>
-
-    </body>
-    </html>
-
-    <script>
-    (function(){
-        function initSubmenus(){
-            document.querySelectorAll('.nav-dropdown').forEach(function(drop){
-                var trigger = drop.querySelector('a');
-                var content = drop.querySelector('.dropdown-content');
-                if(!trigger || !content) return;
-                trigger.addEventListener('click', function(e){
-                    if(window.innerWidth <= 768){
-                        e.preventDefault();
-                        content.style.display = (content.style.display==='block') ? 'none' : 'block';
-                    }
-                });
-            });
-
-            document.addEventListener('click', function(e){
-                if(window.innerWidth <= 768){
-                    document.querySelectorAll('.nav-dropdown .dropdown-content').forEach(function(c){
-                        var parent = c.parentElement;
-                        if(!parent.contains(e.target) && c.style.display==='block') c.style.display='none';
-                    });
-                }
-            });
-        }
-        if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initSubmenus); else initSubmenus();
-    })();
-    </script>
+</body>
+</html>
