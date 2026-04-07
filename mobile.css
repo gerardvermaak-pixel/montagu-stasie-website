@@ -110,14 +110,26 @@ nav.fixed-header img { height: 50px; }
 .dropdown-content { 
   display: none; 
   position: absolute; 
-  background: rgba(5, 5, 5, 0.98); 
-  min-width: 180px; 
+  background: linear-gradient(180deg, rgba(8,8,8,0.98), rgba(14,14,14,0.98)); 
+  min-width: 200px; 
   right: 0; 
-  box-shadow: 0 8px 16px rgba(0,0,0,0.5); 
-  border: 1px solid rgba(176, 169, 144, 0.1);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6); 
+  border: 1px solid rgba(176, 169, 144, 0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 6px 0;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  transform-origin: top right;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
 }
-.nav-dropdown:hover .dropdown-content { display: block; }
-.dropdown-content a { display: block; padding: 12px 16px; font-size: 0.7rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.nav-dropdown:hover .dropdown-content { display: block; opacity: 1; transform: translateY(0) scale(1); }
+.dropdown-content a { display: block; padding: 10px 14px; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.02); color: var(--khaki); }
+.dropdown-content a:last-child { border-bottom: none; }
+.dropdown-content a:hover { background: rgba(255,255,255,0.02); color: var(--soft-white); }
+
+/* make chevron smaller and aligned */
+.nav-dropdown > a i.fa-chevron-down { font-size: 0.7rem; margin-left: 6px; }
 
 /* Mobile Menu overrides */
 .mobile-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
