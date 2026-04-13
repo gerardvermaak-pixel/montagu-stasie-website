@@ -145,3 +145,32 @@ nav.fixed-header img { height: 50px; }
   .nav-links.active { right: 0; }
   .dropdown-content { position: static; background: transparent; border: none; box-shadow: none; padding-left: 1rem; }
 }
+
+/* Final mobile safety overrides to prevent horizontal overflow and ensure header/nav render correctly */
+@media (max-width: 768px) {
+  html, body {
+    width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+
+  /* Force header to fit within viewport and use box-sizing to include padding */
+  nav.fixed-header {
+    left: 0 !important;
+    right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Keep the center BOOK pill centered without causing overflow */
+  nav.fixed-header a[href*="wa.me"], nav.fixed-header a.whatsapp-center {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    position: absolute !important;
+  }
+
+  /* Ensure nav-links cannot push the page width when closed */
+  .nav-links { width: 78% !important; right: -100% !important; }
+  .nav-links.active { right: 0 !important; }
+}
