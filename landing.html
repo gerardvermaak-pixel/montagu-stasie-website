@@ -85,22 +85,52 @@
         }
 
         @media (max-width: 768px) {
-            .intro { height: 100svh; }
-            .typewriter {
-                font-size: clamp(1.2rem, 6vw, 1.8rem);
-                min-height: 80px;
-                margin-bottom: 2rem;
-            }
-            .enter-btn {
-                padding: 1rem 2.5rem;
-                font-size: 0.75rem;
-                letter-spacing: 0.3em;
-            }
-            #hero-logo img { height: 38px !important; }
+                /* Make landing page truly full-bleed and centered on small screens */
+                body { padding-top: 0 !important; overflow: visible; }
+
+                .intro {
+                    height: 100svh;
+                    min-height: 100svh;
+                    padding: 0 !important;
+                    margin: 0;
+                    width: 100vw;
+                    box-sizing: border-box;
+                    background-position: center center;
+                    background-size: cover;
+                }
+
+                .typewriter {
+                    font-size: clamp(1.2rem, 6vw, 1.8rem);
+                    min-height: 80px;
+                    margin: 0 auto 1.5rem auto;
+                    padding: 0 12px;
+                    text-align: center;
+                    width: 100%;
+                    max-width: 92%;
+                    box-sizing: border-box;
+                }
+
+                .enter-btn {
+                    padding: 1rem 2.5rem;
+                    font-size: 0.75rem;
+                    letter-spacing: 0.3em;
+                }
+
+                #hero-logo img { height: 38px !important; }
+        }
+    </style>
+    <style>
+        body.no-header { padding-top: 0 !important; }
+
+        /* Hide shared header on desktop so landing page is full-screen cinematic */
+        @media (min-width: 769px) {
+            .fixed-header, nav.fixed-header, #site-header-placeholder { display: none !important; }
+            html, body { height: 100%; }
+            .intro { min-height: 100vh; height: 100vh; }
         }
     </style>
 </head>
-<body class="text-white">
+<body class="text-white no-header">
 
     <section class="intro">
         <div id="typewriter" class="typewriter max-w-4xl"></div>
