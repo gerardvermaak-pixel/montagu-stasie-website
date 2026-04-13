@@ -44,6 +44,17 @@
             html, body { min-height: 100%; width: 100%; overflow-x: hidden; }
             body { padding: 0 14px 20px; margin: 0; }
             nav#main-nav { left: 0; right: 0; width: calc(100% - 28px); margin: 0 auto; border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
+        /* === SLIDESHOW STYLES === */
+        .slideshow { position: relative; max-width: 960px; margin: 0 auto; display:flex; align-items:center; justify-content:center; }
+        .slideshow img { width: 100%; height: 60vh; max-height: 70vh; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .slide-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: white; border: none; width: 48px; height: 56px; font-size: 32px; border-radius: 8px; cursor: pointer; z-index: 30; }
+        .slide-btn:hover { background: rgba(0,0,0,0.6); }
+        .slide-btn.prev { left: 8px; }
+        .slide-btn.next { right: 8px; }
+        .slide-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display:flex; gap:8px; z-index:40; }
+        .slide-dots button { width:10px; height:10px; border-radius:50%; background: rgba(255,255,255,0.35); border: none; cursor:pointer; }
+        .slide-dots button.active { background: rgba(196,167,125,0.95); }
+        @media (max-width:900px){ .slideshow img { height: 46vh; } .slide-btn { width:40px; height:46px; font-size:26px; } }
             #mobile-menu { border-left: 1px solid rgba(176,169,144,0.25); border-right: 1px solid rgba(176,169,144,0.25); }
             .mobile-layout, .mobile-hero, .content-split, .menu-gallery, .editorial-container, .grid-layout, .product-flex { max-width: 100%; margin: 0 auto; padding: 0; }
         }
@@ -59,7 +70,12 @@
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
+            <div id="slideshow" class="slideshow">
+                <button id="prev" class="slide-btn prev">‹</button>
+                <img id="slide-img" src="" alt="Gallery slide" loading="lazy" />
+                <button id="next" class="slide-btn next">›</button>
+                <div id="slide-dots" class="slide-dots" aria-hidden="false"></div>
+            </div>
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -156,35 +172,45 @@
         "_X1A3238-2.jpg","_X1A2874-Pano.webp","_X1A2725.jpg","_X1A2723.jpg","Fbjh6.jpg","NmAOg.jpg"
     ];
 
-    const galleryEl = document.getElementById('gallery');
+    const slideImg = document.getElementById('slide-img');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const dotsEl = document.getElementById('slide-dots');
 
-    function renderGallery(list){
-        galleryEl.style.opacity = 0;
-        setTimeout(()=>{
-            galleryEl.innerHTML = '';
-            list.forEach((src,i)=>{
-                const item = document.createElement('div');
-                item.className = 'masonry-item';
-                item.setAttribute('data-title', src.split('/').pop().replace(/-/g,' ').replace('.jpg','').replace('.webp',''));
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = '';
-                img.loading = 'lazy';
-                img.onclick = ()=>openLightbox(src);
-                item.appendChild(img);
-                galleryEl.appendChild(item);
-            });
-            galleryEl.style.opacity = 1;
-        }, 220);
+    let currentIndex = 0;
+    let autoplayInterval = null;
+
+    function showSlide(index){
+        if(!galleryImages || galleryImages.length===0) return;
+        currentIndex = (index + galleryImages.length) % galleryImages.length;
+        const src = galleryImages[currentIndex];
+        slideImg.src = src;
+        slideImg.alt = src.split('/').pop();
+        Array.from(dotsEl.children).forEach((d,i)=> d.classList.toggle('active', i===currentIndex));
     }
 
-    function shuffle(a){ 
-        for(let i=a.length-1;i>0;i--){ 
-            const j=Math.floor(Math.random()*(i+1)); 
-            [a[i],a[j]]=[a[j],a[i]] 
-        } 
-        return a 
+    function buildDots(){
+        dotsEl.innerHTML = '';
+        galleryImages.forEach((s,i)=>{
+            const btn = document.createElement('button');
+            btn.setAttribute('aria-label', 'Slide '+(i+1));
+            btn.addEventListener('click', ()=>{ pauseAutoplay(); showSlide(i); });
+            dotsEl.appendChild(btn);
+        });
     }
+
+    function prev(){ pauseAutoplay(); showSlide(currentIndex-1); }
+    function next(){ pauseAutoplay(); showSlide(currentIndex+1); }
+
+    function startAutoplay(){ autoplayInterval = setInterval(()=>{ showSlide(currentIndex+1); }, 5000); }
+    function pauseAutoplay(){ if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval = null; } }
+
+    // Wire controls
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+    slideImg.addEventListener('click', ()=> openLightbox(slideImg.src));
+    document.getElementById('slideshow').addEventListener('mouseenter', pauseAutoplay);
+    document.getElementById('slideshow').addEventListener('mouseleave', startAutoplay);
 
     function openLightbox(src){
         const overlay = document.getElementById('lightboxOverlay');
@@ -197,9 +223,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', function(){
-        renderGallery(galleryImages.slice());
-        // Gentle periodic shuffle
-        setInterval(()=>{ renderGallery(shuffle(galleryImages.slice())); }, 9000);
+        buildDots();
+        showSlide(0);
+        startAutoplay();
     });
 
     <script>
