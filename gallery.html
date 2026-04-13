@@ -70,12 +70,6 @@
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            <div id="slideshow" class="slideshow">
-                <button id="prev" class="slide-btn prev">‹</button>
-                <img id="slide-img" src="" alt="Gallery slide" loading="lazy" />
-                <button id="next" class="slide-btn next">›</button>
-                <div id="slide-dots" class="slide-dots" aria-hidden="false"></div>
-            </div>
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -148,8 +142,20 @@
     <div id="site-header-placeholder"></div>
     <script src="scripts/header-loader.js" defer></script>
 
+    <!-- Slideshow (themed) -->
+    <section class="py-8 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div id="slideshow" class="slideshow" aria-label="Gallery slideshow">
+                <button id="prev" class="slide-btn prev" aria-label="Previous">‹</button>
+                <img id="slide-img" src="" alt="Gallery slide" loading="lazy" />
+                <button id="next" class="slide-btn next" aria-label="Next">›</button>
+                <div id="slide-dots" class="slide-dots" aria-hidden="false"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Hero spacer to preserve page layout while keeping gallery animation -->
-    <section class="hero-spacer" aria-hidden="true" style="min-height:320px;"></section>
+    <section class="hero-spacer" aria-hidden="true" style="min-height:120px;"></section>
 
     <!-- Gallery Section: Improved for desktop (more visually appealing) -->
     <section id="gallery-section" class="py-12 px-6">
@@ -162,14 +168,32 @@
     <div id="lightboxOverlay" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
 
     <script>
-    // List of image files from the project (auto-collected)
+    // Gallery images (all JPG/JPEG/PNG in project root, excluding site logos)
     const galleryImages = [
-        "_X1A3232.jpg","_X1A3234.jpg","_X1A3235.jpg","_X1A3236.jpg","_X1A3199.jpg","_X1A3197-Enhanced-NR.jpg",
-        "_X1A3065.jpg","_X1A2948-Enhanced-NR.jpg","_X1A2943.jpg","_X1A2940.jpg","_X1A2920.jpg","_X1A2887-Pano.jpg",
-        "_X1A2879.jpg","_X1A2878.jpg","_X1A2874-Pano.jpg","_X1A2829.jpg","_X1A2828.jpg","_X1A2827.jpg","_X1A2825.jpg",
-        "_X1A2808.jpg","_X1A2806.jpg","_X1A2784.jpg","_X1A2779.jpg","_X1A2742.jpg","_X1A2740.jpg","_X1A2739.jpg",
-        "_X1A2732-Pano.jpg","_X1A2729.jpg","_X1A2727.jpg","_X1A3174-Edit.jpg","_X1A3127.jpg","_X1A2980.jpg","_X1A2962.jpg",
-        "_X1A3238-2.jpg","_X1A2874-Pano.webp","_X1A2725.jpg","_X1A2723.jpg","Fbjh6.jpg","NmAOg.jpg"
+        "box cart race 5sept.jpeg",
+        "breakfast.jpeg",
+        "cocktails.jpeg",
+        "CVKu6.jpg",
+        "Fbjh6.jpg",
+        "NmAOg.jpg",
+        "URQhs.jpg",
+        "WhatsApp Image 2026-03-02 at 16.01.34.jpeg",
+        "WhatsApp Image 2026-03-02 at 16.01.39.jpeg",
+        "WhatsApp Image 2026-03-12 at 10.53.13.jpeg",
+        "WhatsApp Image 2026-03-12 at 10.53.14.jpeg",
+        "WhatsApp Image 2026-03-17 at 12.48.51.jpeg",
+        "WhatsApp Image 2026-03-30 at 09.53.03.jpeg",
+        "wine-list.jpeg",
+        "wine-pouring.jpeg",
+        "yoga hallie saturday.jpeg",
+        "_X1A2677.jpg","_X1A2679.jpg","_X1A2684.jpg","_X1A2689-Pano.jpg","_X1A2709-Pano.jpg",
+        "_X1A2723.jpg","_X1A2725.jpg","_X1A2727.jpg","_X1A2729.jpg","_X1A2732-Pano.jpg",
+        "_X1A2739.jpg","_X1A2740.jpg","_X1A2742.jpg","_X1A2779.jpg","_X1A2784.jpg",
+        "_X1A2806.jpg","_X1A2808.jpg","_X1A2825.jpg","_X1A2827.jpg","_X1A2828.jpg","_X1A2829.jpg",
+        "_X1A2874-Pano.jpg","_X1A2878.jpg","_X1A2879.jpg","_X1A2887-Pano.jpg","_X1A2920.jpg",
+        "_X1A2940.jpg","_X1A2943.jpg","_X1A2948-Enhanced-NR.jpg","_X1A2962.jpg","_X1A2980.jpg",
+        "_X1A3065.jpg","_X1A3127.jpg","_X1A3174-Edit.jpg","_X1A3197-Enhanced-NR.jpg","_X1A3199.jpg",
+        "_X1A3232.jpg","_X1A3234.jpg","_X1A3235.jpg","_X1A3236.jpg","_X1A3238-2.jpg"
     ];
 
     const slideImg = document.getElementById('slide-img');
@@ -228,7 +252,6 @@
         startAutoplay();
     });
 
-    <script>
     if (!window._stasieNavInit) {
         window._stasieNavInit = true;
         function toggleMenu() {
@@ -282,6 +305,27 @@
             });
         })();
     }
+    </script>
+
+        (function() {
+            const currentPage = location.pathname.split('/').pop() || 'landing.html';
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) link.classList.add('current');
+            });
+
+            document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const content = this.nextElementSibling;
+                        if (!content) return;
+                        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+                    }
+                });
+            });
+        })();
+    }
+
     </script>
 
     </body>
@@ -289,28 +333,4 @@
 
     <script>
     (function(){
-        function initSubmenus(){
-            document.querySelectorAll('.nav-dropdown').forEach(function(drop){
-                var trigger = drop.querySelector('a');
-                var content = drop.querySelector('.dropdown-content');
-                if(!trigger || !content) return;
-                trigger.addEventListener('click', function(e){
-                    if(window.innerWidth <= 768){
-                        e.preventDefault();
-                        content.style.display = (content.style.display==='block') ? 'none' : 'block';
-                    }
-                });
             });
-
-            document.addEventListener('click', function(e){
-                if(window.innerWidth <= 768){
-                    document.querySelectorAll('.nav-dropdown .dropdown-content').forEach(function(c){
-                        var parent = c.parentElement;
-                        if(!parent.contains(e.target) && c.style.display==='block') c.style.display='none';
-                    });
-                }
-            });
-        }
-        if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initSubmenus); else initSubmenus();
-    })();
-    </script>
