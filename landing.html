@@ -85,12 +85,13 @@
         }
 
         @media (max-width: 768px) {
-                /* Make landing page truly full-bleed and centered on small screens */
-                body { padding-top: 0 !important; overflow: visible; }
+                    /* Make landing page truly full-bleed and centered on small screens.
+                       Keep mobile header visible by not overriding the mobile header padding. */
+                    body { overflow: visible; }
 
-                .intro {
-                    height: 100svh;
-                    min-height: 100svh;
+                    .intro {
+                        /* account for mobile header height (64px) so hero fits viewport */
+                        min-height: calc(100svh - 64px);
                     padding: 0 !important;
                     margin: 0;
                     width: 100vw;
@@ -131,6 +132,9 @@
     </style>
 </head>
 <body class="text-white no-header">
+
+    <div id="site-header-placeholder"></div>
+    <script src="scripts/header-loader.js" defer></script>
 
     <section class="intro">
         <div id="typewriter" class="typewriter max-w-4xl"></div>
